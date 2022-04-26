@@ -940,6 +940,12 @@ namespace Titanium {
 
 			#endregion
 
+			#region Bool
+
+			public static void Inverse(this ref bool a) => a = !a;
+
+			#endregion
+
 			#region Other
 
 			public static void Swap<T>(ref T a, ref T b)

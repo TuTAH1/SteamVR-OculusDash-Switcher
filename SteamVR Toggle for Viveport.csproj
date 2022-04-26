@@ -5,11 +5,41 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>SteamVR_Toggle_for_Viveport</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <Company />
+    <Authors>Титан</Authors>
+    <Version>1.1.0</Version>
+    <PackageIcon>FixBreak SteamVR.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryType>GitHub</RepositoryType>
+    <RepositoryUrl>https://github.com/TuTAH1/SteamVR-Toggle-for-Viveport</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/TuTAH1/SteamVR-Toggle-for-Viveport</PackageProjectUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FlexibileMessageBox" Version="1.4.0" />
+    <PackageReference Include="InformationBox" Version="1.2.0.91" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="bin\Debug\net5.0-windows\icons\Realistic\FixBreak SteamVR.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
