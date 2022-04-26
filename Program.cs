@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -137,6 +137,7 @@ namespace SteamVR_Toggle_for_Viveport
 				items.Add(item);
 			}
 
+			if(Settings.Default.OneClickMode)
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem();
 				item.Text = "Control tips";
@@ -169,7 +170,6 @@ namespace SteamVR_Toggle_for_Viveport
 
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem();
-				item.MergeIndex = 13;
 				item.Text = "Exit";
 				item.Click += delegate
 				{
