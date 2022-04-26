@@ -7,12 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlexibileMessageBox.FlexibileMessageBox;
+using InfoBox;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SteamVR_Toggle_for_Viveport.Properties;
 using Titanium;
-using FlexibileMessageBox;
-using FlexibileMessageBox.FlexibileMessageBox;
+using Icon = System.Drawing.Icon;
 
 namespace SteamVR_Toggle_for_Viveport
 {
@@ -31,7 +33,7 @@ namespace SteamVR_Toggle_for_Viveport
 			"vrdashboard.exe", "vrserver.exe",  "vrservice.exe", "vrmonitor.exe", "vrcompositor.exe"
 		};
 
-		private static  string _SteamInstallPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820").GetValue("InstallLocation")?.ToString().Replace("\\","/")?? @"C:/Program Files (x86)/Steam/steamapps/common/SteamVR/";
+		private static string _SteamInstallPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820").GetValue("InstallLocation")?.ToString().Replace("\\","/")?? @"C:/Program Files (x86)/Steam/steamapps/common/SteamVR/";
 		private static string _SteamVRexePath => _SteamInstallPath.Replace("\\","/").Add("/") + "bin/win64/";
 
 		public static bool _isSteamVRBroken
@@ -72,6 +74,16 @@ namespace SteamVR_Toggle_for_Viveport
 				}
 			}
 
+			if (!Directory.Exists(_SteamVRexePath))
+			{
+				var dialog = InformationBox.Show("SteamVR not found! The programm will not work if you continue", title: "Error", icon: InformationBoxIcon.Error, buttons: InformationBoxButtons.User1User2, customButtons: new[] { "Exit", "Cancel" });
+				switch (dialog)
+				{
+					case InformationBoxResult.User1: return;
+					case InformationBoxResult.User2: break;
+				}
+			}
+
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
 			
 
@@ -85,9 +97,9 @@ namespace SteamVR_Toggle_for_Viveport
 				{
 					case MouseButtons.Right: contextMenu.GenerateMenuOptions(); break;
 
-					case MouseButtons.Left: ToggleSteamVR_Click(null,null); break;
+					case MouseButtons.Left: if (Settings.Default.OneClickMode) ToggleSteamVR_Click(null,null); break;
 
-					case MouseButtons.Middle: KillSteamVR(); break;
+					case MouseButtons.Middle: if(Settings.Default.OneClickMode) KillSteamVR(); break;
 				}
 				
 			};
@@ -98,19 +110,58 @@ namespace SteamVR_Toggle_for_Viveport
 
 		private static void GenerateMenuOptions(this ContextMenuStrip contextMenu)
 		{
-			List<ToolStripMenuItem> items = new List<ToolStripMenuItem>(1);
-			if (IsSteamVRActive())
+			List<ToolStripMenuItem> items = new List<ToolStripMenuItem>(4);
+
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem();
-				item.MergeIndex = 0;
-				item.Text = "Kill SteamVR";
-				item.Click += delegate { KillSteamVR(); };
+				item.Text = "Launch with Windows";
+				item.CheckState = IsAutorun() ? CheckState.Checked : CheckState.Unchecked;
+				item.CheckOnClick = true;
+				item.Click += delegate
+				{
+					SetAutorunValue(item.Checked);
+				};
 				items.Add(item);
 			}
 
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem();
-				item.MergeIndex = 1;
+				item.Text = "Enable one-click mode";
+				item.Checked = Settings.Default.OneClickMode;
+				item.CheckOnClick = true;
+				item.Click += delegate
+				{
+					Settings.Default.OneClickMode = item.Checked;
+					Settings.Default.Save();
+				};
+				items.Add(item);
+			}
+
+			{
+				ToolStripMenuItem item = new ToolStripMenuItem();
+				item.Text = "Control tips";
+				item.Click += delegate
+				{
+					FlexibleMessageBox.FONT = new Font("Consolas", 8);
+					FlexibleMessageBox.MAX_HEIGHT_FACTOR = 1.0;
+					FlexibleMessageBox.Show("Right Click ( |■) – Open context menu\nLeft Click (■| ) – Break/Restore SteamVR\nMiddle Click ( ⫯ ) – Kill SteamVR", "Control tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				};
+				items.Add(item);
+			}
+
+			if (IsSteamVRActive())
+			{
+				ToolStripMenuItem item = new ToolStripMenuItem();
+				item.Text = "Kill SteamVR";
+				item.Click += delegate
+				{
+					KillSteamVR();
+				};
+				items.Add(item);
+			}
+
+			{
+				ToolStripMenuItem item = new ToolStripMenuItem();
 				item.Text = (_isSteamVRBroken ? "Restore" : "Break") + " SteamVR";
 				item.Click += ToggleSteamVR_Click;
 				items.Add(item);
@@ -118,21 +169,7 @@ namespace SteamVR_Toggle_for_Viveport
 
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem();
-				item.MergeIndex = 2;
-				item.Text = "Control tips";
-				item.Click += delegate
-				{
-					FlexibleMessageBox.FONT = new Font("Consolas", 8);
-					FlexibleMessageBox.MAX_HEIGHT_FACTOR = 1.0;
-					FlexibleMessageBox.Show("Right Click ( |■) – Open context menu\nLeft Click (■| ) – Break/Restore SteamVR\nMiddle Click ( ⫯ ) – Kill SteamVR", "Control tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-				};
-				items.Add(item);
-			}
-
-			{
-				ToolStripMenuItem item = new ToolStripMenuItem();
-				item.MergeIndex = 3;
+				item.MergeIndex = 13;
 				item.Text = "Exit";
 				item.Click += delegate
 				{
@@ -140,6 +177,7 @@ namespace SteamVR_Toggle_for_Viveport
 				};
 				items.Add(item);
 			}
+
 			contextMenu.Items.Clear();
 			contextMenu.Items.AddRange(items.ToArray());
 			notifyIcon1.Icon = Icon.ExtractAssociatedIcon($"icons/{(_isSteamVRBroken ? "Fix" : "Break")} SteamVR.ico");
@@ -178,24 +216,36 @@ namespace SteamVR_Toggle_for_Viveport
 			return false;
 		}
 
-		private static  void BreakSteamVR()
+		private static async void BreakSteamVR()
 		{
 			KillSteamVR();
-
-			foreach (var exe in _SteamVR64exes)
+			for (int i = 0; i < _SteamVR64exes.Length; i++)
 			{
-				string path = _SteamVRexePath + exe;
+				string path = _SteamVRexePath + _SteamVR64exes[i];
 				if (!IsWeightless(path))
 				{
-					File.Move(path,path+".bak",true); //:Rename
-					File.Create(path, 1).Close();
+					try
+					{
+						File.Move(path,path+".bak",true); //:Rename
+						if (!File.Exists(path + ".bak")) throw new OperationCanceledException();
+						File.Create(path, 1).Close();
+					}
+					catch (OperationCanceledException)
+					{
+						var dialog = System.Windows.Forms.MessageBox.Show("WTF File.Move haven't been executed while no exceptions thrown?", "WTF error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+						switch (dialog)
+						{
+							case DialogResult.Abort: return;
+							case DialogResult.Retry: i--; break;
+						}
+					}
 				}
 			}
 
 			notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Fix SteamVR.ico");
 		}
 
-		private static  void RestoreSteamVR()
+		private static void RestoreSteamVR()
 		{
 			KillSteamVR();
 
@@ -207,20 +257,26 @@ namespace SteamVR_Toggle_for_Viveport
 					try
 					{
 						//File.Delete(path);
-						File.Move(path + ".bak", path, true); //:Rename
+						File.Move(path + ".bak", path, true); //:Rename and replace
 					}
 					catch (FileNotFoundException)
 					{
-						var dialog = MessageBox.Show("Error restoring SteamVR: no backup found. Restore it yourself by checking SteamVR integrity files in Steam", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-						if (dialog == DialogResult.Abort) return;
-						if (dialog == DialogResult.Retry) i--;
+						var dialog = System.Windows.Forms.MessageBox.Show("Error restoring SteamVR: no backup found. Restore it yourself by checking SteamVR integrity files in Steam", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+						switch (dialog)
+						{
+							case DialogResult.Abort: return;
+							case DialogResult.Retry: i--; break;
+						}
 						continue;
 					}
 					catch (Exception e)
 					{
-						var dialog = MessageBox.Show($"Error restoring SteamVR: {e.Message}", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-						if (dialog == DialogResult.Abort) return;
-						if (dialog == DialogResult.Retry) i--;
+						var dialog = System.Windows.Forms.MessageBox.Show($"Error restoring SteamVR: {e.Message}", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+						switch (dialog)
+						{
+							case DialogResult.Abort: return;
+							case DialogResult.Retry: i--; break;
+						}
 						continue;
 					}
 				}
@@ -230,5 +286,23 @@ namespace SteamVR_Toggle_for_Viveport
 		}
 
 		private static bool IsWeightless(string path) => new FileInfo(path).Length < 10;
+
+		public static bool SetAutorunValue(bool autorun)
+		{
+			string ExePath = System.Windows.Forms.Application.ExecutablePath;
+			var reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
+			try
+			{
+				if (autorun) reg.SetValue(Application.ProductName, ExePath);
+				else reg.DeleteValue(Application.ProductName);
+ 
+				reg.Close();
+			}
+			catch { return false; }
+
+			return true;
+		}
+
+		public static bool IsAutorun() => Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\")?.GetValue(Application.ProductName) is not null;
 	}
 }
