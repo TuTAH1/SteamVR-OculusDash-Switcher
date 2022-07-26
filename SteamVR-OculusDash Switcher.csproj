@@ -11,8 +11,8 @@
     <PackageIcon>FixBreak SteamVR.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryType>GitHub</RepositoryType>
-    <RepositoryUrl>https://github.com/TuTAH1/SteamVR-Toggle-for-Viveport</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/TuTAH1/SteamVR-Toggle-for-Viveport</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TuTAH1/SteamVR-OculusDash-Switcher</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/TuTAH1/SteamVR-OculusDash-Switcher</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
