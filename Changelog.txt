@@ -1,0 +1,12 @@
+● Localization
+● Localisation
+● Локализация
+● New ways to break SteamVR:
+	1. Rename Folder (default)
+	2. Rename exe files
+	3. Dummy exe files (only one was in v1)
+	4. Don't touch my SteamVR
+● Settings form
+● SteamVR and Oculus class
+● Downloads OculusKiller
+● Option to apply OculusKiller

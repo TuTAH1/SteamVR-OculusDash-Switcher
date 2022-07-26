@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
+    <value>Replace SteamVR exes with empty ones</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__None" xml:space="preserve">
+    <value>Do nothing</value>
+  </data>
+  <data name="MenuOptions__Launch_with_Windows" xml:space="preserve">
+    <value>Launch with Windows</value>
+  </data>
+  <data name="SettingsForm_lbSteamVRDisableMethod" xml:space="preserve">
+    <value>SteamVR disable method</value>
+  </data>
+  <data name="Button__Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="MenuOptions__Kill_SteamVR" xml:space="preserve">
+    <value>Kill SteamVR</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__RenameFolder" xml:space="preserve">
+    <value>Rename SteamVR Folder</value>
+  </data>
+  <data name="SettingsForm_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MenuOptions__Enable_one_click_mode" xml:space="preserve">
+    <value>Enable one-click mode</value>
+  </data>
+  <data name="SettingsForm_lbLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="MessageBox_Title__Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
+    <value>Break SteamVR</value>
+  </data>
+  <data name="Button__Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
+    <value>Dummy exe</value>
+  </data>
+  <data name="ErrorTaskDialog__Open_Inner_Exception" xml:space="preserve">
+    <value>Open an inner exception</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__Renameexe" xml:space="preserve">
+    <value>Rename exe</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__RenameExe" xml:space="preserve">
+    <value>Rename SteamVR .exe files</value>
+  </data>
+  <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
+    <value>Restore SteamVR</value>
+  </data>
+  <data name="MessageBox_text__SteamVR_not_found" xml:space="preserve">
+    <value>SteamVR not found! The program will not work if you continue</value>
+  </data>
+  <data name="MenuOptions__More_Settings" xml:space="preserve">
+    <value>More settings</value>
+  </data>
+  <data name="ErrorTaskDialog__Copy_to_Clipboard" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="ErrorTaskDialog__OpenMicrosoftDocs" xml:space="preserve">
+    <value>Open Microsoft Documentation</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
+    <value>Rename folder</value>
+  </data>
+  <data name="Button__Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ControlsTipsForm_tip__RMB" xml:space="preserve">
+    <value>Open context menu</value>
+  </data>
+  <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
+    <value>Break/Restore SteamVR</value>
+  </data>
+  <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
+    <value>Kill SteamVR</value>
+  </data>
+  <data name="SteamVRDisable_IsMethodApplied_RenameExe_Exception__both_original_and_renamed_file_not_found" xml:space="preserve">
+    <value>both original file and renamed file not found</value>
+  </data>
+  <data name="MenuOptions__Control_tips" xml:space="preserve">
+    <value>Control tips</value>
+  </data>
+  <data name="ControlsTipsForm__TitleText" xml:space="preserve">
+    <value>One click mode control tips</value>
+  </data>
+  <data name="SettingsForm_cbKillOculus" xml:space="preserve">
+    <value>Kill Oculus Dash</value>
+  </data>
+  <data name="SettingsForm_btnCheckOculusKillerUpdates" xml:space="preserve">
+    <value>Check Oculus Killer updates</value>
+  </data>
+  <data name="SettingsForm_cb__show_xxx_option" xml:space="preserve">
+    <value>show "R3pl@ceMe" option</value>
+  </data>
+  <data name="SettingsForm_lbIconsRealism" xml:space="preserve">
+    <value>Icons realism level</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_Downloaded" xml:space="preserve">
+    <value>Newest Oculus Killer was downloaded successfully</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_Updated" xml:space="preserve">
+    <value>Oculus Killer was updated successfully</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_NoAction" xml:space="preserve">
+    <value>You are already have the lastest version</value>
+  </data>
+  <data name="SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you" xml:space="preserve">
+	  <value>Easteregg speacking with you</value>
+  </data>
+  <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
+	  <value>Stop playing amazing music?</value>
+  </data>
+  <data name="IconRealismLevel_0_Discription" xml:space="preserve">
+	  <value>Minimalistic shit</value>
+  </data>
+  <data name="IconRealismLevel_1_Discription" xml:space="preserve">
+	  <value>Colorful minimalistic shit</value>
+  </data>
+  <data name="IconRealismLevel_2_Discription" xml:space="preserve">
+	  <value>Realistic icons</value>
+  </data>
+  <data name="IconRealismLevel_3_Discription" xml:space="preserve">
+	  <value>Yes, I know what "icon" means. 
+ It's photo, but transparent</value>
+  </data>
+  <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
+	  <value>I don't know how did you set the impossible value</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColor" xml:space="preserve">
+	  <value>Tray icon color:</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColorValue_Black" xml:space="preserve">
+	  <value>Black</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColorValue_White" xml:space="preserve">
+	  <value>White</value>
+  </data>
+  <data name="Button_Apply" xml:space="preserve">
+	  <value>Apply</value>
+  </data>
+</root>

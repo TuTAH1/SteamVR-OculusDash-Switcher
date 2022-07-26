@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MessageBox_text__SteamVR_not_found" xml:space="preserve">
+    <value>SteamVR не найден! Программа не будет работать, если ты продолжишь</value>
+  </data>
+  <data name="MessageBox_Title__Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Button__Exit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Button__Continue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="MenuOptions__More_Settings" xml:space="preserve">
+    <value>Больше настроек</value>
+  </data>
+  <data name="MenuOptions__Launch_with_Windows" xml:space="preserve">
+	  <value>Запускать с Windows</value>
+  </data>
+  <data name="ErrorTaskDialog__OpenMicrosoftDocs" xml:space="preserve">
+	  <value>Открыть документацию Microsoft</value>
+  </data>
+  <data name="ErrorTaskDialog__Copy_to_Clipboard" xml:space="preserve">
+	  <value>Копировать в буфер обмена</value>
+  </data>
+  <data name="ErrorTaskDialog__Open_Inner_Exception" xml:space="preserve">
+	  <value>Открыть внутреннее исключение</value>
+  </data>
+  <data name="Button__Close" xml:space="preserve">
+	  <value>Закрыть</value>
+  </data>
+  <data name="MenuOptions__Enable_one_click_mode" xml:space="preserve">
+	  <value>Включить управление одним кликом</value>
+  </data>
+  <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
+	  <value>Восстановить SteamVR</value>
+  </data>
+  <data name="SettingsForm_Title" xml:space="preserve">
+	  <value>Настройки</value>
+  </data>
+  <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
+	  <value>Сломать SteamVR</value>
+  </data>
+  <data name="SettingsForm_lbSteamVRDisableMethod" xml:space="preserve">
+	  <value>Способ отключения SteamVR</value>
+  </data>
+  <data name="SettingsForm_lbLanguage" xml:space="preserve">
+	  <value>Язык</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__None" xml:space="preserve">
+	  <value>Ничего не делать</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__RenameExe" xml:space="preserve">
+	  <value>Переименовать .exe фалы SteamVR</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__RenameFolder" xml:space="preserve">
+	  <value>Переименовать папку SteamVR</value>
+  </data>
+  <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
+	  <value>Заменить SteamVR exeшки пустыми</value>
+  </data>
+  <data name="MenuOptions__Kill_SteamVR" xml:space="preserve">
+	  <value>Убить SteamVR</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__None" xml:space="preserve">
+	  <value>Никакой</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
+	  <value>Переименовать папку</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__Renameexe" xml:space="preserve">
+	  <value>Переименовать .exe</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
+	  <value>Подменить .exe</value>
+  </data>
+  <data name="ControlsTipsForm_tip__RMB" xml:space="preserve">
+	  <value>Открыть контекстное меню</value>
+  </data>
+  <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
+	  <value>Сломать/Восстановить SteamVR</value>
+  </data>
+  <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
+	  <value>Убить SteamVR</value>
+  </data>
+  <data name="SteamVRDisable_IsMethodApplied_RenameExe_Exception__both_original_and_renamed_file_not_found" xml:space="preserve">
+	  <value>Ни оригинальный, не переименованный файл не найден</value>
+  </data>
+  <data name="MenuOptions__Control_tips" xml:space="preserve">
+	  <value>Подсказки по управлению</value>
+  </data>
+  <data name="ControlsTipsForm__TitleText" xml:space="preserve">
+	  <value>Подсказки по управлению одним кликом</value>
+  </data>
+  <data name="SettingsForm_cbKillOculus" xml:space="preserve">
+	  <value>Убивать Oculus Dash</value>
+  </data>
+  <data name="SettingsForm_btnCheckOculusKillerUpdates" xml:space="preserve">
+	  <value>Проверить обновления Oculus Killer</value>
+  </data>
+  <data name="SettingsForm_cb__show_xxx_option" xml:space="preserve">
+	  <value>Показывать опцию "R3pl@ceMe"</value>
+  </data>
+  <data name="SettingsForm_lbIconsRealism" xml:space="preserve">
+	  <value>Уровень реалистичности иконок</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_Downloaded" xml:space="preserve">
+	  <value>Новейший Oculus Killer был успешно загружен</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_NoAction" xml:space="preserve">
+	  <value>У тебя и так последняя версия</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_Updated" xml:space="preserve">
+	  <value>Oculus Killer был успешно загружен</value>
+  </data>
+  <data name="SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you" xml:space="preserve">
+	  <value>Пасхалка азговаривает с тобой</value>
+  </data>
+  <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
+	  <value>Остановить воспроизведение замечательной песни?</value>
+  </data>
+  <data name="IconRealismLevel_0_Discription" xml:space="preserve">
+	  <value>Минималистичное гавно</value>
+  </data>
+  <data name="IconRealismLevel_1_Discription" xml:space="preserve">
+	  <value>Цветное минималистичное гавно</value>
+  </data>
+  <data name="IconRealismLevel_2_Discription" xml:space="preserve">
+	  <value>Реалистичные значки</value>
+  </data>
+  <data name="IconRealismLevel_3_Discription" xml:space="preserve">
+	  <value>Да, я знаю что такое "значок"
+Это как фото, только прозрачное</value>
+  </data>
+  <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
+	  <value>Понятия не имею, как ты смог поставить сюда невозможное значение</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColor" xml:space="preserve">
+	  <value>Цвет иконки в трее:</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColorValue_Black" xml:space="preserve">
+	  <value>Чёрный</value>
+  </data>
+  <data name="SettingsForm_lbTrayIconColorValue_White" xml:space="preserve">
+	  <value>Белый</value>
+  </data>
+  <data name="Button_Apply" xml:space="preserve">
+	  <value>Применить</value>
+  </data>
+</root>
