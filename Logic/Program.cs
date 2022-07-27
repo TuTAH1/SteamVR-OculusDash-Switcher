@@ -56,7 +56,9 @@ namespace SteamVR_OculusDash_Switcher
 		[STAThread]
 		static void Main()
 		{
-			new Form1().Show();
+			Application.SetHighDpiMode(HighDpiMode.SystemAware);
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(true);
 			if (_IconsRealismLevel <0 || _IconsRealismLevel > _MaxIconsRealismLevel) _IconsRealismLevel = 1;
 
 			bool oculusBroken = false;
@@ -138,6 +140,7 @@ namespace SteamVR_OculusDash_Switcher
 				
 			};
 			notifyIcon1.Icon = GetIcon();
+			new SettingsForm().Show(); //!Debug
 			Application.Run();
 			notifyIcon1.Visible = false;
 		}
@@ -298,7 +301,7 @@ namespace SteamVR_OculusDash_Switcher
 		/// <returns></returns>
 		public static Image GetImage(string Path, string imageName)
 		{
-			for (int i = _IconsRealismLevel; i > 0; i--)
+			for (int i = _IconsRealismLevel; i >= 0; i--)
 			{
 				string path = $@"images\{Path}\{i}\{imageName}.png";
 				if (File.Exists(path)) return Image.FromFile(path);

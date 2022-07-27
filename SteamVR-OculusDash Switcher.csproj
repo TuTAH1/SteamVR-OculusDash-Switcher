@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Company />
     <Authors>Титан</Authors>
-    <Version>1.1.0</Version>
+    <Version>2.0.0</Version>
     <PackageIcon>FixBreak SteamVR.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryType>GitHub</RepositoryType>

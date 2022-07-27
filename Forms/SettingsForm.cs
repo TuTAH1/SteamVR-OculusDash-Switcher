@@ -24,14 +24,15 @@ namespace SteamVR_OculusDash_Switcher
 			InitializeComponent();
 			Text = LocalizationStrings.SettingsForm_Title;
 
-			#region Main functions
+			#region Functions group
 
 			lbSteamVRDisableMethod.Text = LocalizationStrings.SettingsForm_lbSteamVRDisableMethod;
-			cbSteamVRDisableMethod.DropDownStyle = ComboBoxStyle.DropDownList;
-			cbSteamVRDisableMethod.DrawMode = DrawMode.OwnerDrawFixed;
+			lbSteamVRDisableMethod.Left = lbSteamVRDisableMethod.Margin.Left;
+			comboSteamVRDisableMethod.DropDownStyle = ComboBoxStyle.DropDownList;
+			comboSteamVRDisableMethod.DrawMode = DrawMode.OwnerDrawFixed;
 			var SteamVRDisableMethods = SteamVRMethod.GetAll();
-			cbSteamVRDisableMethod.Items.AddRange(SteamVRDisableMethods);
-			cbSteamVRDisableMethod.SelectedItem = _SteamVr;
+			comboSteamVRDisableMethod.Items.AddRange(SteamVRDisableMethods);
+			comboSteamVRDisableMethod.SelectedItem = _SteamVr;
 			__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method;
 			__DefaultSettings.Save();
 
@@ -41,9 +42,13 @@ namespace SteamVR_OculusDash_Switcher
 
 			btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
 
+			//gbFunctions.Width = new[] { lbSteamVRDisableMethod.Width, comboSteamVRDisableMethod.Width, cbKillOculus.Width, btnCheckOculusKillerUpdates.Width }.Max();
+
 			#endregion
 
-			#region Interface
+			#region Interface group
+
+			gbInterface.Left = gbFunctions.Right + gbFunctions.Margin.Right + gbInterface.Margin.Left;
 
 			picLanguage.Image = GetImage("Settings", "language");
 			lbLanguage.Text = LocalizationStrings.SettingsForm_lbLanguage;
@@ -67,19 +72,32 @@ namespace SteamVR_OculusDash_Switcher
 			cbKillSteamVR.Text = LocalizationStrings.SettingsForm_cb__show_xxx_option.Replace("R3pl@ceMe",LocalizationStrings.MenuOptions__Kill_SteamVR);
 			cbKillSteamVR.Checked = __DefaultSettings.KillSteamVR_Enabled;
 
-			var usedSpaceIconRealism = Math.Max(lbIconsRealism.Padding.Left + lbIconsRealism.Width + lbIconsRealism.Padding.Right, slideIconRealism.Padding.Left + slideIconRealism.Width + slideIconRealism.Padding.Right) + panelRealismLevel.Padding.Left;
-
-			panelRealismLevel.Left = gbInterface.Left + usedSpaceIconRealism;
-			panelRealismLevel.Width = gbInterface.Width - (usedSpaceIconRealism + panelRealismLevel.Padding.Right);
+			lbIconsRealism_Resize(this, null);
 
 			lbTrayIconColor.Text = LocalizationStrings.SettingsForm_lbTrayIconColor;
-			lbTrayIconColorValue.Left = lbTrayIconColor.Left + lbTrayIconColor.Width + lbTrayIconColorValue.Padding.Right;
+			lbTrayIconColorValue.Left = lbTrayIconColor.Left + lbTrayIconColor.Width + lbTrayIconColorValue.Margin.Right;
 			SetTrayColorValue();
 
 			#endregion
 
 			btnApply.Text = LocalizationStrings.Button_Apply;
+			btnApply.Left = gbInterface.Right - btnApply.Width;
+			btnApply.Top = this.GetHeaderHeight() + Math.Max(gbFunctions.Bottom, gbInterface.Bottom) + gbInterface.Margin.Bottom + btnApply.Margin.Top;
 			//btnApply.Enabled = false;
+
+			//: Form autosize
+			/*this.AutoSize = true;
+			this.AutoSizeMode = AutoSizeMode.GrowAndShrink;*/
+			Width = gbInterface.Right + gbInterface.Margin.Right + this.GetWindowPadding(Orientation.Horizontal);
+			Height = this.GetHeaderHeight() + this.GetWindowPadding(Orientation.Vertical) + btnApply.Bottom + btnApply.Margin.Bottom;
+			/*MessageBox.Show($"HeaderWidth = {this.GetHeaderHeight()}\n" +
+			                $"gbInterface.Bottom = {gbInterface.Bottom}\n" +
+			                $"gbInterface.Margin = {gbInterface.Margin.Bottom}\n" +
+			                $"btnApply.Height = {btnApply.Height}\n" +
+							$"btn computated height = {btnApply.Bottom-btnApply.Top}\n" +
+			                $"btnApply Bounds height = {btnApply.Bounds.Size.Height}\n" +
+			                $"btnApply Horisontal Margin = {btnApply.Margin.Top + btnApply.Margin.Bottom}\n" +
+			                $"Form Height = {this.Height}");*/
 		}
 
 		public static int GetPositionRightTo(Control AnchorControl, int Margin = 3) => AnchorControl.Left + AnchorControl.Width + Margin;
@@ -176,16 +194,16 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					Thread.CurrentThread.CurrentUICulture = ((Language)cbLanguage.SelectedItem).Culture;
 
-					if (cbSteamVRDisableMethod.SelectedValue!= null && __DefaultSettings.SteamVRDisablingMethod != (BreakMethod)cbSteamVRDisableMethod.SelectedValue)
+					if (comboSteamVRDisableMethod.SelectedValue!= null && __DefaultSettings.SteamVRDisablingMethod != (BreakMethod)comboSteamVRDisableMethod.SelectedValue)
 					{
 						if (_SteamVr.IsBroken)
 						{
 							if (MessageBox.Show("SteamVR needs to be restored before changing method. Do it now?", "Do you realy read this captions?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 								_SteamVr.Restore();
 							else 
-								cbSteamVRDisableMethod.SelectedValue = _SteamVr.Method;
+								comboSteamVRDisableMethod.SelectedValue = _SteamVr.Method;
 						}
-						__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method = (BreakMethod)cbSteamVRDisableMethod.SelectedValue;
+						__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method = (BreakMethod)comboSteamVRDisableMethod.SelectedValue;
 					}
 
 					__DefaultSettings.KillOculusDash = cbKillOculus.Checked;
@@ -197,7 +215,15 @@ namespace SteamVR_OculusDash_Switcher
 					exception.ShowMessageBox();
 				}
 			}
-		#endregion
+
+			private void lbIconsRealism_Resize(object sender, EventArgs e)
+			{
+				var usedSpaceIconRealism = Math.Max(lbIconsRealism.Margin.Left + lbIconsRealism.Width + lbIconsRealism.Margin.Right, slideIconRealism.Margin.Left + slideIconRealism.Width + slideIconRealism.Margin.Right) + picRealismLevel.Margin.Left;
+
+				picRealismLevel.Left = usedSpaceIconRealism;
+				picRealismLevel.Width = picRealismLevel.Image?.Width?? picRealismLevel.Width;
+			}
+			#endregion
 
 		private void SetTrayColorValue()
 		{

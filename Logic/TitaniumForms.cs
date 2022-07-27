@@ -65,6 +65,8 @@ namespace Titanium
 			return screenRectangle.Top - F.Top;
 		}
 
+		public static int GetWindowPadding(this Form F, Orientation Side) => (int)((Side == Orientation.Horizontal? 6 : 5) * (F.DeviceDpi/96.0));
+
 		/// <summary>
 		/// Class that makes some *Action* on all depedent controlls if one/all text of depedent controls is/not valid
 		/// </summary>
