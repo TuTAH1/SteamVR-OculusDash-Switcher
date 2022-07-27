@@ -36,7 +36,7 @@ namespace SteamVR_OculusDash_Switcher
 			this.components = new System.ComponentModel.Container();
 			this.lbLanguage = new System.Windows.Forms.Label();
 			this.picLanguage = new System.Windows.Forms.PictureBox();
-			this.cbLanguage = new System.Windows.Forms.ComboBox();
+			this.comboLanguage = new System.Windows.Forms.ComboBox();
 			this.btnApply = new System.Windows.Forms.Button();
 			this.lbSteamVRDisableMethod = new System.Windows.Forms.Label();
 			this.comboSteamVRDisableMethod = new System.Windows.Forms.ComboBox();
@@ -81,12 +81,12 @@ namespace SteamVR_OculusDash_Switcher
 			// 
 			// cbLanguage
 			// 
-			this.cbLanguage.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cbLanguage.FormattingEnabled = true;
-			this.cbLanguage.Location = new System.Drawing.Point(0, 62);
-			this.cbLanguage.Name = "cbLanguage";
-			this.cbLanguage.Size = new System.Drawing.Size(182, 33);
-			this.cbLanguage.TabIndex = 10;
+			this.comboLanguage.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.comboLanguage.FormattingEnabled = true;
+			this.comboLanguage.Location = new System.Drawing.Point(0, 62);
+			this.comboLanguage.Name = "cbLanguage";
+			this.comboLanguage.Size = new System.Drawing.Size(182, 33);
+			this.comboLanguage.TabIndex = 10;
 			// 
 			// btnApply
 			// 
@@ -157,7 +157,7 @@ namespace SteamVR_OculusDash_Switcher
 			this.gbInterface.Controls.Add(this.lbIconsRealism);
 			this.gbInterface.Controls.Add(this.slideIconRealism);
 			this.gbInterface.Controls.Add(this.picLanguage);
-			this.gbInterface.Controls.Add(this.cbLanguage);
+			this.gbInterface.Controls.Add(this.comboLanguage);
 			this.gbInterface.Location = new System.Drawing.Point(318, 12);
 			this.gbInterface.Name = "gbInterface";
 			this.gbInterface.Size = new System.Drawing.Size(267, 315);
@@ -284,7 +284,7 @@ namespace SteamVR_OculusDash_Switcher
 
 	private System.Windows.Forms.Label lbLanguage;
 	private System.Windows.Forms.PictureBox picLanguage;
-	private System.Windows.Forms.ComboBox cbLanguage;
+	private System.Windows.Forms.ComboBox comboLanguage;
 	private System.Windows.Forms.Button btnApply;
 	private System.Windows.Forms.Label lbSteamVRDisableMethod;
 		private ComboBox comboSteamVRDisableMethod;

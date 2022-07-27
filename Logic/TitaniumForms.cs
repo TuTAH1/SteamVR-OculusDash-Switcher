@@ -15,6 +15,10 @@ namespace Titanium
 	/// </summary>
 	public static class Forms
 	{
+		///  <item>
+		/// <term>source</term>
+		/// <see href="https://www.cyberforum.ru/wpf-silverlight/thread961899.html">SmirnoFF.Oleg</see>
+		/// </item>
 		public static T Clone<T>(this T controlToClone) 
 			where T : Control
 		{
@@ -37,9 +41,9 @@ namespace Titanium
 		
 		///  <item>
 		/// <term>source</term>
-		/// <see href="https://gist.github.com/KvanTTT/3849678">Ivan Kochurkin</see>
+		/// <see href="https://stackoverflow.com/questions/3473597/it-is-possible-to-copy-all-the-properties-of-a-certain-control-c-window-forms">Stuart Helwig</see>
 		/// </item>
-		private static void CopyPropertiesTo(this Control sourceControl, Control targetControl)
+		public static void CopyPropertiesTo(this Control sourceControl, Control targetControl)
 		{
 			// make sure these are the same
 			if (sourceControl.GetType() != targetControl.GetType())

@@ -22,6 +22,11 @@ namespace SteamVR_OculusDash_Switcher
 		public SettingsForm()
 		{
 			InitializeComponent();
+			InitializeControls();
+		}
+
+		public void InitializeControls()
+		{
 			Text = LocalizationStrings.SettingsForm_Title;
 
 			#region Functions group
@@ -31,6 +36,10 @@ namespace SteamVR_OculusDash_Switcher
 			comboSteamVRDisableMethod.DropDownStyle = ComboBoxStyle.DropDownList;
 			comboSteamVRDisableMethod.DrawMode = DrawMode.OwnerDrawFixed;
 			var SteamVRDisableMethods = SteamVRMethod.GetAll();
+			comboSteamVRDisableMethod.ResetText();
+			//comboSteamVRDisableMethod.SelectedIndex = -1;
+			//comboSteamVRDisableMethod.SelectedItem = null;
+			comboSteamVRDisableMethod.Items.Clear();
 			comboSteamVRDisableMethod.Items.AddRange(SteamVRDisableMethods);
 			comboSteamVRDisableMethod.SelectedItem = _SteamVr;
 			__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method;
@@ -59,9 +68,11 @@ namespace SteamVR_OculusDash_Switcher
 				new Language(new CultureInfo("en")),
 				new Language(new CultureInfo("ru"))
 			};
-			cbLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
-			cbLanguage.Items.AddRange(Languages);
-			cbLanguage.SelectedIndex = Languages.GetCurrentLanguageIndex() ?? 0;
+			comboLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
+			comboLanguage.SelectedItem = null;
+			comboLanguage.Items.Clear();
+			comboLanguage.Items.AddRange(Languages);
+			comboLanguage.SelectedIndex = Languages.GetCurrentLanguageIndex() ?? 0;
 
 
 			lbIconsRealism.Text = LocalizationStrings.SettingsForm_lbIconsRealism;
@@ -187,12 +198,18 @@ namespace SteamVR_OculusDash_Switcher
 			{
 				__DefaultSettings.KillSteamVR_Enabled = cbKillSteamVR.Checked;
 			}
-
+		
+			//! SETTINGS APPLY
 			private void btnApply_Click(object sender, EventArgs e)
 			{
 				try
 				{
-					Thread.CurrentThread.CurrentUICulture = ((Language)cbLanguage.SelectedItem).Culture;
+					bool restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox = false;
+					if (!Equals(Thread.CurrentThread.CurrentUICulture, ((Language)comboLanguage.SelectedItem).Culture))
+					{
+						Thread.CurrentThread.CurrentUICulture = ((Language)comboLanguage.SelectedItem).Culture;
+						restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox = true;
+					}
 
 					if (comboSteamVRDisableMethod.SelectedValue!= null && __DefaultSettings.SteamVRDisablingMethod != (BreakMethod)comboSteamVRDisableMethod.SelectedValue)
 					{
@@ -209,6 +226,8 @@ namespace SteamVR_OculusDash_Switcher
 					__DefaultSettings.KillOculusDash = cbKillOculus.Checked;
 
 					__DefaultSettings.Save();
+
+					if(restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox) {new SettingsForm().Show(); this.Close();}
 				}
 				catch (Exception exception)
 				{

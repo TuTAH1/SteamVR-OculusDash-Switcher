@@ -140,7 +140,7 @@ namespace SteamVR_OculusDash_Switcher
 				
 			};
 			notifyIcon1.Icon = GetIcon();
-			new SettingsForm().Show(); //!Debug
+			new Form1().Show(); //!Debug
 			Application.Run();
 			notifyIcon1.Visible = false;
 		}
