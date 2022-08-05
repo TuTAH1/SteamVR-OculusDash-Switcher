@@ -1,5 +1,5 @@
 
-# Descryption
+# v2.0 Descryption
 It's a programm that give you a possibility to:
 
 ● Disable/Enable SteamVR in 1 of 4 ways
