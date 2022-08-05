@@ -16,7 +16,8 @@ It's a programm that give you a possibility to:
 
 ● One click mode
 
-![image](https://user-images.githubusercontent.com/15982179/183120374-987a22c0-3339-490c-a487-b7410582746c.png)
+![Скриншот 05-08-2022 212443_1](https://user-images.githubusercontent.com/15982179/183133780-b5cd8a8f-9e7d-48d8-a041-e2f9810b0a8f.jpg)
+
 
 
 And all of that is just one click via tray icon! No annoying window running in the background required
