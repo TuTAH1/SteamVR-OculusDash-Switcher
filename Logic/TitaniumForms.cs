@@ -254,7 +254,7 @@ namespace Titanium
 				Label.Text = Text;
 				Label.Padding = Padding.Empty;
 				Label.Margin = Padding.Empty;
-				Label.Size = TextRenderer.MeasureText(Label.Text, Label.Font)+ new Size(1,0);
+				Label.Size = TextRenderer.MeasureText(Label.Text, Label.Font)+ new Size(4,0);
 				Label.Location = new Point(
 					Location.X + Spacing + Picture.Width,
 					TextAlignment switch

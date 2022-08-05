@@ -42,12 +42,12 @@ namespace SteamVR_OculusDash_Switcher
 			comboSteamVRDisableMethod.Items.Clear();
 			comboSteamVRDisableMethod.Items.AddRange(SteamVRDisableMethods);
 			comboSteamVRDisableMethod.SelectedItem = _SteamVr;
-			__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method;
-			__DefaultSettings.Save();
+			Settings.Default.SteamVRDisablingMethod = _SteamVr.Method;
+			Settings.Default.Save();
 
 			cbKillOculus.Enabled = _isOculusExist;
 			cbKillOculus.Text = LocalizationStrings.SettingsForm_cbKillOculus;
-			cbKillOculus.Checked = __DefaultSettings.KillOculusDash;
+			cbKillOculus.Checked = Settings.Default.KillOculusDash;
 
 			btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
 
@@ -81,7 +81,7 @@ namespace SteamVR_OculusDash_Switcher
 			Change_IconRealism_DiscriptionAndImage();
 
 			cbKillSteamVR.Text = LocalizationStrings.SettingsForm_cb__show_xxx_option.Replace("R3pl@ceMe",LocalizationStrings.MenuOptions__Kill_SteamVR);
-			cbKillSteamVR.Checked = __DefaultSettings.KillSteamVR_Enabled;
+			cbKillSteamVR.Checked = Settings.Default.KillSteamVR_Enabled;
 
 			lbIconsRealism_Resize(this, null);
 
@@ -173,7 +173,7 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					Egg?.Stop();
 				}
-				__DefaultSettings.Save();
+				Settings.Default.Save();
 			}
 
 			protected override void OnClosing(CancelEventArgs e)
@@ -185,9 +185,9 @@ namespace SteamVR_OculusDash_Switcher
 			}
 			private void lbTrayIconColorValue_Click(object sender, EventArgs e)
 			{
-				__DefaultSettings.BlackMode = !__DefaultSettings.BlackMode;
+				Settings.Default.BlackMode = !Settings.Default.BlackMode;
 				SetTrayColorValue();
-				__DefaultSettings.Save();
+				Settings.Default.Save();
 			}
 			private void EnableApplyButton(object sender, EventArgs e)
 			{
@@ -196,7 +196,7 @@ namespace SteamVR_OculusDash_Switcher
 
 			private void cbKillSteamVR_CheckedChanged(object sender, EventArgs e)
 			{
-				__DefaultSettings.KillSteamVR_Enabled = cbKillSteamVR.Checked;
+				Settings.Default.KillSteamVR_Enabled = cbKillSteamVR.Checked;
 			}
 		
 			//! SETTINGS APPLY
@@ -211,7 +211,7 @@ namespace SteamVR_OculusDash_Switcher
 						restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox = true;
 					}
 
-					if (comboSteamVRDisableMethod.SelectedValue!= null && __DefaultSettings.SteamVRDisablingMethod != (BreakMethod)comboSteamVRDisableMethod.SelectedValue)
+					if (comboSteamVRDisableMethod.SelectedValue!= null && Settings.Default.SteamVRDisablingMethod != (BreakMethod)comboSteamVRDisableMethod.SelectedValue)
 					{
 						if (_SteamVr.IsBroken)
 						{
@@ -220,12 +220,12 @@ namespace SteamVR_OculusDash_Switcher
 							else 
 								comboSteamVRDisableMethod.SelectedValue = _SteamVr.Method;
 						}
-						__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method = (BreakMethod)comboSteamVRDisableMethod.SelectedValue;
+						Settings.Default.SteamVRDisablingMethod = _SteamVr.Method = (BreakMethod)comboSteamVRDisableMethod.SelectedValue;
 					}
 
-					__DefaultSettings.KillOculusDash = cbKillOculus.Checked;
+					Settings.Default.KillOculusDash = cbKillOculus.Checked;
 
-					__DefaultSettings.Save();
+					Settings.Default.Save();
 
 					if(restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox) {new SettingsForm().Show(); this.Close();}
 				}
@@ -246,7 +246,7 @@ namespace SteamVR_OculusDash_Switcher
 
 		private void SetTrayColorValue()
 		{
-			lbTrayIconColorValue.Text = __DefaultSettings.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black : LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
+			lbTrayIconColorValue.Text = Settings.Default.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black : LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
 		}
 
 		private void Change_IconRealism_DiscriptionAndImage()

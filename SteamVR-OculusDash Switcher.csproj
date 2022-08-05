@@ -20,10 +20,13 @@
   <ItemGroup>
     <Compile Remove="icons\**" />
     <Compile Remove="images\**" />
+    <Compile Remove="Readme images\**" />
     <EmbeddedResource Remove="icons\**" />
     <EmbeddedResource Remove="images\**" />
+    <EmbeddedResource Remove="Readme images\**" />
     <None Remove="icons\**" />
     <None Remove="images\**" />
+    <None Remove="Readme images\**" />
   </ItemGroup>
 
   <ItemGroup>

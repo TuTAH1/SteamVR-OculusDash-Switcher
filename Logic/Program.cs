@@ -34,7 +34,6 @@ namespace SteamVR_OculusDash_Switcher
 		public static SteamVR _SteamVr;
 		public static bool _isOculusExist;
 		public static Mode CurrentMode = Mode.Oculus;
-		public static Settings __DefaultSettings = Settings.Default;
 		public enum Mode
 		{
 			SteamVR,
@@ -47,7 +46,7 @@ namespace SteamVR_OculusDash_Switcher
 			false => true,
 			null => throw new ArgumentNullException("")
 		};*/
-		public static int _IconsRealismLevel = __DefaultSettings.RealismLevel;
+		public static int _IconsRealismLevel = Settings.Default.RealismLevel;
 		public static int _MaxIconsRealismLevel = 3;
 
 		/// <summary>
@@ -64,8 +63,8 @@ namespace SteamVR_OculusDash_Switcher
 			bool oculusBroken = false;
 			try
 			{
-				_SteamVr = new SteamVR(__DefaultSettings.SteamVRDisablingMethod);
-				__DefaultSettings.SteamVRDisablingMethod = _SteamVr.Method;
+				_SteamVr = new SteamVR(Settings.Default.SteamVRDisablingMethod);
+				Settings.Default.SteamVRDisablingMethod = _SteamVr.Method;
 			}
 			catch (Exception e)
 			{
@@ -101,7 +100,7 @@ namespace SteamVR_OculusDash_Switcher
 			}
 			else
 			{
-				__DefaultSettings.KillOculusDash = false;
+				Settings.Default.KillOculusDash = false;
 			}
 
 			if (!_isOculusExist && _SteamVr.IsBroken && oculusBroken)
@@ -133,14 +132,14 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					case MouseButtons.Right: contextMenu.GenerateMenuOptions(); break;
 
-					case MouseButtons.Left: if (__DefaultSettings.OneClickMode) ToggleSteamVR_Click(null,null); break;
+					case MouseButtons.Left: if (Settings.Default.OneClickMode) ToggleSteamVR_Click(null,null); break;
 
-					case MouseButtons.Middle: if(__DefaultSettings.OneClickMode) KillSteamVR(); break;
+					case MouseButtons.Middle: if(Settings.Default.OneClickMode) KillSteamVR(); break;
 				}
 				
 			};
 			notifyIcon1.Icon = GetIcon();
-			new Form1().Show(); //!Debug
+			//new Form1().Show(); //!Debug
 			Application.Run();
 			notifyIcon1.Visible = false;
 		}
@@ -179,18 +178,18 @@ namespace SteamVR_OculusDash_Switcher
 			{ 
 				ToolStripMenuItem item = new();
 				item.Text = LocalizationStrings.MenuOptions__Enable_one_click_mode;
-				item.Checked = __DefaultSettings.OneClickMode;
+				item.Checked = Settings.Default.OneClickMode;
 				item.CheckOnClick = true;
 				item.Click += delegate
 				{
-					__DefaultSettings.OneClickMode = item.Checked;
-					__DefaultSettings.Save();
+					Settings.Default.OneClickMode = item.Checked;
+					Settings.Default.Save();
 				};
 				items.Add(item);
 			}
 
 			//: Control Tips
-			if(__DefaultSettings.OneClickMode)
+			if(Settings.Default.OneClickMode)
 			{ 
 				ToolStripMenuItem item = new();
 				item.Text = LocalizationStrings.MenuOptions__Control_tips;
@@ -203,7 +202,7 @@ namespace SteamVR_OculusDash_Switcher
 			}
 
 			//: Kill SteamVR
-			if (SteamVR.IsActive() && __DefaultSettings.KillSteamVR_Enabled)
+			if (SteamVR.IsActive() && Settings.Default.KillSteamVR_Enabled)
 			{
 				ToolStripMenuItem item = new();
 				item.Text = LocalizationStrings.MenuOptions__Kill_SteamVR;
@@ -248,27 +247,42 @@ namespace SteamVR_OculusDash_Switcher
 
 		private static void KillSteamVR()
 		{
-			SteamVR.KillProcess();
+			try
+				{ SteamVR.KillProcess(); }
+			catch (Exception e) 
+				{ e.ShowMessageBox(); }
 		}
 
 		private static void BreakSteamVR()
 		{
-			_SteamVr.Break();
-			if (__DefaultSettings.KillOculusDash)
+			try
 			{
-				OculusDash.Restore();
+				_SteamVr.Break();
+				if (Settings.Default.KillOculusDash)
+				{
+					OculusDash.Restore();
+				}
+				notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Fix SteamVR.ico");
 			}
-			notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Fix SteamVR.ico");
+			catch (Exception e)
+			{
+				e.ShowMessageBox();
+			}
 		}
 
 		private static void RestoreSteamVR()
 		{
-			_SteamVr.Restore();
-			if (__DefaultSettings.KillOculusDash)
+			try
 			{
-				OculusDash.Break();
+				_SteamVr.Restore();
+				if (Settings.Default.KillOculusDash)
+				{
+					OculusDash.Break();
+				}
+				notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Break SteamVR.ico");
 			}
-			notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Break SteamVR.ico");
+			catch (Exception e)
+				{e.ShowMessageBox(); }
 		}
 
 		public static void SetAutorunValue(bool Autorun)
@@ -290,7 +304,7 @@ namespace SteamVR_OculusDash_Switcher
 		public static bool IsAutorun() => Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\")?.GetValue(Application.ProductName) is not null;
 
 		public static Icon GetIcon() =>
-			Icon.ExtractAssociatedIcon($@"icons\{(__DefaultSettings.BlackMode ? "Black" : "White")}\{(CurrentMode is Mode.SteamVR? "SteamVR" : "Oculus")}.ico");
+			Icon.ExtractAssociatedIcon($@"icons\{(Settings.Default.BlackMode ? "Black" : "White")}\{(CurrentMode is Mode.SteamVR? "SteamVR" : "Oculus")}.ico");
 		
 
 		/// <summary>
