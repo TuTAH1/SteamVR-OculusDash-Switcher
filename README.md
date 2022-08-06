@@ -7,9 +7,13 @@ It's a programm that give you a possibility to:
 ![SteamVR modes_1](https://user-images.githubusercontent.com/15982179/183133596-93583b2a-7658-47ac-9c4c-b116c162d024.jpg)
 
 ● Disable/Enable Oculus Dash
+
 ● Kill SteamVR
+
 ● Minimalistic icons
+
 ● Possibility to fuck the minimalistic icons off
+
 ● Settings
 
 ![Settings_1](https://user-images.githubusercontent.com/15982179/183133619-9075360e-db39-4035-aaef-01cc1627477e.jpg)
