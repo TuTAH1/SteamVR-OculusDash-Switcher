@@ -200,23 +200,35 @@ namespace SteamVR_OculusDash_Switcher
 
 			private void cbSteamVRDisableMethod_DropDownClosed(object sender, EventArgs e) => this.ttCbSteamVR.Hide((ComboBox)sender);
 
-			private void btnCheckOculusKillerUpdates_Click(object sender, EventArgs e)
+			private async Task CheckOculusKillerUpdates()
 			{
 				try
 				{
-					var status = OculusDash.CheckKiller(true);
+					btnCheckOculusKillerUpdates.Text = "Checking updates...";
+					btnCheckOculusKillerUpdates.Enabled = false;
+					var status = await OculusDash.CheckKiller(true);
 					MessageBox.Show(status switch
 					{
 						OculusDash.Status.Downloaded => LocalizationStrings.OculusKiller_StatusDiscription_Downloaded,
 						OculusDash.Status.Updated => LocalizationStrings.OculusKiller_StatusDiscription_Updated,
 						OculusDash.Status.NoAction => LocalizationStrings.OculusKiller_StatusDiscription_NoAction
 					}, "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
+					btnCheckOculusKillerUpdates.Enabled = false;
 				}
 				catch (Exception exception)
 				{
 					exception.ShowMessageBox();
+					btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
+					btnCheckOculusKillerUpdates.Enabled = false;
 				}
 			
+			}
+
+			private void btnCheckOculusKillerUpdates_Click(object sender, EventArgs e)
+			{
+				Task.Run(CheckOculusKillerUpdates);
 			}
 
 			private SoundPlayer Egg = null;

@@ -264,7 +264,8 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					OculusDash.Restore();
 				}
-				notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Fix SteamVR.ico");
+
+				notifyIcon1.Icon = GetIcon();
 			}
 			catch (Exception e)
 			{
@@ -281,7 +282,7 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					OculusDash.Break();
 				}
-				notifyIcon1.Icon = Icon.ExtractAssociatedIcon("icons/Break SteamVR.ico");
+				notifyIcon1.Icon = GetIcon();
 			}
 			catch (Exception e)
 				{e.ShowMessageBox(); }

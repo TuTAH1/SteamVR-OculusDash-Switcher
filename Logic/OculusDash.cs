@@ -34,18 +34,18 @@ namespace SteamVR_OculusDash_Switcher.Logic
 
 		//TODO: Make it async
 		//:Checks if OculusKiller exe exist and downloads the lastest release if not
-		private static Status checkOculusKiller(bool checkUpdates)
+		private static async Task<Status> checkOculusKiller(bool checkUpdates)
 		{
 			const string oculusDashDownloadLink = @"https://github.com/ItsKaitlyn03/OculusKiller/releases/latest/download/OculusDash.exe";
 			
 			if (!IsOculusKillerExist)
 			{
-				DownloadLastestOculusKiller();
+				await DownloadLastestOculusKiller();
 				return Status.Downloaded;
 			}
 			else if (checkUpdates)
 			{
-				var doc = Internet.getResponseAsync(@"https://github.com/ItsKaitlyn03/OculusKiller/releases").Result;
+				var doc = await Internet.getResponseAsync(@"https://github.com/ItsKaitlyn03/OculusKiller/releases");
 				var lastestVersion = doc.QuerySelector(".Link--primary")?.Text();
 				if (lastestVersion is null) 
 					throw new ArgumentNullException(nameof(lastestVersion), "Can't get lastest version");
@@ -57,31 +57,32 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				//:If current file's version is lower than in github, download lastest from github
 				if (Version.Parse(lastestVersion) > Version.Parse(currentVersion.ProductVersion))
 				{
-					DownloadLastestOculusKiller();
+					await DownloadLastestOculusKiller();
 					return Status.Updated;
 				}
 			}
 			return Status.NoAction;
 
-			void DownloadLastestOculusKiller()
+			async Task<bool> DownloadLastestOculusKiller()
 			{
 				using (var client = new HttpClient())
 				{
-					using var s = client.GetStreamAsync(oculusDashDownloadLink);
-					using var fs = new FileStream(_innerOculusKillerPath, FileMode.OpenOrCreate);
-					s.Result.CopyTo(fs);
+					var s = await client.GetStreamAsync(oculusDashDownloadLink);
+					var fs = new FileStream(_innerOculusKillerPath, FileMode.OpenOrCreate);
+					s.CopyTo(fs); //TODO: may be done async
 				}
 
 				new WebClient().DownloadFile(oculusDashDownloadLink, "OculusDash.exe");
+				return true;
 			}
 		}
 
 		/// <summary>
 		/// Checks if OculusKiller exe exist and otherwise downloads the lastest release (also tries to update, if <param name="checkUpdates"/> is true)
 		/// </summary>
-		public static Status CheckKiller(bool checkUpdates = false)
+		public static async Task<Status> CheckKiller(bool checkUpdates = false)
 		{
-			var status = checkOculusKiller(checkUpdates);
+			var status = await checkOculusKiller(checkUpdates);
 			OculusKillerChecked = true; //: Sets true if no exceptions
 			return status;
 		}

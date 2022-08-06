@@ -38,13 +38,13 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			"vrdashboard.exe", "vrserver.exe",  "vrservice.exe", "vrmonitor.exe", "vrcompositor.exe"
 		};
 
-		public SteamVR(BreakMethod Method)
+		public SteamVR(BreakMethod CurrentMethod)
 		{
-			this.Method = Method;
+			Method = CurrentMethod;
 			if (!LocateSteamVR()) return;
 
 			var realCurrentMethod = WhatMethodApplied();
-			if (realCurrentMethod != BreakMethod.None) this.Method = realCurrentMethod;
+			if (realCurrentMethod != BreakMethod.None) Method = realCurrentMethod;
 		}
 
 		/// <summary>
@@ -181,15 +181,18 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		/// <returns>
 		/// <para>BreakMethod (including None) or null if SteamVR is broken with other methods (like "кривые руки" method :D)</para>
 		/// </returns>
-		public BreakMethod WhatMethodApplied(bool retry = true)
+		public BreakMethod WhatMethodApplied(bool ChangeCurrentMethod = false, bool Retry = true)
 		{
 			var method = whatMethodApplied();
-			if (method != null) this.Method = (BreakMethod)method;
+			if (method != null)
+			{
+				if (ChangeCurrentMethod) this.Method = (BreakMethod)method;
+			}
 			else
 			{
-				if (!retry) throw new InvalidOperationException(Directory.Exists(_steamVRexeFolderPath) ? "Something go wrong in WhatMethodApplied while SteamVR is found. How it's even possible?" : "SteamVR not found. But why only now, in WhatMethodApplied method?");
+				if (!Retry) throw new InvalidOperationException(Directory.Exists(_steamVRexeFolderPath) ? "Something go wrong in WhatMethodApplied while SteamVR is found. How it's even possible?" : "SteamVR not found. But why only now, in WhatMethodApplied method?");
 				LocateSteamVR();
-				return WhatMethodApplied(false);
+				return WhatMethodApplied(ChangeCurrentMethod, false);
 			}
 
 			IsBroken = method != BreakMethod.None;
