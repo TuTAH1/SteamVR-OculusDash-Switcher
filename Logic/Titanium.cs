@@ -15,6 +15,13 @@ using System.Text.RegularExpressions;
 namespace Titanium {
 	/// <summary>
 	/// Just my library of small functions that makes c# programming easier. The automatization of automatization instrument
+	/// <para> Despite of the program license, THIS file is <see href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</see></para>
+	/// <list type="table">
+	/// <item>
+	/// <term>Author</term>
+	/// <see href="https://github.com/TuTAH1">Титан</see>
+	/// </item>
+	/// </list>
 	/// </summary>
 	public static class TypesFuncs { //!21.04.2022 
 
@@ -1295,6 +1302,12 @@ namespace Titanium {
 			{
 				return i == null? null : new Bitmap(i, i.Size.Resize(NewDimensionValue, FixedDimension));
 			}
+			#endregion
+
+			#region Color
+
+			static Color Change(this Color c, byte? A = null, byte? R = null, byte? G = null, byte? B = null) => Color.FromArgb(A?? c.A, R??c.R, G??c.G, B??c.B);
+
 			#endregion
 
 			#region Universal Type

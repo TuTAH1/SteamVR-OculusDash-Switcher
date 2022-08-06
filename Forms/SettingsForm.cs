@@ -7,6 +7,7 @@ using System.Linq;
 using System.Media;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using SteamVR_OculusDash_Switcher.Logic;
 using SteamVR_OculusDash_Switcher.Properties;
@@ -14,6 +15,7 @@ using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
 using TitaniumComparator.LogicClasses;
 using static SteamVR_OculusDash_Switcher.Program;
+using static Titanium.Forms;
 
 namespace SteamVR_OculusDash_Switcher
 {
@@ -28,6 +30,7 @@ namespace SteamVR_OculusDash_Switcher
 		public void InitializeControls()
 		{
 			Text = LocalizationStrings.SettingsForm_Title;
+			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 
 			#region Functions group
 
@@ -94,13 +97,20 @@ namespace SteamVR_OculusDash_Switcher
 			btnApply.Text = LocalizationStrings.Button_Apply;
 			btnApply.Left = gbInterface.Right - btnApply.Width;
 			btnApply.Top = this.GetHeaderHeight() + Math.Max(gbFunctions.Bottom, gbInterface.Bottom) + gbInterface.Margin.Bottom + btnApply.Margin.Top;
+
+			lbSaved.Text = LocalizationStrings.SettingsForm_btnApply_label__Saved;
+			lbSaved.Left = btnApply.Left - MeasureText(lbSaved).Width; //- lbSaved.Margin.Right;
+			lbSaved.ForeColor = this.BackColor;
+
 			//btnApply.Enabled = false;
 
 			//: Form autosize
 			/*this.AutoSize = true;
 			this.AutoSizeMode = AutoSizeMode.GrowAndShrink;*/
-			Width = gbInterface.Right + gbInterface.Margin.Right + this.GetWindowPadding(Orientation.Horizontal);
+
+			Width = gbInterface.Right + gbInterface.Margin.Right + this.GetWindowPadding(Orientation.Horizontal)*3;
 			Height = this.GetHeaderHeight() + this.GetWindowPadding(Orientation.Vertical) + btnApply.Bottom + btnApply.Margin.Bottom;
+
 			/*MessageBox.Show($"HeaderWidth = {this.GetHeaderHeight()}\n" +
 			                $"gbInterface.Bottom = {gbInterface.Bottom}\n" +
 			                $"gbInterface.Margin = {gbInterface.Margin.Bottom}\n" +
@@ -109,6 +119,7 @@ namespace SteamVR_OculusDash_Switcher
 			                $"btnApply Bounds height = {btnApply.Bounds.Size.Height}\n" +
 			                $"btnApply Horisontal Margin = {btnApply.Margin.Top + btnApply.Margin.Bottom}\n" +
 			                $"Form Height = {this.Height}");*/
+		
 		}
 
 		public static int GetPositionRightTo(Control AnchorControl, int Margin = 3) => AnchorControl.Left + AnchorControl.Width + Margin;
@@ -116,6 +127,56 @@ namespace SteamVR_OculusDash_Switcher
 
 		#region Обработчики событий
 		
+			//\---------------
+			//% SETTINGS APPLY
+			//\---------------
+			private void btnApply_Click(object sender, EventArgs e)
+			{
+				try
+				{
+					bool restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = false; //TODO: Someone plaese say me how to clear combobox and it's work without -1 index exception that if it's possible
+					if (!Equals(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, ((Language)comboLanguage.SelectedItem).Culture.TwoLetterISOLanguageName))
+					{
+						Thread.CurrentThread.CurrentUICulture = ((Language)comboLanguage.SelectedItem).Culture;
+						restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = true;
+					}
+
+					if (comboSteamVRDisableMethod.SelectedItem!= null && Settings.Default.SteamVRDisablingMethod != (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem)
+					{
+						if (_SteamVr.IsBroken)
+						{
+							if (MessageBox.Show("SteamVR needs to be restored before changing method. Do it now?", "Do you realy read this captions?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+								_SteamVr.Restore();
+							else 
+								comboSteamVRDisableMethod.SelectedItem = _SteamVr.Method;
+						}
+						Settings.Default.SteamVRDisablingMethod = _SteamVr.Method = (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem;
+					}
+
+					Settings.Default.KillOculusDash = cbKillOculus.Checked;
+
+					Settings.Default.Save();
+					savedLabelActivation(lbSaved, Color.Green, 1000);
+
+					if (!restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox) return;
+					new SettingsForm().Show(); this.Close();
+				}
+				catch (Exception exception)
+				{
+					exception.ShowMessageBox();
+				}
+			}
+
+			private async Task savedLabelActivation(Label sender, Color e, int timeMs)
+			{
+				animationManager.Clear();
+				sender.ForeColor = e;
+
+				animationManager.Add(new AnimationSequence(
+					new PropertyAnimation("ForeColor", sender, this.BackColor, TimeSpan.FromMilliseconds(timeMs), new ColorAnimator())));
+				
+			}
+
 			private void cbSteamVRDisableMethod_DrawItem(object sender, DrawItemEventArgs e)
 			{
 				var comboBox = (ComboBox)sender;
@@ -172,6 +233,7 @@ namespace SteamVR_OculusDash_Switcher
 				else
 				{
 					Egg?.Stop();
+					Egg = null;
 				}
 				Settings.Default.Save();
 			}
@@ -198,42 +260,6 @@ namespace SteamVR_OculusDash_Switcher
 			{
 				Settings.Default.KillSteamVR_Enabled = cbKillSteamVR.Checked;
 			}
-		
-			//! SETTINGS APPLY
-			private void btnApply_Click(object sender, EventArgs e)
-			{
-				try
-				{
-					bool restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox = false;
-					if (!Equals(Thread.CurrentThread.CurrentUICulture, ((Language)comboLanguage.SelectedItem).Culture))
-					{
-						Thread.CurrentThread.CurrentUICulture = ((Language)comboLanguage.SelectedItem).Culture;
-						restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox = true;
-					}
-
-					if (comboSteamVRDisableMethod.SelectedValue!= null && Settings.Default.SteamVRDisablingMethod != (BreakMethod)comboSteamVRDisableMethod.SelectedValue)
-					{
-						if (_SteamVr.IsBroken)
-						{
-							if (MessageBox.Show("SteamVR needs to be restored before changing method. Do it now?", "Do you realy read this captions?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-								_SteamVr.Restore();
-							else 
-								comboSteamVRDisableMethod.SelectedValue = _SteamVr.Method;
-						}
-						Settings.Default.SteamVRDisablingMethod = _SteamVr.Method = (BreakMethod)comboSteamVRDisableMethod.SelectedValue;
-					}
-
-					Settings.Default.KillOculusDash = cbKillOculus.Checked;
-
-					Settings.Default.Save();
-
-					if(restartControlBecouseStupidWinformsCantDoSuchBasicTHingAsClearCombobox) {new SettingsForm().Show(); this.Close();}
-				}
-				catch (Exception exception)
-				{
-					exception.ShowMessageBox();
-				}
-			}
 
 			private void lbIconsRealism_Resize(object sender, EventArgs e)
 			{
@@ -246,7 +272,7 @@ namespace SteamVR_OculusDash_Switcher
 
 		private void SetTrayColorValue()
 		{
-			lbTrayIconColorValue.Text = Settings.Default.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black : LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
+			lbTrayIconColorValue.Text = Settings.Default.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black + "►" : "◄" + LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
 		}
 
 		private void Change_IconRealism_DiscriptionAndImage()

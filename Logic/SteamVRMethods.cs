@@ -65,6 +65,9 @@ namespace SteamVR_OculusDash_Switcher.Logic
 	    {
 		    return (int)Value;
 	    }
+
+	    public static implicit operator BreakMethod(SteamVRMethod o) => o.Value;
+	    public static implicit operator SteamVRMethod(BreakMethod o) => new(o);
     }
 
     public enum BreakMethod

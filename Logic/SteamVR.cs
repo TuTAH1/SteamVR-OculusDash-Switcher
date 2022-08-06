@@ -41,7 +41,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		public SteamVR(BreakMethod Method)
 		{
 			this.Method = Method;
-			if (LocateSteamVR()) return;
+			if (!LocateSteamVR()) return;
 
 			var realCurrentMethod = WhatMethodApplied();
 			if (realCurrentMethod != BreakMethod.None) this.Method = realCurrentMethod;
@@ -50,7 +50,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <returns>true if Method "rename folder" is applied</returns>
+		/// <returns>false if Method "rename folder" is applied</returns>
 		public bool LocateSteamVR()
 		{
 			bool methodFound = false;
@@ -82,7 +82,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			}
 			
 			_steamVRexeFolderPath = _steamVrFolderPath.Add("\\") + @"bin\win64\";
-			return methodFound;
+			return !methodFound;
 		}
 
 		public override bool Equals(object obj) =>
@@ -192,7 +192,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				return WhatMethodApplied(false);
 			}
 
-			IsBroken = method is BreakMethod.None;
+			IsBroken = method != BreakMethod.None;
 			return (BreakMethod)method;
 		}
 

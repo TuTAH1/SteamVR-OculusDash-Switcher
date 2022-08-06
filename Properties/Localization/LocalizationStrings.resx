@@ -232,37 +232,46 @@
     <value>You are already have the lastest version</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you" xml:space="preserve">
-	  <value>Easteregg speacking with you</value>
+    <value>Easteregg speacking with you</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
-	  <value>Stop playing amazing music?</value>
+    <value>Stop playing amazing music?</value>
   </data>
   <data name="IconRealismLevel_0_Discription" xml:space="preserve">
-	  <value>Minimalistic shit</value>
+    <value>Minimalistic shit</value>
   </data>
   <data name="IconRealismLevel_1_Discription" xml:space="preserve">
-	  <value>Colorful minimalistic shit</value>
+    <value>Colorful minimalistic shit</value>
   </data>
   <data name="IconRealismLevel_2_Discription" xml:space="preserve">
-	  <value>Realistic icons</value>
+    <value>Realistic icons</value>
   </data>
   <data name="IconRealismLevel_3_Discription" xml:space="preserve">
-	  <value>Yes, I know what "icon" means. 
- It's photo, but transparent</value>
+    <value>Yes, I know what "icon" means. 
+ It'o photo, but transparent</value>
   </data>
   <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
-	  <value>I don't know how did you set the impossible value</value>
+    <value>I don't know how did you set the impossible value</value>
   </data>
   <data name="SettingsForm_lbTrayIconColor" xml:space="preserve">
-	  <value>Tray icon color:</value>
+    <value>Tray icon color:</value>
   </data>
   <data name="SettingsForm_lbTrayIconColorValue_Black" xml:space="preserve">
-	  <value>Black</value>
+    <value>Black</value>
   </data>
   <data name="SettingsForm_lbTrayIconColorValue_White" xml:space="preserve">
-	  <value>White</value>
+    <value>White</value>
   </data>
   <data name="Button_Apply" xml:space="preserve">
-	  <value>Apply</value>
+    <value>Apply</value>
+  </data>
+  <data name="MenuOptions__Switch_to_Oculus" xml:space="preserve">
+	  <value>→ Oculus</value>
+  </data>
+  <data name="MenuOptions__Switch_to_SteamVR" xml:space="preserve">
+	  <value>→ SteamVR</value>
+  </data>
+  <data name="SettingsForm_btnApply_label__Saved" xml:space="preserve">
+	  <value>Saved!</value>
   </data>
 </root>

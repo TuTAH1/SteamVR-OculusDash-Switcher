@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SteamVR_OculusDash_Switcher.Logic;
 
 namespace SteamVR_OculusDash_Switcher
 {
@@ -10,6 +11,7 @@ namespace SteamVR_OculusDash_Switcher
 	/// Required designer variable.
 	/// </summary>
 	private System.ComponentModel.IContainer components = null;
+	private AnimationManager animationManager;
 
 	/// <summary>
 	/// Clean up any resources being used.
@@ -44,14 +46,16 @@ namespace SteamVR_OculusDash_Switcher
 			this.slideIconRealism = new System.Windows.Forms.TrackBar();
 			this.lbIconsRealism = new System.Windows.Forms.Label();
 			this.gbInterface = new System.Windows.Forms.GroupBox();
+			this.picRealismLevel = new System.Windows.Forms.PictureBox();
 			this.lbTrayIconColorValue = new System.Windows.Forms.Label();
 			this.lbTrayIconColor = new System.Windows.Forms.Label();
-			this.picRealismLevel = new System.Windows.Forms.PictureBox();
 			this.cbKillSteamVR = new System.Windows.Forms.CheckBox();
 			this.lbIconsRealismDiscription = new System.Windows.Forms.Label();
 			this.gbFunctions = new System.Windows.Forms.GroupBox();
 			this.btnCheckOculusKillerUpdates = new System.Windows.Forms.Button();
 			this.cbKillOculus = new System.Windows.Forms.CheckBox();
+			this.lbSaved = new System.Windows.Forms.Label();
+			this.animationManager = new SteamVR_OculusDash_Switcher.Logic.AnimationManager(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.picLanguage)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.slideIconRealism)).BeginInit();
 			this.gbInterface.SuspendLayout();
@@ -79,12 +83,12 @@ namespace SteamVR_OculusDash_Switcher
 			this.picLanguage.TabIndex = 1;
 			this.picLanguage.TabStop = false;
 			// 
-			// cbLanguage
+			// comboLanguage
 			// 
 			this.comboLanguage.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.comboLanguage.FormattingEnabled = true;
 			this.comboLanguage.Location = new System.Drawing.Point(0, 62);
-			this.comboLanguage.Name = "cbLanguage";
+			this.comboLanguage.Name = "comboLanguage";
 			this.comboLanguage.Size = new System.Drawing.Size(182, 33);
 			this.comboLanguage.TabIndex = 10;
 			// 
@@ -165,9 +169,19 @@ namespace SteamVR_OculusDash_Switcher
 			this.gbInterface.TabStop = false;
 			this.gbInterface.Text = "Interface";
 			// 
+			// picRealismLevel
+			// 
+			this.picRealismLevel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.picRealismLevel.Location = new System.Drawing.Point(170, 107);
+			this.picRealismLevel.Name = "picRealismLevel";
+			this.picRealismLevel.Size = new System.Drawing.Size(56, 69);
+			this.picRealismLevel.TabIndex = 1001;
+			this.picRealismLevel.TabStop = false;
+			// 
 			// lbTrayIconColorValue
 			// 
 			this.lbTrayIconColorValue.AutoSize = true;
+			this.lbTrayIconColorValue.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.lbTrayIconColorValue.ForeColor = System.Drawing.SystemColors.MenuHighlight;
 			this.lbTrayIconColorValue.Location = new System.Drawing.Point(135, 263);
 			this.lbTrayIconColorValue.Margin = new System.Windows.Forms.Padding(0);
@@ -186,15 +200,6 @@ namespace SteamVR_OculusDash_Switcher
 			this.lbTrayIconColor.Size = new System.Drawing.Size(130, 25);
 			this.lbTrayIconColor.TabIndex = 1003;
 			this.lbTrayIconColor.Text = "Tray icon color:";
-			// 
-			// picRealismLevel
-			// 
-			this.picRealismLevel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.picRealismLevel.Location = new System.Drawing.Point(170, 107);
-			this.picRealismLevel.Name = "picRealismLevel";
-			this.picRealismLevel.Size = new System.Drawing.Size(56, 69);
-			this.picRealismLevel.TabIndex = 1001;
-			this.picRealismLevel.TabStop = false;
 			// 
 			// cbKillSteamVR
 			// 
@@ -258,11 +263,22 @@ namespace SteamVR_OculusDash_Switcher
 			this.cbKillOculus.UseVisualStyleBackColor = true;
 			this.cbKillOculus.CheckedChanged += new System.EventHandler(this.EnableApplyButton);
 			// 
+			// lbSaved
+			// 
+			this.lbSaved.AutoSize = true;
+			this.lbSaved.Location = new System.Drawing.Point(479, 359);
+			this.lbSaved.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
+			this.lbSaved.Name = "lbSaved";
+			this.lbSaved.Size = new System.Drawing.Size(65, 25);
+			this.lbSaved.TabIndex = 1000;
+			this.lbSaved.Text = "Saved!";
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(675, 397);
+			this.Controls.Add(this.lbSaved);
 			this.Controls.Add(this.gbFunctions);
 			this.Controls.Add(this.gbInterface);
 			this.Controls.Add(this.btnApply);
@@ -300,5 +316,6 @@ namespace SteamVR_OculusDash_Switcher
 		private PictureBox picRealismLevel;
 		private Label lbTrayIconColor;
 		private Label lbTrayIconColorValue;
+		private Label lbSaved;
 	}
 }

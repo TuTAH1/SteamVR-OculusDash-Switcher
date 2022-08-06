@@ -188,7 +188,7 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Yes, I know what &quot;icon&quot; means. 
-        /// It&apos;s photo, but transparent.
+        /// It&apos;o photo, but transparent.
         /// </summary>
         internal static string IconRealismLevel_3_Discription {
             get {
@@ -269,6 +269,24 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на → Oculus.
+        /// </summary>
+        internal static string MenuOptions__Switch_to_Oculus {
+            get {
+                return ResourceManager.GetString("MenuOptions__Switch_to_Oculus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на → SteamVR.
+        /// </summary>
+        internal static string MenuOptions__Switch_to_SteamVR {
+            get {
+                return ResourceManager.GetString("MenuOptions__Switch_to_SteamVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SteamVR not found! The program will not work if you continue.
         /// </summary>
         internal static string MessageBox_text__SteamVR_not_found {
@@ -310,6 +328,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string OculusKiller_StatusDiscription_Updated {
             get {
                 return ResourceManager.GetString("OculusKiller_StatusDiscription_Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Saved!.
+        /// </summary>
+        internal static string SettingsForm_btnApply_label__Saved {
+            get {
+                return ResourceManager.GetString("SettingsForm_btnApply_label__Saved", resourceCulture);
             }
         }
         

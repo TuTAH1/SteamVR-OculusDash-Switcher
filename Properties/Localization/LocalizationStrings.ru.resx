@@ -133,136 +133,139 @@
     <value>Больше настроек</value>
   </data>
   <data name="MenuOptions__Launch_with_Windows" xml:space="preserve">
-	  <value>Запускать с Windows</value>
+    <value>Запускать с Windows</value>
   </data>
   <data name="ErrorTaskDialog__OpenMicrosoftDocs" xml:space="preserve">
-	  <value>Открыть документацию Microsoft</value>
+    <value>Открыть документацию Microsoft</value>
   </data>
   <data name="ErrorTaskDialog__Copy_to_Clipboard" xml:space="preserve">
-	  <value>Копировать в буфер обмена</value>
+    <value>Копировать в буфер обмена</value>
   </data>
   <data name="ErrorTaskDialog__Open_Inner_Exception" xml:space="preserve">
-	  <value>Открыть внутреннее исключение</value>
+    <value>Открыть внутреннее исключение</value>
   </data>
   <data name="Button__Close" xml:space="preserve">
-	  <value>Закрыть</value>
+    <value>Закрыть</value>
   </data>
   <data name="MenuOptions__Enable_one_click_mode" xml:space="preserve">
-	  <value>Включить управление одним кликом</value>
+    <value>Включить управление одним кликом</value>
   </data>
   <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
-	  <value>Восстановить SteamVR</value>
+    <value>Восстановить SteamVR</value>
   </data>
   <data name="SettingsForm_Title" xml:space="preserve">
-	  <value>Настройки</value>
+    <value>Настройки</value>
   </data>
   <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
-	  <value>Сломать SteamVR</value>
+    <value>Сломать SteamVR</value>
   </data>
   <data name="SettingsForm_lbSteamVRDisableMethod" xml:space="preserve">
-	  <value>Способ отключения SteamVR</value>
+    <value>Способ отключения SteamVR</value>
   </data>
   <data name="SettingsForm_lbLanguage" xml:space="preserve">
-	  <value>Язык</value>
+    <value>Язык</value>
   </data>
   <data name="SteamVRDisableMethod_Discription__None" xml:space="preserve">
-	  <value>Ничего не делать</value>
+    <value>Ничего не делать</value>
   </data>
   <data name="SteamVRDisableMethod_Discription__RenameExe" xml:space="preserve">
-	  <value>Переименовать .exe фалы SteamVR</value>
+    <value>Переименовать .exe фалы SteamVR</value>
   </data>
   <data name="SteamVRDisableMethod_Discription__RenameFolder" xml:space="preserve">
-	  <value>Переименовать папку SteamVR</value>
+    <value>Переименовать папку SteamVR</value>
   </data>
   <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
-	  <value>Заменить SteamVR exeшки пустыми</value>
+    <value>Заменить SteamVR exeшки пустыми</value>
   </data>
   <data name="MenuOptions__Kill_SteamVR" xml:space="preserve">
-	  <value>Убить SteamVR</value>
+    <value>Убить SteamVR</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__None" xml:space="preserve">
-	  <value>Никакой</value>
+    <value>Никакой</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
-	  <value>Переименовать папку</value>
+    <value>Переименовать папку</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__Renameexe" xml:space="preserve">
-	  <value>Переименовать .exe</value>
+    <value>Переименовать .exe</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
-	  <value>Подменить .exe</value>
+    <value>Подменить .exe</value>
   </data>
   <data name="ControlsTipsForm_tip__RMB" xml:space="preserve">
-	  <value>Открыть контекстное меню</value>
+    <value>Открыть контекстное меню</value>
   </data>
   <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
-	  <value>Сломать/Восстановить SteamVR</value>
+    <value>Сломать/Восстановить SteamVR</value>
   </data>
   <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
-	  <value>Убить SteamVR</value>
+    <value>Убить SteamVR</value>
   </data>
   <data name="SteamVRDisable_IsMethodApplied_RenameExe_Exception__both_original_and_renamed_file_not_found" xml:space="preserve">
-	  <value>Ни оригинальный, не переименованный файл не найден</value>
+    <value>Ни оригинальный, не переименованный файл не найден</value>
   </data>
   <data name="MenuOptions__Control_tips" xml:space="preserve">
-	  <value>Подсказки по управлению</value>
+    <value>Подсказки по управлению</value>
   </data>
   <data name="ControlsTipsForm__TitleText" xml:space="preserve">
-	  <value>Подсказки по управлению одним кликом</value>
+    <value>Подсказки по управлению одним кликом</value>
   </data>
   <data name="SettingsForm_cbKillOculus" xml:space="preserve">
-	  <value>Убивать Oculus Dash</value>
+    <value>Убивать Oculus Dash</value>
   </data>
   <data name="SettingsForm_btnCheckOculusKillerUpdates" xml:space="preserve">
-	  <value>Проверить обновления Oculus Killer</value>
+    <value>Проверить обновления Oculus Killer</value>
   </data>
   <data name="SettingsForm_cb__show_xxx_option" xml:space="preserve">
-	  <value>Показывать опцию "R3pl@ceMe"</value>
+    <value>Показывать опцию "R3pl@ceMe"</value>
   </data>
   <data name="SettingsForm_lbIconsRealism" xml:space="preserve">
-	  <value>Уровень реалистичности иконок</value>
+    <value>Уровень реалистичности иконок</value>
   </data>
   <data name="OculusKiller_StatusDiscription_Downloaded" xml:space="preserve">
-	  <value>Новейший Oculus Killer был успешно загружен</value>
+    <value>Новейший Oculus Killer был успешно загружен</value>
   </data>
   <data name="OculusKiller_StatusDiscription_NoAction" xml:space="preserve">
-	  <value>У тебя и так последняя версия</value>
+    <value>У тебя и так последняя версия</value>
   </data>
   <data name="OculusKiller_StatusDiscription_Updated" xml:space="preserve">
-	  <value>Oculus Killer был успешно загружен</value>
+    <value>Oculus Killer был успешно загружен</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you" xml:space="preserve">
-	  <value>Пасхалка азговаривает с тобой</value>
+    <value>Пасхалка азговаривает с тобой</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
-	  <value>Остановить воспроизведение замечательной песни?</value>
+    <value>Остановить воспроизведение замечательной песни?</value>
   </data>
   <data name="IconRealismLevel_0_Discription" xml:space="preserve">
-	  <value>Минималистичное гавно</value>
+    <value>Минималистичное гавно</value>
   </data>
   <data name="IconRealismLevel_1_Discription" xml:space="preserve">
-	  <value>Цветное минималистичное гавно</value>
+    <value>Цветное минималистичное гавно</value>
   </data>
   <data name="IconRealismLevel_2_Discription" xml:space="preserve">
-	  <value>Реалистичные значки</value>
+    <value>Реалистичные значки</value>
   </data>
   <data name="IconRealismLevel_3_Discription" xml:space="preserve">
-	  <value>Да, я знаю что такое "значок"
+    <value>Да, я знаю что такое "значок"
 Это как фото, только прозрачное</value>
   </data>
   <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
-	  <value>Понятия не имею, как ты смог поставить сюда невозможное значение</value>
+    <value>Понятия не имею, как ты смог поставить сюда невозможное значение</value>
   </data>
   <data name="SettingsForm_lbTrayIconColor" xml:space="preserve">
-	  <value>Цвет иконки в трее:</value>
+    <value>Цвет иконки в трее:</value>
   </data>
   <data name="SettingsForm_lbTrayIconColorValue_Black" xml:space="preserve">
-	  <value>Чёрный</value>
+    <value>Чёрный</value>
   </data>
   <data name="SettingsForm_lbTrayIconColorValue_White" xml:space="preserve">
-	  <value>Белый</value>
+    <value>Белый</value>
   </data>
   <data name="Button_Apply" xml:space="preserve">
-	  <value>Применить</value>
+    <value>Применить</value>
+  </data>
+  <data name="SettingsForm_btnApply_label__Saved" xml:space="preserve">
+    <value>Сохранено!</value>
   </data>
 </root>

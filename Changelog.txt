@@ -1,4 +1,8 @@
-2.0:
+Future release:
+● Better user exp with tray icon color changing
+● Fixed something
+
+2.0α:
 ● Localization
 ● Localisation
 ● Локализация

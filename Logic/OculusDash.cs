@@ -98,7 +98,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		{
 			try
 			{
-				return (new FileInfo(_oculusDashExePath).Length <= (IsOculusKillerExist? new FileInfo(_innerOculusKillerPath).Length : 1000))?
+				return (new FileInfo(_oculusDashExePath).Length <= (IsOculusKillerExist? new FileInfo(_innerOculusKillerPath).Length : 1000))? //TODO: Add IsOculusExist check
 						File.Exists(_oculusDashExePath)? true : null
 						: false;
 			}

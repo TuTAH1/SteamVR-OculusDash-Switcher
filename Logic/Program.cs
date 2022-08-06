@@ -217,8 +217,10 @@ namespace SteamVR_OculusDash_Switcher
 			//: Break/Restore SteamVR
 			{
 				ToolStripMenuItem item = new();
-				item.Image = GetImage("Menu Options", "Hammer");
-				item.Text = (_SteamVr.IsBroken ? LocalizationStrings.MenuOptions__Restore_SteamVR :LocalizationStrings.MenuOptions__Break_SteamVR);
+				item.Image = GetImage("Menu Options", "Hammer"); 
+				item.Text = (Settings.Default.KillOculusDash? 
+					(CurrentMode == Mode.Oculus? LocalizationStrings.MenuOptions__Switch_to_SteamVR : LocalizationStrings.MenuOptions__Switch_to_Oculus) : //TODO: Oculus and SteamVR icon
+					(_SteamVr.IsBroken ? LocalizationStrings.MenuOptions__Restore_SteamVR : LocalizationStrings.MenuOptions__Break_SteamVR));
 				item.Click += ToggleSteamVR_Click;
 				items.Add(item);
 			}

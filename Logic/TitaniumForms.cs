@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -7,11 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Microsoft.Win32;
 
 namespace Titanium
 {
 	/// <summary>
 	/// Just my library of small functions that makes c# WinForms programming easier.
+	/// <para> Despite of the program license, THIS file is <see href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</see></para>
+	/// <list type="table">
+	/// <item>
+	/// <term>Author</term>
+	/// <see href="https://github.com/TuTAH1">Титан</see>
+	/// </item>
+	/// </list>
 	/// </summary>
 	public static class Forms
 	{
@@ -70,6 +79,22 @@ namespace Titanium
 		}
 
 		public static int GetWindowPadding(this Form F, Orientation Side) => (int)((Side == Orientation.Horizontal? 6 : 5) * (F.DeviceDpi/96.0));
+		public static Size MeasureText(Label l) => TextRenderer.MeasureText(l.Text,l.Font);
+
+		/*public static async Task ForegroundColorAnimation(this Control c, Color EndColor, int TimeMs)
+		{
+			double R = EndColor.R, G = EndColor.G, B = EndColor.B, A = EndColor.A;
+			double R_ = c.ForeColor.R, G_ = c.ForeColor.G, B_ = c.ForeColor.B, A_ = c.ForeColor.A;
+			int TimeNs = (TimeMs * 1000) / 256;
+			Timer timer = new Timer();
+			timer.Interval = 
+			timer.Tick+=Timer_Tick(null);
+			}*/
+
+		private static void Timer_Tick(object sender, TimerElapsedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 
 		/// <summary>
 		/// Class that makes some *Action* on all depedent controlls if one/all text of depedent controls is/not valid
@@ -254,7 +279,7 @@ namespace Titanium
 				Label.Text = Text;
 				Label.Padding = Padding.Empty;
 				Label.Margin = Padding.Empty;
-				Label.Size = TextRenderer.MeasureText(Label.Text, Label.Font)+ new Size(4,0);
+				Label.Size = MeasureText(Label)+ new Size(4,0);
 				Label.Location = new Point(
 					Location.X + Spacing + Picture.Width,
 					TextAlignment switch
