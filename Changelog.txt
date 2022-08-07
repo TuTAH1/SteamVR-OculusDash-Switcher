@@ -1,6 +1,10 @@
 Future release:
+● Nothing yet
+
+2.0α2:
 ● Better user exp with tray icon color changing
 ● Fixed something
+● Fixed SteamVR method setting wasn't loaded
 
 2.0α:
 ● Localization
