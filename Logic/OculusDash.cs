@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using AngleSharp.Dom;
 using DataCollector;
 using Microsoft.Win32;
@@ -46,7 +48,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			else if (checkUpdates)
 			{
 				var doc = await Internet.getResponseAsync(@"https://github.com/ItsKaitlyn03/OculusKiller/releases");
-				var lastestVersion = doc.QuerySelector(".Link--primary")?.Text();
+				var lastestVersion = doc.QuerySelector(".ml-1.wb-break-all")?.Text();
 				if (lastestVersion is null) 
 					throw new ArgumentNullException(nameof(lastestVersion), "Can't get lastest version");
 
@@ -54,10 +56,18 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				if (currentVersion is null) 
 					throw new InvalidOperationException("Product version field is empty");
 
+				lastestVersion = new Regex("[^.0-9]").Replace(lastestVersion, "");
+
+				/*MessageBox.Show($"Lastest version: {lastestVersion};" +
+				                $"\nParsed: {Version.Parse(lastestVersion)}" +
+				                $"\n Current version: {currentVersion.ProductVersion}" +
+				                $"\n Parsed: {Version.Parse(currentVersion.ProductVersion)}");*/
+
+
 				//:If current file's version is lower than in github, download lastest from github
 				if (Version.Parse(lastestVersion) > Version.Parse(currentVersion.ProductVersion))
 				{
-					await DownloadLastestOculusKiller();
+					await DownloadLastestOculusKiller(); //! Not checked
 					return Status.Updated;
 				}
 			}
@@ -68,6 +78,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				using (var client = new HttpClient())
 				{
 					var s = await client.GetStreamAsync(oculusDashDownloadLink);
+					Directory.CreateDirectory(_innerOculusKillerPath.Slice(0,"\\"));
 					var fs = new FileStream(_innerOculusKillerPath, FileMode.OpenOrCreate);
 					s.CopyTo(fs); //TODO: may be done async
 				}

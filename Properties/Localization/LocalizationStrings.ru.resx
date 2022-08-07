@@ -268,4 +268,7 @@
   <data name="SettingsForm_btnApply_label__Saved" xml:space="preserve">
     <value>Сохранено!</value>
   </data>
+  <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
+	  <value>Проверка обновлений...</value>
+  </data>
 </root>

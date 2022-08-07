@@ -200,12 +200,12 @@ namespace SteamVR_OculusDash_Switcher
 
 			private void cbSteamVRDisableMethod_DropDownClosed(object sender, EventArgs e) => this.ttCbSteamVR.Hide((ComboBox)sender);
 
-			private async Task CheckOculusKillerUpdates()
+			private async void btnCheckOculusKillerUpdates_Click(object sender, EventArgs e)
 			{
+				btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates__Checking_updates;
+				btnCheckOculusKillerUpdates.Enabled = false;
 				try
 				{
-					btnCheckOculusKillerUpdates.Text = "Checking updates...";
-					btnCheckOculusKillerUpdates.Enabled = false;
 					var status = await OculusDash.CheckKiller(true);
 					MessageBox.Show(status switch
 					{
@@ -213,22 +213,16 @@ namespace SteamVR_OculusDash_Switcher
 						OculusDash.Status.Updated => LocalizationStrings.OculusKiller_StatusDiscription_Updated,
 						OculusDash.Status.NoAction => LocalizationStrings.OculusKiller_StatusDiscription_NoAction
 					}, "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 					btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
-					btnCheckOculusKillerUpdates.Enabled = false;
+					btnCheckOculusKillerUpdates.Enabled = true;
 				}
 				catch (Exception exception)
 				{
 					exception.ShowMessageBox();
 					btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
-					btnCheckOculusKillerUpdates.Enabled = false;
+					btnCheckOculusKillerUpdates.Enabled = true;
 				}
-			
-			}
 
-			private void btnCheckOculusKillerUpdates_Click(object sender, EventArgs e)
-			{
-				Task.Run(CheckOculusKillerUpdates);
 			}
 
 			private SoundPlayer Egg = null;

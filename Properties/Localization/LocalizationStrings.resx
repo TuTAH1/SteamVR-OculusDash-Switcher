@@ -274,4 +274,7 @@
   <data name="SettingsForm_btnApply_label__Saved" xml:space="preserve">
 	  <value>Saved!</value>
   </data>
+  <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
+	  <value>Checking updates...</value>
+  </data>
 </root>

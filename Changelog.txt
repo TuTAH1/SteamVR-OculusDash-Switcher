@@ -1,5 +1,6 @@
 Future release:
-● Nothing yet
+● Fixed OculusKiller Downloading
+● Oculus killing may still don't work
 
 2.0α2:
 ● Better user exp with tray icon color changing

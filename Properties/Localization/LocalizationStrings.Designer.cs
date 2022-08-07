@@ -350,6 +350,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Checking updates....
+        /// </summary>
+        internal static string SettingsForm_btnCheckOculusKillerUpdates__Checking_updates {
+            get {
+                return ResourceManager.GetString("SettingsForm_btnCheckOculusKillerUpdates__Checking_updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на show &quot;R3pl@ceMe&quot; option.
         /// </summary>
         internal static string SettingsForm_cb__show_xxx_option {
