@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 namespace Titanium {
 	/// <summary>
 	/// Just my library of small functions that makes c# programming easier. The automatization of automatization instrument
-	/// <para> Despite of the program license, THIS file is <see href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</see></para>
+	/// <para> Despite of the program license, THIS file is <see href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA</see></para>
 	/// <list type="table">
 	/// <item>
 	/// <term>Author</term>
