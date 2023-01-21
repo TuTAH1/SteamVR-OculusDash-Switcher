@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AngleSharp.Dom;
-using DataCollector;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
-using TitaniumComparator.LogicClasses;
 
 namespace SteamVR_OculusDash_Switcher.Logic
 {
@@ -22,7 +16,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 	{
 		public BreakMethod Method;
 		private static string _steamVrFolderPath;
-		private static string _steamVRexeFolderPath;
+		private static string _steamVRexeFolderPath => _steamVrFolderPath.Add("\\") + @"bin\win64\";
 		public bool IsBroken;
 		public static bool IsSteamVRExeFolderExist =>  Directory.Exists(_steamVRexeFolderPath);
 		private static readonly string[] _steamVRProcesses =
@@ -57,7 +51,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			var openvrpaths = $@"c:\Users\{Environment.UserName}\AppData\Local\openvr\openvrpaths.vrpath";
 			_steamVrFolderPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820")?.GetValue("InstallLocation")?.ToString() ?? @"C:\Program Files (x86)\Steam\steamapps\common\SteamVR\";
 
-			if (!Directory.Exists(_steamVrFolderPath))
+			if (!Directory.Exists(_steamVRexeFolderPath))
 			{
 				if (File.Exists(openvrpaths))
 				{
@@ -80,8 +74,6 @@ namespace SteamVR_OculusDash_Switcher.Logic
 					methodFound = true;
 				} else throw new DirectoryNotFoundException("SteamVR Folder not found");
 			}
-			
-			_steamVRexeFolderPath = _steamVrFolderPath.Add("\\") + @"bin\win64\";
 			return !methodFound;
 		}
 

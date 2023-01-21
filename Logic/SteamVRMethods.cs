@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 
 namespace SteamVR_OculusDash_Switcher.Logic
@@ -53,6 +49,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			    BreakMethod bm => bm == Value,
 			    SteamVR svr => svr.Method == Value,
 				SteamVRMethod svrm => Equals(svrm),
+				DBNull => false,
 			    _ => obj != null && (int)obj == (int)Value
 		    };
 

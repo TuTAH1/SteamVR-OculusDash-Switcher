@@ -196,7 +196,7 @@
     <value>Open context menu</value>
   </data>
   <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
-    <value>Break/Restore SteamVR</value>
+	  <value>Switch SteamVR ↔ Oculus</value>
   </data>
   <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
     <value>Kill SteamVR</value>
@@ -276,5 +276,14 @@
   </data>
   <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
 	  <value>Checking updates...</value>
+  </data>
+  <data name="OculusDash_OculusNotFound__Select_Oculus_folder_path" xml:space="preserve">
+	  <value>Select Oculus folder path</value>
+  </data>
+  <data name="SettingsForm__Main_functions" xml:space="preserve">
+	  <value>General functions</value>
+  </data>
+  <data name="SettingsForm__Interface" xml:space="preserve">
+	  <value>Interface</value>
   </data>
 </root>

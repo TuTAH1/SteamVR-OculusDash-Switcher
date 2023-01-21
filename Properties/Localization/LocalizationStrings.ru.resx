@@ -196,7 +196,7 @@
     <value>Открыть контекстное меню</value>
   </data>
   <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
-    <value>Сломать/Восстановить SteamVR</value>
+	  <value>Переключить SteamVR ↔ Oculus</value>
   </data>
   <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
     <value>Убить SteamVR</value>
@@ -270,5 +270,14 @@
   </data>
   <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
 	  <value>Проверка обновлений...</value>
+  </data>
+  <data name="OculusDash_OculusNotFound__Select_Oculus_folder_path" xml:space="preserve">
+	  <value>Выберите путь папки Oculus</value>
+  </data>
+  <data name="SettingsForm__Main_functions" xml:space="preserve">
+	  <value>Основные функции</value>
+  </data>
+  <data name="SettingsForm__Interface" xml:space="preserve">
+	  <value>Интерфейс</value>
   </data>
 </root>

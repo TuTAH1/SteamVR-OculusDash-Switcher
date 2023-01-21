@@ -19,7 +19,7 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class LocalizationStrings {
@@ -106,7 +106,7 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Break/Restore SteamVR.
+        ///   Ищет локализованную строку, похожую на Switch SteamVR ↔ Oculus.
         /// </summary>
         internal static string ControlsTipsForm_tip__LMB {
             get {
@@ -305,6 +305,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Select Oculus folder path.
+        /// </summary>
+        internal static string OculusDash_OculusNotFound__Select_Oculus_folder_path {
+            get {
+                return ResourceManager.GetString("OculusDash_OculusNotFound__Select_Oculus_folder_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Newest Oculus Killer was downloaded successfully.
         /// </summary>
         internal static string OculusKiller_StatusDiscription_Downloaded {
@@ -328,6 +337,24 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string OculusKiller_StatusDiscription_Updated {
             get {
                 return ResourceManager.GetString("OculusKiller_StatusDiscription_Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Interface.
+        /// </summary>
+        internal static string SettingsForm__Interface {
+            get {
+                return ResourceManager.GetString("SettingsForm__Interface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на General functions.
+        /// </summary>
+        internal static string SettingsForm__Main_functions {
+            get {
+                return ResourceManager.GetString("SettingsForm__Main_functions", resourceCulture);
             }
         }
         

@@ -362,6 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Test files
-Test/
-Readme images/
+# secret files
+secret/

@@ -1,31 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using InfoBox;
 using Microsoft.Win32;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Titanium;
 using Icon = System.Drawing.Icon;
-using System.Globalization;
-using System.Net;
-using System.Net.Http;
-using System.Resources;
-using System.Threading;
-using AngleSharp.Dom;
-using DataCollector;
 using SteamVR_OculusDash_Switcher.Forms;
 using SteamVR_OculusDash_Switcher.Logic;
 using SteamVR_OculusDash_Switcher.Properties;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
-using TitaniumComparator.LogicClasses;
-
 namespace SteamVR_OculusDash_Switcher
 {
 	static partial class Program
@@ -59,6 +44,12 @@ namespace SteamVR_OculusDash_Switcher
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(true);
 			if (_IconsRealismLevel <0 || _IconsRealismLevel > _MaxIconsRealismLevel) _IconsRealismLevel = 1;
+
+			ErrorTaskDialog.InitializeDictionary(
+				LocalizationStrings.ErrorTaskDialog__OpenMicrosoftDocs,
+				LocalizationStrings.ErrorTaskDialog__Copy_to_Clipboard,
+				LocalizationStrings.ErrorTaskDialog__Open_Inner_Exception, 
+				LocalizationStrings.Button__Close);
 
 			bool oculusBroken = false;
 			try
@@ -243,8 +234,8 @@ namespace SteamVR_OculusDash_Switcher
 
 		private static void ToggleSteamVR_Click(object sender, EventArgs args)
 		{
-			if (_SteamVr.IsBroken) RestoreSteamVR();
-			else BreakSteamVR();
+			if (CurrentMode == Mode.Oculus) ToSteamVR();
+			else ToOculus();
 		}
 
 		private static void KillSteamVR()
@@ -255,7 +246,7 @@ namespace SteamVR_OculusDash_Switcher
 				{ e.ShowMessageBox(); }
 		}
 
-		private static void BreakSteamVR()
+		private static void ToOculus()
 		{
 			try
 			{
@@ -264,7 +255,7 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					OculusDash.Restore();
 				}
-
+				CurrentMode = Mode.Oculus;
 				notifyIcon1.Icon = GetIcon();
 			}
 			catch (Exception e)
@@ -273,7 +264,7 @@ namespace SteamVR_OculusDash_Switcher
 			}
 		}
 
-		private static void RestoreSteamVR()
+		private static void ToSteamVR()
 		{
 			try
 			{
@@ -282,6 +273,9 @@ namespace SteamVR_OculusDash_Switcher
 				{
 					OculusDash.Break();
 				}
+
+				CurrentMode = Mode.SteamVR;
+
 				notifyIcon1.Icon = GetIcon();
 			}
 			catch (Exception e)

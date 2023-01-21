@@ -1,99 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AngleSharp.Dom;
 using DataCollector;
 using Microsoft.Win32;
+using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
 
 namespace SteamVR_OculusDash_Switcher.Logic
 {
     public static class OculusDash
     {
-        private static readonly string _oculusFolderPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Oculus")?.GetValue("InstallLocation")?.ToString()?? (Directory.Exists( @"C:\Program Files\Oculus\")?  @"C:\Program Files\Oculus\" : null);
+        private static readonly string _oculusFolderPath;
 		/// <summary>OculusDash.exe path</summary>
-		private static readonly string _oculusDashExePath = _oculusFolderPath?.Add("\\" + @"Support\oculus-dash\dash\bin\OculusDash.exe");
+		private static readonly string _oculusDashExePath;
 		///<summary>Oculus killere exe's location inside of this program's folder</summary>
 		const string _innerOculusKillerPath = @"OculusDashKiller\OculusDash.exe";
 		private static bool OculusKillerChecked = false;
-		public static bool IsOculusKillerExist => File.Exists(_innerOculusKillerPath);
-		public static bool IsOculusExist => _oculusFolderPath != null;
 
-		public enum Status
+		static OculusDash()
 		{
-			Downloaded,
-			Updated,
-			NoAction
+			_oculusFolderPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Oculus")?.GetValue("InstallLocation")?.ToString()?? (Directory.Exists( @"C:\Program Files\Oculus\")?  @"C:\Program Files\Oculus\" : null); //: Check where Oculus is installed, if not found, set default path
+
+			if (_oculusFolderPath == null)
+			{
+				var drives = DriveInfo.GetDrives();
+				foreach (var drive in drives)
+				{
+					string driveLetter = drive.RootDirectory.FullName;
+					string oculusFolderPath = Path.Combine(driveLetter, @"Oculus\");
+					if (!Directory.Exists(oculusFolderPath)) continue;
+
+					_oculusFolderPath = oculusFolderPath;
+					break;
+				}
+			}
+
+			if (_oculusFolderPath == null)
+			{
+				using var fbd = new FolderBrowserDialog();
+				fbd.Description = LocalizationStrings.OculusDash_OculusNotFound__Select_Oculus_folder_path;
+				DialogResult result = fbd.ShowDialog();
+
+				if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+				{
+					string[] files = Directory.GetFiles(fbd.SelectedPath);
+				}
+			}
+
+			_oculusDashExePath = _oculusFolderPath?.Add("\\" + @"Support\oculus-dash\dash\bin\OculusDash.exe");
 		}
 
-		//TODO: Make it async
+		public static bool IsOculusKillerExist => File.Exists(_innerOculusKillerPath);
+		public static bool IsOculusExist => _oculusFolderPath != null;
+		
+
 		//:Checks if OculusKiller exe exist and downloads the lastest release if not
-		private static async Task<Status> checkOculusKiller(bool checkUpdates)
+		private static async Task<GitHub.Status> checkOculusKiller(bool checkUpdates)
 		{
-			const string oculusDashDownloadLink = @"https://github.com/ItsKaitlyn03/OculusKiller/releases/latest/download/OculusDash.exe";
-			
-			if (!IsOculusKillerExist)
-			{
-				await DownloadLastestOculusKiller();
-				return Status.Downloaded;
-			}
-			else if (checkUpdates)
-			{
-				var doc = await Internet.getResponseAsync(@"https://github.com/ItsKaitlyn03/OculusKiller/releases");
-				var lastestVersion = doc.QuerySelector(".ml-1.wb-break-all")?.Text();
-				if (lastestVersion is null) 
-					throw new ArgumentNullException(nameof(lastestVersion), "Can't get lastest version");
-
-				var currentVersion = FileVersionInfo.GetVersionInfo(_innerOculusKillerPath);
-				if (currentVersion is null) 
-					throw new InvalidOperationException("Product version field is empty");
-
-				lastestVersion = new Regex("[^.0-9]").Replace(lastestVersion, "");
-
-				/*MessageBox.Show($"Lastest version: {lastestVersion};" +
-				                $"\nParsed: {Version.Parse(lastestVersion)}" +
-				                $"\n Current version: {currentVersion.ProductVersion}" +
-				                $"\n Parsed: {Version.Parse(currentVersion.ProductVersion)}");*/
-
-
-				//:If current file's version is lower than in github, download lastest from github
-				if (Version.Parse(lastestVersion) > Version.Parse(currentVersion.ProductVersion))
-				{
-					await DownloadLastestOculusKiller(); //! Not checked
-					return Status.Updated;
-				}
-			}
-			return Status.NoAction;
-
-			async Task<bool> DownloadLastestOculusKiller()
-			{
-				using (var client = new HttpClient())
-				{
-					var s = await client.GetStreamAsync(oculusDashDownloadLink);
-					Directory.CreateDirectory(_innerOculusKillerPath.Slice(0,"\\"));
-					var fs = new FileStream(_innerOculusKillerPath, FileMode.OpenOrCreate);
-					s.CopyTo(fs); //TODO: may be done async
-				}
-
-				new WebClient().DownloadFile(oculusDashDownloadLink, "OculusDash.exe");
-				return true;
-			}
+			const string oculusDashRepository = @"ItsKaitlyn03/OculusKiller";
+			return(await GitHub.checkSoftwareUpdatesByLink(GitHub.UpdateMode.Update, oculusDashRepository,_innerOculusKillerPath,"OculusDashKiller").ConfigureAwait(false)).Status;
 		}
 
 		/// <summary>
 		/// Checks if OculusKiller exe exist and otherwise downloads the lastest release (also tries to update, if <param name="checkUpdates"/> is true)
 		/// </summary>
-		public static async Task<Status> CheckKiller(bool checkUpdates = false)
+		public static async Task<GitHub.Status> CheckKiller(bool checkUpdates = false)
 		{
-			var status = await checkOculusKiller(checkUpdates);
+			var status = await checkOculusKiller(checkUpdates).ConfigureAwait(false);
 			OculusKillerChecked = true; //: Sets true if no exceptions
 			return status;
 		}
@@ -110,9 +89,18 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		{
 			try
 			{
-				return (new FileInfo(_oculusDashExePath).Length <= (IsOculusKillerExist? new FileInfo(_innerOculusKillerPath).Length : 1000))? //TODO: Add IsOculusExist check
-						File.Exists(_oculusDashExePath)? true : null
-						: false;
+				var oculusDashExeFileInfo = new FileInfo(_oculusDashExePath);
+
+				if (!oculusDashExeFileInfo.Exists) //: OculusDash.exe exist
+				{
+					var backup = new FileInfo(_oculusDashExePath + "_");
+					if (!backup.Exists) return null; //: OculusDash.exe_ exist
+					else return true;
+				}
+				else if (oculusDashExeFileInfo.Length <= (IsOculusKillerExist ? new FileInfo(_innerOculusKillerPath).Length : 1000)) //: OculusDash.exe is replaced by killer
+					return true;
+				else
+					return false; //: OculusDash.exe is ok
 			}
 			catch (Exception e)
 			{
@@ -123,11 +111,10 @@ namespace SteamVR_OculusDash_Switcher.Logic
 
 		public static void Break()
 		{
-			if (!OculusKillerChecked) CheckKiller();
+			if (!OculusKillerChecked) CheckKiller().Wait();
 			if(IsOculusDashKilled()!= false) return;
-
 			File.Move(_oculusDashExePath, _oculusDashExePath + "_", true); //: Backup
-			File.Move(_innerOculusKillerPath, _oculusDashExePath,true); //: Replace with Oculus Killer
+			File.Copy(_innerOculusKillerPath, _oculusDashExePath,true); //: Replace with Oculus Killer
 		}
 
 		public static void Restore()

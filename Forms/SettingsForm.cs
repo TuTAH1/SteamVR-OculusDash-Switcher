@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Media;
-using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,7 +10,6 @@ using SteamVR_OculusDash_Switcher.Logic;
 using SteamVR_OculusDash_Switcher.Properties;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
-using TitaniumComparator.LogicClasses;
 using static SteamVR_OculusDash_Switcher.Program;
 using static Titanium.Forms;
 
@@ -101,6 +97,8 @@ namespace SteamVR_OculusDash_Switcher
 			lbSaved.Text = LocalizationStrings.SettingsForm_btnApply_label__Saved;
 			lbSaved.Left = btnApply.Left - MeasureText(lbSaved).Width; //- lbSaved.Margin.Right;
 			lbSaved.ForeColor = this.BackColor;
+			gbFunctions.Text = LocalizationStrings.SettingsForm__Main_functions;
+			gbInterface.Text = LocalizationStrings.SettingsForm__Interface;
 
 			//btnApply.Enabled = false;
 
@@ -128,17 +126,25 @@ namespace SteamVR_OculusDash_Switcher
 		#region Обработчики событий
 		
 			//\---------------
-			//% SETTINGS APPLY
+			//! SETTINGS APPLY
 			//\---------------
 			private void btnApply_Click(object sender, EventArgs e)
 			{
 				try
 				{
-					bool restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = false; //TODO: Someone plaese say me how to clear combobox and it's work without -1 index exception that if it's possible
+					bool restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = false; //TODO: Someone plaese say me how to clear combobox and it's work without -1 index exception if it's possible
+
+					//! LANGUAGE CHANGE
 					if (!Equals(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, ((Language)comboLanguage.SelectedItem).Culture.TwoLetterISOLanguageName))
 					{
 						Thread.CurrentThread.CurrentUICulture = ((Language)comboLanguage.SelectedItem).Culture;
 						restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = true;
+
+						ErrorTaskDialog.InitializeDictionary(
+							LocalizationStrings.ErrorTaskDialog__OpenMicrosoftDocs,
+							LocalizationStrings.ErrorTaskDialog__Copy_to_Clipboard,
+							LocalizationStrings.ErrorTaskDialog__Open_Inner_Exception, 
+							LocalizationStrings.Button__Close);
 					}
 
 					if (comboSteamVRDisableMethod.SelectedItem!= null && Settings.Default.SteamVRDisablingMethod != (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem)
@@ -209,9 +215,9 @@ namespace SteamVR_OculusDash_Switcher
 					var status = await OculusDash.CheckKiller(true);
 					MessageBox.Show(status switch
 					{
-						OculusDash.Status.Downloaded => LocalizationStrings.OculusKiller_StatusDiscription_Downloaded,
-						OculusDash.Status.Updated => LocalizationStrings.OculusKiller_StatusDiscription_Updated,
-						OculusDash.Status.NoAction => LocalizationStrings.OculusKiller_StatusDiscription_NoAction
+						GitHub.Status.Downloaded => LocalizationStrings.OculusKiller_StatusDiscription_Downloaded,
+						GitHub.Status.Updated => LocalizationStrings.OculusKiller_StatusDiscription_Updated,
+						GitHub.Status.NoAction => LocalizationStrings.OculusKiller_StatusDiscription_NoAction
 					}, "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					btnCheckOculusKillerUpdates.Text = LocalizationStrings.SettingsForm_btnCheckOculusKillerUpdates;
 					btnCheckOculusKillerUpdates.Enabled = true;
@@ -278,7 +284,7 @@ namespace SteamVR_OculusDash_Switcher
 
 		private void SetTrayColorValue()
 		{
-			lbTrayIconColorValue.Text = Settings.Default.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black + "►" : "◄" + LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
+			lbTrayIconColorValue.Text = Settings.Default.BlackMode ? LocalizationStrings.SettingsForm_lbTrayIconColorValue_Black + " ►" : "◄ " + LocalizationStrings.SettingsForm_lbTrayIconColorValue_White;
 		}
 
 		private void Change_IconRealism_DiscriptionAndImage()

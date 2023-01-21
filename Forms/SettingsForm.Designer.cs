@@ -164,7 +164,7 @@ namespace SteamVR_OculusDash_Switcher
 			this.gbInterface.Controls.Add(this.comboLanguage);
 			this.gbInterface.Location = new System.Drawing.Point(318, 12);
 			this.gbInterface.Name = "gbInterface";
-			this.gbInterface.Size = new System.Drawing.Size(267, 315);
+			this.gbInterface.Size = new System.Drawing.Size(295, 315);
 			this.gbInterface.TabIndex = 999;
 			this.gbInterface.TabStop = false;
 			this.gbInterface.Text = "Interface";
@@ -181,14 +181,16 @@ namespace SteamVR_OculusDash_Switcher
 			// lbTrayIconColorValue
 			// 
 			this.lbTrayIconColorValue.AutoSize = true;
+			this.lbTrayIconColorValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.lbTrayIconColorValue.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.lbTrayIconColorValue.Font = new System.Drawing.Font("DejaVu Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.lbTrayIconColorValue.ForeColor = System.Drawing.SystemColors.MenuHighlight;
 			this.lbTrayIconColorValue.Location = new System.Drawing.Point(135, 263);
 			this.lbTrayIconColorValue.Margin = new System.Windows.Forms.Padding(0);
 			this.lbTrayIconColorValue.Name = "lbTrayIconColorValue";
-			this.lbTrayIconColorValue.Size = new System.Drawing.Size(105, 25);
+			this.lbTrayIconColorValue.Size = new System.Drawing.Size(157, 23);
 			this.lbTrayIconColorValue.TabIndex = 1004;
-			this.lbTrayIconColorValue.Text = "White/Black";
+			this.lbTrayIconColorValue.Text = "◄ White/Black ►";
 			this.lbTrayIconColorValue.Click += new System.EventHandler(this.lbTrayIconColorValue_Click);
 			// 
 			// lbTrayIconColor
