@@ -235,7 +235,7 @@
     <value>Easteregg speacking with you</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
-    <value>Stop playing amazing music?</value>
+	  <value>Stop playing amazing song?</value>
   </data>
   <data name="IconRealismLevel_0_Discription" xml:space="preserve">
     <value>Minimalistic shit</value>
@@ -285,5 +285,11 @@
   </data>
   <data name="SettingsForm__Interface" xml:space="preserve">
 	  <value>Interface</value>
+  </data>
+  <data name="MenuOptions_SetAutorunValue_ErrorText" xml:space="preserve">
+	  <value>Error while changing Autorun value</value>
+  </data>
+  <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
+	  <value>Can't play amazing song</value>
   </data>
 </root>

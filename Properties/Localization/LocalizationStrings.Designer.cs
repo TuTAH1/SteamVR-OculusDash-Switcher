@@ -287,6 +287,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Error while changing Autorun value.
+        /// </summary>
+        internal static string MenuOptions_SetAutorunValue_ErrorText {
+            get {
+                return ResourceManager.GetString("MenuOptions_SetAutorunValue_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SteamVR not found! The program will not work if you continue.
         /// </summary>
         internal static string MessageBox_text__SteamVR_not_found {
@@ -472,6 +481,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string SettingsForm_lbTrayIconColorValue_White {
             get {
                 return ResourceManager.GetString("SettingsForm_lbTrayIconColorValue_White", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Can&apos;t play awesome music.
+        /// </summary>
+        internal static string SettingsForm_RealismLevel_Max_Error {
+            get {
+                return ResourceManager.GetString("SettingsForm_RealismLevel_Max_Error", resourceCulture);
             }
         }
         

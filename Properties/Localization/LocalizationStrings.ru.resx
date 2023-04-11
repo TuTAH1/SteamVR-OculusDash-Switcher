@@ -280,4 +280,10 @@
   <data name="SettingsForm__Interface" xml:space="preserve">
 	  <value>Интерфейс</value>
   </data>
+  <data name="MenuOptions_SetAutorunValue_ErrorText" xml:space="preserve">
+	  <value>Ошибка изменения значения Автозапуск</value>
+  </data>
+  <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
+	  <value>Не получается воспроизвести замечательную песню</value>
+  </data>
 </root>

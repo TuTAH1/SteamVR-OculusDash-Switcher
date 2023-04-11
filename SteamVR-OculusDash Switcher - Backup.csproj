@@ -36,28 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <COMReference Include="WMPLib">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-
-  <ItemGroup>
 	<PackageReference Include="AngleSharp" Version="0.17.1" />
 	<PackageReference Include="InformationBox" Version="1.2.0.91" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	<PackageReference Include="Octokit" Version="4.0.4" />
 	<PackageReference Include="Ookii.Dialogs.WinForms" Version="4.0.0" />
 	<PackageReference Include="SharpZipLib" Version="1.4.1" />
-	<PackageReference Include="WMPLib" Version="1.0.0">
-	  <PrivateAssets>all</PrivateAssets>
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	</PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -104,7 +88,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /s /y &quot;$(ProjectDir)images\*&quot; &quot;$(ProjectDir)$(OutDir)images\&quot;&#xD;&#xA;xcopy /s /y &quot;$(ProjectDir)icons\*&quot; &quot;$(ProjectDir)$(OutDir)icons\&quot;&#xD;&#xA;" />
+    <Exec Command="copy $(ProjectDir)images\\* $(ProjectDir)$(OutDir)&#xD;&#xA;copy $(ProjectDir)icons\\* $(ProjectDir)$(OutDir)&#xD;&#xA;" />
   </Target>
 
 </Project>

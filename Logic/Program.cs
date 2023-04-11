@@ -40,6 +40,8 @@ namespace SteamVR_OculusDash_Switcher
 		[STAThread]
 		static void Main()
 		{
+			Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory); //: Костыль for autostart
+
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(true);
@@ -290,12 +292,15 @@ namespace SteamVR_OculusDash_Switcher
 			try
 			{
 				// ReSharper disable twice PossibleNullReferenceException
-				if (Autorun) reg.SetValue(Application.ProductName, exePath);
+				if (Autorun) reg.SetValue(Application.ProductName, $"\"{exePath}\"");
 				else reg.DeleteValue(Application.ProductName);
-	
+
 				reg.Close();
 			}
-			catch {}
+			catch (Exception e)
+			{
+				e.ShowMessageBox(LocalizationStrings.MenuOptions_SetAutorunValue_ErrorText + $" (→ {Autorun})");
+			}
 		}
 
 		public static bool IsAutorun() => Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\")?.GetValue(Application.ProductName) is not null;

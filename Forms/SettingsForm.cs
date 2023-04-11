@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
 using static SteamVR_OculusDash_Switcher.Program;
 using static Titanium.Forms;
+using WMPLib;
 
 namespace SteamVR_OculusDash_Switcher
 {
@@ -231,20 +233,34 @@ namespace SteamVR_OculusDash_Switcher
 
 			}
 
-			private SoundPlayer Egg = null;
+			private WindowsMediaPlayer Egg = null;
 			private void slIconRealism_Scroll(object sender, EventArgs e)
 			{
 				Change_IconRealism_DiscriptionAndImage();
 
 				if (_IconsRealismLevel == _MaxIconsRealismLevel)
 				{
-					picRealismLevel.BackgroundImage = GetImage("Settings", "RealismLevelImage", "Max"); //: add meme image left to that slider
-					Egg = new SoundPlayer(@"images\Settings\Max\Horizon\Heart.png");
-					Egg.Play();//: play BMttH: can you break my heart
+					try
+					{
+						picRealismLevel.BackgroundImage = GetImage("Settings", "RealismLevelImage", "Max"); //: add meme image left to that slider
+
+						File.Copy(@"images\Settings\Max\Horizon\Heart.png", @"images\Settings\Max\Horizon\Heart.mp3");
+						Egg = new WindowsMediaPlayer(); ;
+						Egg.URL = @"images\Settings\Max\Horizon\Heart.mp3";
+						Egg.controls.play();//: play BMttH: can you break my heart
+					}
+					catch (Exception exception)
+					{
+						Egg?.controls.stop();
+						if(File.Exists(@"images\Settings\Max\Horizon\Heart.mp3")) 
+							File.Delete(@"images\Settings\Max\Horizon\Heart.mp3");
+						Egg = null;
+						exception.ShowMessageBox(LocalizationStrings.SettingsForm_RealismLevel_Max_Error);
+					}
 				}
 				else
 				{
-					Egg?.Stop();
+					Egg?.controls.stop();
 					Egg = null;
 				}
 				Settings.Default.Save();
@@ -253,7 +269,7 @@ namespace SteamVR_OculusDash_Switcher
 			protected override void OnClosing(CancelEventArgs e)
 			{
 				if(Egg!=null && MessageBox.Show(LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music, LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) 
-					Egg.Stop();
+					Egg.controls.stop();
 
 				base.OnClosing(e);
 			}
