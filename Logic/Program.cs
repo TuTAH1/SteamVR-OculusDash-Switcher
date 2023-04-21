@@ -51,7 +51,9 @@ namespace SteamVR_OculusDash_Switcher
 				LocalizationStrings.ErrorTaskDialog__OpenMicrosoftDocs,
 				LocalizationStrings.ErrorTaskDialog__Copy_to_Clipboard,
 				LocalizationStrings.ErrorTaskDialog__Open_Inner_Exception, 
-				LocalizationStrings.Button__Close);
+				LocalizationStrings.Button__Close,
+				LocalizationStrings.ErrorTaskDialog__Title,
+				LocalizationStrings.ErrorTaskDialog__Open_Callstack);
 
 			bool oculusBroken = false;
 			try

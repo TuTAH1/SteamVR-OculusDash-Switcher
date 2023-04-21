@@ -367,9 +367,10 @@ namespace Titanium
 			internal static string Copy_to_Clipboard;
 			internal static string Open_Inner_Exception;
 			internal static string Title;
+			internal static string Open_Callstack;
 		}
 
-		public static void InitializeDictionary(string OpenMicrosoftDocs = "Open Microsoft documentation", string Copy_to_Clipboard = "Copy to Clipboard", string Open_Inner_Exception =  "Open inner exception", string Close = "Close", string Title = "Error")
+		public static void InitializeDictionary(string OpenMicrosoftDocs = "Open Microsoft documentation", string Copy_to_Clipboard = "Copy to Clipboard", string Open_Inner_Exception = "Open inner exception", string Close = "Close", string Title = "Error", string Open_Callstack = "Open call stack")
 		{
 			DictionaryInitialized = true;
 
@@ -378,35 +379,45 @@ namespace Titanium
 			ETDLocalizaton.Copy_to_Clipboard = Copy_to_Clipboard;
 			ETDLocalizaton.Open_Inner_Exception = Open_Inner_Exception;
 			ETDLocalizaton.Title = Title;
+			ETDLocalizaton.Open_Callstack = Open_Callstack;
 		}
-		public static void ShowMessageBox(this Exception? Error, string? Title = null)
+		public static void ShowMessageBox(this Exception Error, string Title = null)
 		{
-			if(Error == null) return;
-			if(!DictionaryInitialized) InitializeDictionary();
+			if (Error == null) return;
+			if (!DictionaryInitialized) InitializeDictionary();
 
 
 			Ookii.Dialogs.WinForms.TaskDialog taskDialog = new();
 			taskDialog.WindowTitle = Title ?? ETDLocalizaton.Title;
 			taskDialog.Content = Error.Message;
 			//if(Error.Data.Count!=0) taskDialog.CollapsedControlText = Error.Data.ToDictionary().ToStringT();
-			if(Error.HelpLink!=null) taskDialog.Footer = $"<a href=\"{Error.HelpLink}\">{ETDLocalizaton.OpenMicrosoftDocs}</a>";
-			TaskDialogButton closeBtn = new(ETDLocalizaton.Close), 
-				copyBtn = new(ETDLocalizaton.Copy_to_Clipboard), 
-				innerExceptionBtn = new(ETDLocalizaton.Open_Inner_Exception);
+			if (Error.HelpLink != null) taskDialog.Footer = $"<a href=\"{Error.HelpLink}\">{ETDLocalizaton.OpenMicrosoftDocs}</a>";
+			TaskDialogButton closeBtn = new(ETDLocalizaton.Close),
+				copyBtn = new(ETDLocalizaton.Copy_to_Clipboard),
+				innerExceptionBtn = new(ETDLocalizaton.Open_Inner_Exception),
+				callStack = new(ETDLocalizaton.Open_Callstack);
 			innerExceptionBtn.Enabled = Error.InnerException != null;
 			taskDialog.Buttons.Add(closeBtn);
 			taskDialog.Buttons.Add(copyBtn);
+			taskDialog.Buttons.Add(callStack);
 			taskDialog.Buttons.Add(innerExceptionBtn);
 
 			var button = taskDialog.ShowDialog();
-			if(button == closeBtn) taskDialog.Dispose();
-			if(button == copyBtn) {Thread thread = new(() => Clipboard.SetText(Error.Message));
+			if (button == closeBtn) taskDialog.Dispose();
+			if (button == copyBtn)
+			{
+				Thread thread = new(() => Clipboard.SetText(Error.Message));
 				thread.SetApartmentState(ApartmentState.STA);
 				thread.Start();
 				thread.Join();
 				Error.ShowMessageBox();
 			}
-			if(button == innerExceptionBtn) 
+
+			if (button == callStack)
+			{
+				MessageBox.Show(Error.StackTrace);
+			}
+			if (button == innerExceptionBtn)
 				Error.InnerException.ShowMessageBox();
 		}
 	}

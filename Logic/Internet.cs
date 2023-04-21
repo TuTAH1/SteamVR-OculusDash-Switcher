@@ -1,11 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Net; //для работы с интернетом
+
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
 using AngleSharp.Io;
+using static System.Console;
 
 namespace DataCollector
 {
