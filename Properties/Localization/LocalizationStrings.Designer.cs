@@ -142,6 +142,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Open call stack.
+        /// </summary>
+        internal static string ErrorTaskDialog__Open_Callstack {
+            get {
+                return ResourceManager.GetString("ErrorTaskDialog__Open_Callstack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Open an inner exception.
         /// </summary>
         internal static string ErrorTaskDialog__Open_Inner_Exception {
@@ -156,6 +165,15 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string ErrorTaskDialog__OpenMicrosoftDocs {
             get {
                 return ResourceManager.GetString("ErrorTaskDialog__OpenMicrosoftDocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Error.
+        /// </summary>
+        internal static string ErrorTaskDialog__Title {
+            get {
+                return ResourceManager.GetString("ErrorTaskDialog__Title", resourceCulture);
             }
         }
         
@@ -413,7 +431,7 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Stop playing amazing music?.
+        ///   Ищет локализованную строку, похожую на Stop playing amazing song?.
         /// </summary>
         internal static string SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music {
             get {
@@ -485,7 +503,7 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Can&apos;t play awesome music.
+        ///   Ищет локализованную строку, похожую на Can&apos;t play amazing song.
         /// </summary>
         internal static string SettingsForm_RealismLevel_Max_Error {
             get {

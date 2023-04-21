@@ -30,6 +30,8 @@ namespace SteamVR_OculusDash_Switcher
 			Text = LocalizationStrings.SettingsForm_Title;
 			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 
+			gbUpdate.Visible = false; //: Autoupdate not ready yet
+
 			#region Functions group
 
 			lbSteamVRDisableMethod.Text = LocalizationStrings.SettingsForm_lbSteamVRDisableMethod;
@@ -58,7 +60,8 @@ namespace SteamVR_OculusDash_Switcher
 
 			#region Interface group
 
-			gbInterface.Left = gbFunctions.Right + gbFunctions.Margin.Right + gbInterface.Margin.Left;
+			
+			gbInterface.Left = Math.Max(gbFunctions.Right + gbFunctions.Margin.Right, gbUpdate.Right + gbUpdate.Margin.Right) + gbInterface.Margin.Left; //: gbInterface Left position
 
 			picLanguage.Image = GetImage("Settings", "language");
 			lbLanguage.Text = LocalizationStrings.SettingsForm_lbLanguage;

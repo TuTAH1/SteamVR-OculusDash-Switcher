@@ -247,8 +247,8 @@
     <value>Realistic icons</value>
   </data>
   <data name="IconRealismLevel_3_Discription" xml:space="preserve">
-    <value>Yes, I know what "icon" means. 
- It'o photo, but transparent</value>
+	  <value>Yes, I know what "icon" means. 
+ It's a photo, but transparent</value>
   </data>
   <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
     <value>I don't know how did you set the impossible value</value>
@@ -291,5 +291,11 @@
   </data>
   <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
 	  <value>Can't play amazing song</value>
+  </data>
+  <data name="ErrorTaskDialog__Title" xml:space="preserve">
+	  <value>Error</value>
+  </data>
+  <data name="ErrorTaskDialog__Open_Callstack" xml:space="preserve">
+	  <value>Open call stack</value>
   </data>
 </root>

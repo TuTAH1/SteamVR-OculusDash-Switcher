@@ -61,18 +61,23 @@ namespace SteamVR_OculusDash_Switcher.Logic
 					if (json.ContainsKey("runtime"))
 					{
 						var item = (JArray)json["runtime"];
-						if (item != null && item.Contains("SteamVR"))
+						if (item != null && item.First.ToString().Contains("SteamVR"))
 						{
 							_steamVrFolderPath = item.First.ToString();
 						}
 					}
 				}
 
-				if (!Directory.Exists(_steamVrFolderPath) && Directory.Exists(_steamVrFolderPath.ReplaceFromLast("SteamVR", "SteamVR_")))
+				if (!Directory.Exists(_steamVrFolderPath))
 				{
-					Method = BreakMethod.RenameFolder;
-					methodFound = true;
-				} else throw new DirectoryNotFoundException("SteamVR Folder not found");
+					if (Directory.Exists(_steamVrFolderPath.ReplaceFromLast("SteamVR", "SteamVR_", false)))
+					{
+						Method = BreakMethod.RenameFolder;
+						methodFound = true;
+					} 
+					else throw new DirectoryNotFoundException("SteamVR Folder not found");
+				}
+				
 			}
 			return !methodFound;
 		}

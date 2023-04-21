@@ -286,4 +286,10 @@
   <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
 	  <value>Не получается воспроизвести замечательную песню</value>
   </data>
+  <data name="ErrorTaskDialog__Title" xml:space="preserve">
+	  <value>Ошибка</value>
+  </data>
+  <data name="ErrorTaskDialog__Open_Callstack" xml:space="preserve">
+	  <value>Открыть стек вызовов</value>
+  </data>
 </root>
