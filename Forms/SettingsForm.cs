@@ -247,10 +247,12 @@ namespace SteamVR_OculusDash_Switcher
 					{
 						picRealismLevel.BackgroundImage = GetImage("Settings", "RealismLevelImage", "Max"); //: add meme image left to that slider
 
-						if (File.Exists(@"images\Settings\Max\Horizon\Heart.mp3"))
+						if (!File.Exists(@"images\Settings\Max\Horizon\Heart.mp3"))
 							File.Copy(@"images\Settings\Max\Horizon\Heart.png", @"images\Settings\Max\Horizon\Heart.mp3");
-						Egg = new WindowsMediaPlayer();
-						Egg.URL = @"images\Settings\Max\Horizon\Heart.mp3";
+						Egg = new WindowsMediaPlayer
+						{
+							URL = @"images\Settings\Max\Horizon\Heart.mp3"
+						};
 						Egg.controls.play();//: play BMttH: can you break my heart
 					}
 					catch (Exception exception)
@@ -258,7 +260,7 @@ namespace SteamVR_OculusDash_Switcher
 						Egg?.controls.stop();
 						if(File.Exists(@"images\Settings\Max\Horizon\Heart.mp3")) 
 							File.Delete(@"images\Settings\Max\Horizon\Heart.mp3");
-						Egg.close();
+						Egg?.close();
 						Egg = null;
 						exception.ShowMessageBox(LocalizationStrings.SettingsForm_RealismLevel_Max_Error);
 					}
@@ -269,7 +271,7 @@ namespace SteamVR_OculusDash_Switcher
 						File.Delete(@"images\Settings\Max\Horizon\Heart.mp3");
 
 					Egg?.controls.stop();
-					Egg.close();
+					Egg?.close();
 					Egg = null;
 				}
 				Settings.Default.Save();
