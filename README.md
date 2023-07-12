@@ -1,7 +1,32 @@
 
-# Why was it created?
-I have an Oculus HMD and if I launch Vivport, it always launches SteamVR, while most games runs without it. So, SteamVR just floating in the background, taking resources and focusing VR on itself (that causing issues in some games). If I just rename SteamVR folder, as other programs do, stupid Vivport refuses to launch games (even those many games that doesn't require SteamVR). That's why I did that – the programm, that creates a dummy SteamVR exes, replacing the real ones (reversible). So, after that, Viveport sees SteamVR exes and doesn't forbid to launch games, but it doesn't feeds SteamVR with PCs resources scince the dummy SteamVR exes can't be launched
+# v2.0 Descryption
+It's a programm that give you a possibility to:
+
+● Disable/Enable SteamVR in 1 of 4 ways, works even for Viveport
+
+![SteamVR modes_1](https://user-images.githubusercontent.com/15982179/183133596-93583b2a-7658-47ac-9c4c-b116c162d024.jpg)
+
+● Disable/Enable Oculus Dash
+
+● Kill SteamVR
+
+● Minimalistic icons
+
+● Possibility to fuck the minimalistic icons off
+
+● Settings
+
+![Settings_1](https://user-images.githubusercontent.com/15982179/183133619-9075360e-db39-4035-aaef-01cc1627477e.jpg)
+
+● One click mode
+
+![Скриншот 05-08-2022 212443_1](https://user-images.githubusercontent.com/15982179/183133780-b5cd8a8f-9e7d-48d8-a041-e2f9810b0a8f.jpg)
+
+
+
+And all of that is just one click via tray icon! No annoying window running in the background required
+
+![Tray menu_1](https://user-images.githubusercontent.com/15982179/183133638-2d01e2cc-54d5-4f55-a448-cbbe1dc76947.jpg)
 
 # How to use
-Download the lastest release, unpack it in any folder and launch. You will see a tray icon, by clicking RMB you can see context menu with some options, but you can control the app just with one mouse click (LMB for toogle SteamVR, MMB for kill SteamVR)
-When you see a icon with HMD and red hammer, it means SteamVR is ok and clicking (LMB) will "break" SteamVR. If you see an icon with broken HMD and green wrench, it means SteamVR is broken and clicking the icon will recover it.
+Download the lastest release, unpack it in any (non-temporal) folder and launch. You will see a tray icon, by clicking RMB you can see context menu with some options (including "settings"), but you can control the app just with one mouse click. Tray icon shows current state (SteamVR/Oculus) or current action (Broke/Restore SteamVR) if you're not ~~Oculus~~ Meta user

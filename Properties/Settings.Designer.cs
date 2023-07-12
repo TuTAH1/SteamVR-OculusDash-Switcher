@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SteamVR_Toggle_for_Viveport.Properties {
+namespace SteamVR_OculusDash_Switcher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,6 +32,102 @@ namespace SteamVR_Toggle_for_Viveport.Properties {
             }
             set {
                 this["OneClickMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public global::SteamVR_OculusDash_Switcher.Logic.BreakMethod SteamVRDisablingMethod {
+            get {
+                return ((global::SteamVR_OculusDash_Switcher.Logic.BreakMethod)(this["SteamVRDisablingMethod"]));
+            }
+            set {
+                this["SteamVRDisablingMethod"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Language {
+            get {
+                return ((string)(this["Language"]));
+            }
+            set {
+                this["Language"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int RealismLevel {
+            get {
+                return ((int)(this["RealismLevel"]));
+            }
+            set {
+                this["RealismLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SteamVR_Location {
+            get {
+                return ((string)(this["SteamVR_Location"]));
+            }
+            set {
+                this["SteamVR_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Oculus_Location {
+            get {
+                return ((string)(this["Oculus_Location"]));
+            }
+            set {
+                this["Oculus_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KillSteamVR_Enabled {
+            get {
+                return ((bool)(this["KillSteamVR_Enabled"]));
+            }
+            set {
+                this["KillSteamVR_Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KillOculusDash {
+            get {
+                return ((bool)(this["KillOculusDash"]));
+            }
+            set {
+                this["KillOculusDash"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BlackMode {
+            get {
+                return ((bool)(this["BlackMode"]));
+            }
+            set {
+                this["BlackMode"] = value;
             }
         }
     }

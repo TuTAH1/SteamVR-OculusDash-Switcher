@@ -1,0 +1,14 @@
+Just my codestyle I'm not saying it's the only right or something. There's no right codestyles. But if you edit Programmer progs, you should follow Programmer's codestyle
+I just start writing it, it's probably incomplete or inaccurate.
+
+Class
+PublicSomething
+privateSomething
+_ConstantSomething //or readonly or just that not changed more than 1 time.
+_GlobalVariable
+innerVariable
+FuncArgument
+tinyArg //tiny func args. For super-basic funcs, I mostly put them in Titanium.cs
+o //this func arg or arg that will be returned. Named as type (s for string etc.)
+
+other codestyle things are obvious through the code

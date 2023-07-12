@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Target Name="CopyFiles" AfterTargets="Build">
+		<Copy SourceFiles="@(icons)" DestinationFolder="$(OutputPath)\icons" />
+		<Copy SourceFiles="@(images)" DestinationFolder="$(OutputPath)\images" />
+	</Target>
+
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net5.0-windows</TargetFramework>
+	<RootNamespace>SteamVR_OculusDash_Switcher</RootNamespace>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Company />
+	<Authors>Титан</Authors>
+	<Version>2.0.0</Version>
+	<PackageIcon>FixBreak SteamVR.png</PackageIcon>
+	<PackageIconUrl />
+	<RepositoryType>GitHub</RepositoryType>
+	<RepositoryUrl>https://github.com/TuTAH1/SteamVR-OculusDash-Switcher</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/TuTAH1/SteamVR-OculusDash-Switcher</PackageProjectUrl>
+	<NeutralLanguage>en-US</NeutralLanguage>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Remove="Readme images\**" />
+	<EmbeddedResource Remove="Readme images\**" />
+	<None Remove="Readme images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Remove=".gitattributes" />
+	<None Remove=".gitignore" />
+	<None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="AngleSharp" Version="0.17.1" />
+	<PackageReference Include="InformationBox" Version="1.2.0.91" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	<PackageReference Include="Octokit" Version="4.0.4" />
+	<PackageReference Include="Ookii.Dialogs.WinForms" Version="4.0.0" />
+	<PackageReference Include="SharpZipLib" Version="1.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Update="Properties\Resources.Designer.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>Resources.resx</DependentUpon>
+	</Compile>
+	<Compile Update="Properties\Settings.Designer.cs">
+	  <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>Settings.settings</DependentUpon>
+	</Compile>
+	<Compile Update="Properties\Localization\LocalizationStrings.Designer.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>LocalizationStrings.resx</DependentUpon>
+	</Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Update="Properties\Settings.settings">
+	  <Generator>SettingsSingleFileGenerator</Generator>
+	  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	</None>
+	<None Include="bin\Debug\net5.0-windows\icons\Realistic\FixBreak SteamVR.png">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+	<EmbeddedResource Update="Forms\SettingsForm.ru.resx">
+	  <DependentUpon>SettingsForm.resx</DependentUpon>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Properties\Localization\LocalizationStrings.resx">
+	  <Generator>ResXFileCodeGenerator</Generator>
+	  <LastGenOutput>LocalizationStrings.Designer.cs</LastGenOutput>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Properties\Resources.resx">
+	  <Generator>ResXFileCodeGenerator</Generator>
+	  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	</EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="copy $(ProjectDir)images\\* $(ProjectDir)$(OutDir)&#xD;&#xA;copy $(ProjectDir)icons\\* $(ProjectDir)$(OutDir)&#xD;&#xA;" />
+  </Target>
+
+</Project>

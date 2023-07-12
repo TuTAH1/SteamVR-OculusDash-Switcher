@@ -1,0 +1,22 @@
+Future release:
+● Fixed OculusKiller Downloading
+● Oculus killing may still don't work
+
+2.0α2:
+● Better user exp with tray icon color changing
+● Fixed something
+● Fixed SteamVR method setting wasn't loaded
+
+2.0α:
+● Localization
+● Localisation
+● Локализация
+● New ways to break SteamVR:
+	1. Rename Folder (default)
+	2. Rename exe files
+	3. Dummy exe files (only one was in v1)
+	4. Don't touch my SteamVR
+● Settings form
+● SteamVR and Oculus class
+● Downloads OculusKiller
+● Option to apply OculusKiller

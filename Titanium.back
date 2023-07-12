@@ -393,9 +393,24 @@ namespace Titanium {
 					return Bool? "Да" : "Нет";
 				}
 
+				/// <summary>
+				/// Generates random bool
+				/// </summary>
+				/// <param name="TrueProbability">A probability in a range of 0 to int.MaxValue</param>
+				/// <returns></returns>
 				public static bool RandBool(int TrueProbability) {
 					Random rand = new Random((int)DateTime.Now.Ticks);
 					return rand.Next() <= TrueProbability;
+				}
+
+				/// <summary>
+				/// Generates random bool
+				/// </summary>
+				/// <param name="TrueProbability">Probability percent from 0.00 to 1.00</param>
+				/// <returns></returns>
+				public static bool RandBool(double TrueProbability = .50) {
+					Random rand = new Random((int)DateTime.Now.Ticks);
+					return rand.NextDouble() <= TrueProbability;
 				}
 
 				#endregion
@@ -805,28 +820,28 @@ namespace Titanium {
 			/// <param name="addiction"></param>
 			/// <returns></returns>
 			public static string Add(this string s, string addiction)
-	{
-		int offset = 0;
-
-
-		for (; offset < addiction.Length; offset++)
-		{
-			if(s[^1]==addiction[offset])
 			{
-				int aPosition = offset;
-				for (int sPosition = s.Length-1; sPosition >0;)
+				int offset = 0;
+
+
+				for (; offset < addiction.Length; offset++)
 				{
-					if (s[sPosition--] != addiction[aPosition--]) break;
-					if (aPosition < 0)
+					if(s[^1]==addiction[offset])
 					{
-						return s + addiction[(offset+1)..];
+						int aPosition = offset;
+						for (int sPosition = s.Length-1; sPosition >0;)
+						{
+							if (s[sPosition--] != addiction[aPosition--]) break;
+							if (aPosition < 0)
+							{
+								return s + addiction[(offset+1)..];
+							}
+						}
 					}
 				}
-			}
-		}
 
-		return s+addiction;
-	}
+				return s+addiction;
+			}
 
 			#endregion
 
@@ -962,6 +977,18 @@ namespace Titanium {
 				if (path == FullPath) throw new ArgumentException($"FullPath \"{FullPath}\" is not a path");
 
 				File.Move(FullPath,path + NewName);
+			}
+
+			#endregion
+
+			#region CultureInfo
+
+			public static CultureInfo ChangeLanguage(this CultureInfo CurrentCulture, string LangName = "en")
+			{
+				var newLang = new CultureInfo(LangName);
+				newLang.DateTimeFormat = CurrentCulture.DateTimeFormat;
+				newLang.NumberFormat = CurrentCulture.NumberFormat;
+				return newLang;
 			}
 
 			#endregion
