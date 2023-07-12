@@ -1,3 +1,4 @@
+Update is WIP branch of SteamVR-OculusDash-Switcher. It may contain unfinished features or even not-compiling code
 
 # v2.0 Descryption
 It's a programm that give you a possibility to:
