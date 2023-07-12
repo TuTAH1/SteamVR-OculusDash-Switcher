@@ -101,6 +101,7 @@
 	<EmbeddedResource Update="Libs\ErrorTaskDialog_Localisation.resx">
 	  <Generator>ResXFileCodeGenerator</Generator>
 	  <LastGenOutput>ErrorTaskDialog_Localisation.Designer.cs</LastGenOutput>
+	  <CustomToolNamespace>Titanium</CustomToolNamespace>
 	</EmbeddedResource>
 	<EmbeddedResource Update="Libs\ErrorTaskDialog_Localisation.ru.resx">
 	  <DependentUpon>ErrorTaskDialog_Localisation.resx</DependentUpon>

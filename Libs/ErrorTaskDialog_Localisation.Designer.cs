@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SteamVR_OculusDash_Switcher.Libs {
+namespace Titanium {
     using System;
     
     
