@@ -1,12 +1,12 @@
 
 # v2.0 Descryption
-It's a programm that give you a possibility to:
+It's a program that give you a possibility to:
 
 ● Disable/Enable SteamVR in 1 of 4 ways, works even for Viveport
 
 ![SteamVR modes_1](https://user-images.githubusercontent.com/15982179/183133596-93583b2a-7658-47ac-9c4c-b116c162d024.jpg)
 
-● Disable/Enable Oculus Dash
+● Disable/Enable Oculus Dash (using [Oculus Killer](https://github.com/BunniKaitlyn/OculusKiller))
 
 ● Kill SteamVR
 
