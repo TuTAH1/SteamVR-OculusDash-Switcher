@@ -1,5 +1,5 @@
 
-# v2.0 Descryption
+# v2.0 Description
 It's a program that give you a possibility to:
 
 ● Disable/Enable SteamVR in 1 of 4 ways, works even for Viveport
