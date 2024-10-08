@@ -20,7 +20,7 @@ namespace Titanium {
 	/// </item>
 	/// </list>
 	/// </summary>   
-	public static class TypesFuncs { //!22.09.2022 
+	public static class TypesFuncs { //!17.06.2023 SplitN func
 
 
 		#region Parsing
@@ -178,6 +178,8 @@ namespace Titanium {
 					#endregion
 
 				#region String
+
+				//!17.06.2023
 
 				/// <summary>
 				/// Int to subscript numbers string
@@ -439,9 +441,64 @@ namespace Titanium {
 
 				#region Bool
 
+
 				public static bool ToBool(this string S)
 				{
-					return S.ToLower() is "true" or "yes" or "да" or "1";
+					return S.ToLower() is "1" or "true" or "yes" or "да" or "是" or "si" or "sì" or "da" or "sim" or "ja" or "ya";
+				}
+
+				public static bool YesToBool(this string S)
+				{
+					return new[]
+					{
+						"1", "true",
+						"是", // chinese (simplified)
+						"yes", // english
+						"sí", // spanish
+						"sim", // portuguese
+						"ya", // indonesian
+						"हाँ", // hindi
+						"نعم", // arabic
+						"да", // russian
+						"はい", // japanese
+						"ja", // german
+						"oui", // french
+						"sì", // italian
+						"evet", // turkish
+						"ใช่", // thai
+						"네", // korean
+						"tak", // polish
+						"ja", // dutch
+						"igen", // hungarian
+						"ja", // swedish
+						"ano", // czech
+						"vâng", // vietnamese
+						"ναι", // greek
+						"כן", // hebrew
+						"da", // romanian
+						"так", // ukrainian
+						"да", // bulgarian
+						"kyllä", // finnish
+						"ja", // norwegian
+						"ja", // danish
+						"áno", // slovak
+						"taip", // lithuanian
+						"da", // croatian
+						"да", // serbian
+						"jah", // estonian
+						"jā", // latvian
+						"da", // slovenian
+						"sí", // catalan
+						"bəli", // azerbaijani
+						"დიახ", // georgian
+						"da", // serbian (latin)
+						"так", // belarusian
+						"да", // macedonian
+						"иә", // kazakh
+						"ஆம்", // tamil
+						"bəli", // azerbaijani (cyrillic)
+						"ਹਾਂ", // punjabi
+					}.ContainsAny(S.ToLower());
 				}
 
 				public static string ToRuString(this bool Bool)
@@ -589,6 +646,145 @@ namespace Titanium {
 
 				return i;
 			}
+
+			#region SplitN
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <returns></returns>
+				public static string[]? SplitN(this string s, string Separator)
+				{
+					var res = s.Split(Separator);
+					return res[0]==s? null : res;
+				}
+				
+				//:thanks GitHub Copilot for all other variations of this func. I hope he copied the summary right
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="StringSplitOptions"> RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned. </param>
+				public static string[]? SplitN(this string s, string Separator, StringSplitOptions StringSplitOptions)
+				{
+					var res = s.Split(Separator, StringSplitOptions);
+					return res[0]==s? null : res;
+				}
+		
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="count"> The maximum number of substrings to return. </param>
+				public static string[]? SplitN(this string s, string Separator, int count)
+				{
+					var res = s.Split(Separator, count);
+					return res[0]==s? null : res;
+				}
+				
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="count"> The maximum number of substrings to return. </param>
+				/// <param name="StringSplitOptions"> RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned. </param>
+				public static string[]? SplitN(this string s, string Separator, int count, StringSplitOptions StringSplitOptions)
+				{
+					var res = s.Split(Separator, count, StringSplitOptions);
+					return res[0]==s? null : res;
+				}
+
+				
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> An array of strings that delimit the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				public static string[]? SplitN(this string s, string[] Separator)
+				{
+					var res = s.Split(Separator, StringSplitOptions.None);
+					return res[0]==s? null : res;
+				}
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> An array of strings that delimit the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="StringSplitOptions"> RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned. </param>
+				public static string[]? SplitN(this string s, string[] Separator, StringSplitOptions StringSplitOptions)
+				{
+					var res = s.Split(Separator, StringSplitOptions);
+					return res[0]==s? null : res;
+				}
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> An array of strings that delimit the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="count"> The maximum number of substrings to return. </param>
+				public static string[]? SplitN(this string s, string[] Separator, int count)
+				{
+					var res = s.Split(Separator, count, StringSplitOptions.None);
+					return res[0]==s? null : res;
+				}
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> An array of strings that delimit the substrings in this string, an empty array that contains no delimiters, or null. </param>
+				/// <param name="count"> The maximum number of substrings to return. </param>
+				/// <param name="StringSplitOptions"> RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned. </param>
+				public static string[]? SplitN(this string s, string[] Separator, int count, StringSplitOptions StringSplitOptions)
+				{
+					var res = s.Split(Separator, count, StringSplitOptions);
+					return res[0]==s? null : res;
+				}
+
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string</param>
+				public static string[]? SplitN(this string s, char Separator)
+				{
+					var res = s.Split(Separator);
+					return res[0]==s? null : res;
+				}
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string</param>
+				/// <param name="count"> The maximum number of substrings to return. </param>
+				public static string[]? SplitN(this string s, char Separator, int count)
+				{
+					var res = s.Split(Separator, count);
+					return res[0]==s? null : res;
+				}
+
+				/// <summary>
+				/// String.Split() but returns null if no any split found
+				/// </summary>
+				/// <param name="s"></param>
+				/// <param name="Separator"> A character that delimits the substrings in this string</param>
+				/// <param name="StringSplitOptions"> RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned. </param>
+				public static string[]? SplitN(this string s, char Separator, StringSplitOptions StringSplitOptions)
+				{
+					var res = s.Split(Separator, StringSplitOptions);
+					return res[0]==s? null : res;
+				}
+
+				#endregion
 
 			public static string FormatToString(this double d, int n, Positon pos, char filler = ' ') //:Ленивый и неоптимизированный способ
 			{

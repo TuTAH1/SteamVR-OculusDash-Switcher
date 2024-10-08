@@ -14,7 +14,7 @@ using FileMode = System.IO.FileMode;
 
 namespace Titanium;
 
-public static class GitHub
+public static class GitHub //TODO: Update it with new version of my Github library
 {
 	public enum Status
 	{

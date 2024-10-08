@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +16,7 @@ using WMPLib;
 
 namespace SteamVR_OculusDash_Switcher
 {
-	public partial class SettingsForm : Form
+    public partial class SettingsForm : Form
 	{
 		public SettingsForm()
 		{
@@ -144,24 +143,19 @@ namespace SteamVR_OculusDash_Switcher
 					{
 						Thread.CurrentThread.CurrentUICulture = ((Language)comboLanguage.SelectedItem).Culture;
 						restartControlBecouseStupidWinformsCantDoSuchBasicThingAsClearCombobox = true;
-
-						ErrorTaskDialog.InitializeDictionary(
-							LocalizationStrings.ErrorTaskDialog__OpenMicrosoftDocs,
-							LocalizationStrings.ErrorTaskDialog__Copy_to_Clipboard,
-							LocalizationStrings.ErrorTaskDialog__Open_Inner_Exception, 
-							LocalizationStrings.Button__Close);
 					}
 
-					if (comboSteamVRDisableMethod.SelectedItem!= null && Settings.Default.SteamVRDisablingMethod != (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem)
+					if (comboSteamVRDisableMethod.SelectedItem!= null && Settings.Default.SteamVRDisablingMethod != (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem) //: if method changed
 					{
-						if (_SteamVr.IsBroken)
+						
+						/*if (_SteamVr.IsBroken)
 						{
 							if (MessageBox.Show("SteamVR needs to be restored before changing method. Do it now?", "Do you realy read this captions?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 								_SteamVr.Restore();
 							else 
 								comboSteamVRDisableMethod.SelectedItem = _SteamVr.Method;
-						}
-						Settings.Default.SteamVRDisablingMethod = _SteamVr.Method = (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem;
+						}*/
+						Settings.Default.SteamVRDisablingMethod = _SteamVr.Method = (SteamVRMethod)comboSteamVRDisableMethod.SelectedItem; //: set new method
 					}
 
 					Settings.Default.KillOculusDash = cbKillOculus.Checked;

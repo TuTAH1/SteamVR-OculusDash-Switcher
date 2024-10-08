@@ -11,6 +11,7 @@ using SteamVR_OculusDash_Switcher.Forms;
 using SteamVR_OculusDash_Switcher.Logic;
 using SteamVR_OculusDash_Switcher.Properties;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
+
 namespace SteamVR_OculusDash_Switcher
 {
 	static partial class Program
@@ -47,19 +48,13 @@ namespace SteamVR_OculusDash_Switcher
 			Application.SetCompatibleTextRenderingDefault(true);
 			if (_IconsRealismLevel <0 || _IconsRealismLevel > _MaxIconsRealismLevel) _IconsRealismLevel = 1;
 
-			ErrorTaskDialog.InitializeDictionary(
-				LocalizationStrings.ErrorTaskDialog__OpenMicrosoftDocs,
-				LocalizationStrings.ErrorTaskDialog__Copy_to_Clipboard,
-				LocalizationStrings.ErrorTaskDialog__Open_Inner_Exception, 
-				LocalizationStrings.Button__Close,
-				LocalizationStrings.ErrorTaskDialog__Title,
-				LocalizationStrings.ErrorTaskDialog__Open_Callstack);
 
 			bool oculusBroken = false;
 			try
 			{
 				_SteamVr = new SteamVR(Settings.Default.SteamVRDisablingMethod);
 				Settings.Default.SteamVRDisablingMethod = _SteamVr.Method;
+				Settings.Default.Save();
 			}
 			catch (Exception e)
 			{
@@ -113,7 +108,9 @@ namespace SteamVR_OculusDash_Switcher
 				}
 			}
 
-			CurrentMode = oculusBroken != _SteamVr.IsBroken ? oculusBroken ? Mode.SteamVR : Mode.Oculus : Mode.Oculus;
+			CurrentMode = oculusBroken != _SteamVr.IsBroken ? 
+				oculusBroken ? Mode.SteamVR : Mode.Oculus 
+				: Mode.SteamVR;
 
 			ContextMenuStrip contextMenu = new();
 			
@@ -308,7 +305,10 @@ namespace SteamVR_OculusDash_Switcher
 		public static bool IsAutorun() => Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\")?.GetValue(Application.ProductName) is not null;
 
 		public static Icon GetIcon() =>
-			Icon.ExtractAssociatedIcon($@"icons\{(Settings.Default.BlackMode ? "Black" : "White")}\{(CurrentMode is Mode.SteamVR? "SteamVR" : "Oculus")}.ico");
+			Icon.ExtractAssociatedIcon($@"icons\{(Settings.Default.BlackMode ? "Black" : "White")
+			}\{(Settings.Default.KillOculusDash? (CurrentMode is Mode.SteamVR? "SteamVR" : "Oculus") //: if KillOculusDash enabled, it's SteamVR ↔ Oculus mode
+			: _SteamVr.IsBroken? "Fix SteamVR" : "Break SteamVR" //: if not, it's SteamVR on/off mode
+				)}.ico");
 		
 
 		/// <summary>

@@ -1,19 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<Target Name="CopyFiles" AfterTargets="Build">
-		<Copy SourceFiles="@(icons)" DestinationFolder="$(OutputPath)\icons" />
-		<Copy SourceFiles="@(images)" DestinationFolder="$(OutputPath)\images" />
-	</Target>
+	
 
-  <PropertyGroup>
+	<PropertyGroup>
 	<OutputType>WinExe</OutputType>
 	<TargetFramework>net5.0-windows</TargetFramework>
 	<RootNamespace>SteamVR_OculusDash_Switcher</RootNamespace>
 	<UseWindowsForms>true</UseWindowsForms>
 	<Company />
 	<Authors>Титан</Authors>
-	<Version>2.0.0</Version>
-	<PackageIcon>FixBreak SteamVR.png</PackageIcon>
+	<VersionPrefix>2.0.3</VersionPrefix>
 	<PackageIconUrl />
 	<RepositoryType>GitHub</RepositoryType>
 	<RepositoryUrl>https://github.com/TuTAH1/SteamVR-OculusDash-Switcher</RepositoryUrl>
@@ -21,6 +17,8 @@
 	<NeutralLanguage>en-US</NeutralLanguage>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<LangVersion>10</LangVersion>
+	<PackageId>SteamVR_OculusDashSwitcher</PackageId>
+	<ApplicationIcon>icons\app icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -48,6 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icons\app icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<PackageReference Include="AngleSharp" Version="0.17.1" />
 	<PackageReference Include="InformationBox" Version="1.2.0.91" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -61,6 +63,11 @@
   </ItemGroup>
 
   <ItemGroup>
+	<Compile Update="Libs\ErrorTaskDialog_Localisation.Designer.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>ErrorTaskDialog_Localisation.resx</DependentUpon>
+	</Compile>
 	<Compile Update="Properties\Resources.Designer.cs">
 	  <DesignTime>True</DesignTime>
 	  <AutoGen>True</AutoGen>
@@ -79,19 +86,27 @@
   </ItemGroup>
 
   <ItemGroup>
+	<None Update="icons\Z_unused\icon 3.png">
+	  <Pack>True</Pack>
+	  <PackagePath>\</PackagePath>
+	</None>
 	<None Update="Properties\Settings.settings">
 	  <Generator>SettingsSingleFileGenerator</Generator>
 	  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-	</None>
-	<None Include="bin\Debug\net5.0-windows\icons\Realistic\FixBreak SteamVR.png">
-	  <Pack>True</Pack>
-	  <PackagePath></PackagePath>
 	</None>
   </ItemGroup>
 
   <ItemGroup>
 	<EmbeddedResource Update="Forms\SettingsForm.ru.resx">
 	  <DependentUpon>SettingsForm.resx</DependentUpon>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Libs\ErrorTaskDialog_Localisation.resx">
+	  <Generator>ResXFileCodeGenerator</Generator>
+	  <LastGenOutput>ErrorTaskDialog_Localisation.Designer.cs</LastGenOutput>
+	  <CustomToolNamespace>Titanium</CustomToolNamespace>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Libs\ErrorTaskDialog_Localisation.ru.resx">
+	  <DependentUpon>ErrorTaskDialog_Localisation.resx</DependentUpon>
 	</EmbeddedResource>
 	<EmbeddedResource Update="Properties\Localization\LocalizationStrings.resx">
 	  <Generator>ResXFileCodeGenerator</Generator>
@@ -104,7 +119,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /s /y &quot;$(ProjectDir)images\*&quot; &quot;$(ProjectDir)$(OutDir)images\&quot;&#xD;&#xA;xcopy /s /y &quot;$(ProjectDir)icons\*&quot; &quot;$(ProjectDir)$(OutDir)icons\&quot;&#xD;&#xA;" />
+	  <Exec Command="xcopy /s /y &quot;$(ProjectDir)images\*&quot; &quot;$(ProjectDir)$(OutDir)images\&quot;&#xD;&#xA;xcopy /s /y &quot;$(ProjectDir)icons\*&quot; &quot;$(ProjectDir)$(OutDir)icons\&quot;&#xD;&#xA;" />
   </Target>
 
 </Project>

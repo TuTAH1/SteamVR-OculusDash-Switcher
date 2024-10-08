@@ -97,6 +97,24 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        internal static string Button_cancel {
+            get {
+                return ResourceManager.GetString("Button_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to skip (SteamVR is considered restored).
+        /// </summary>
+        internal static string Button_skip {
+            get {
+                return ResourceManager.GetString("Button_skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One click mode control tips.
         /// </summary>
         internal static string ControlsTipsForm__TitleText {
@@ -129,51 +147,6 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string ControlsTipsForm_tip__RMB {
             get {
                 return ResourceManager.GetString("ControlsTipsForm_tip__RMB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy to Clipboard.
-        /// </summary>
-        internal static string ErrorTaskDialog__Copy_to_Clipboard {
-            get {
-                return ResourceManager.GetString("ErrorTaskDialog__Copy_to_Clipboard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open call stack.
-        /// </summary>
-        internal static string ErrorTaskDialog__Open_Callstack {
-            get {
-                return ResourceManager.GetString("ErrorTaskDialog__Open_Callstack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open an inner exception.
-        /// </summary>
-        internal static string ErrorTaskDialog__Open_Inner_Exception {
-            get {
-                return ResourceManager.GetString("ErrorTaskDialog__Open_Inner_Exception", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open Microsoft Documentation.
-        /// </summary>
-        internal static string ErrorTaskDialog__OpenMicrosoftDocs {
-            get {
-                return ResourceManager.GetString("ErrorTaskDialog__OpenMicrosoftDocs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string ErrorTaskDialog__Title {
-            get {
-                return ResourceManager.GetString("ErrorTaskDialog__Title", resourceCulture);
             }
         }
         
@@ -517,6 +490,42 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string SettingsForm_Title {
             get {
                 return ResourceManager.GetString("SettingsForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both SteamVR and SteamVR_ (backup) exist and not empty.
+        /// </summary>
+        internal static string SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content {
+            get {
+                return ResourceManager.GetString("SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete &quot;SteamVR_&quot; (reccomended).
+        /// </summary>
+        internal static string SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup {
+            get {
+                return ResourceManager.GetString("SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace SteamVR with backup (default).
+        /// </summary>
+        internal static string SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace {
+            get {
+                return ResourceManager.GetString("SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something wrong happened and SteamVR become unrecoverable broken 😭 (SteamVR and its backup not found).
+        /// </summary>
+        internal static string SteamVR_Restore_RenameFolder_Error_NoBackup {
+            get {
+                return ResourceManager.GetString("SteamVR_Restore_RenameFolder_Error_NoBackup", resourceCulture);
             }
         }
         

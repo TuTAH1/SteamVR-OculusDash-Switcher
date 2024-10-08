@@ -2,12 +2,12 @@
 using System.Windows.Forms;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
-using static Titanium.Forms;
 using static SteamVR_OculusDash_Switcher.Program;
+using static Titanium.Forms;
 
 namespace SteamVR_OculusDash_Switcher.Forms
 {
-	public partial class ControlsTipsForm : Form
+    public partial class ControlsTipsForm : Form
 	{
 		public ControlsTipsForm()
 		{

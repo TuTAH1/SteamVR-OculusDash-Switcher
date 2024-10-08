@@ -29,5 +29,8 @@
     <Setting Name="BlackMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Current_SteamVRDisablingMethod" Type="SteamVR_OculusDash_Switcher.Logic.BreakMethod" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

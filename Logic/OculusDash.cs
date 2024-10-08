@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AngleSharp.Dom;
-using DataCollector;
 using Microsoft.Win32;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;

@@ -159,9 +159,6 @@
   <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
     <value>Dummy exe</value>
   </data>
-  <data name="ErrorTaskDialog__Open_Inner_Exception" xml:space="preserve">
-    <value>Open an inner exception</value>
-  </data>
   <data name="SteamVRDisableMethod_ToString__None" xml:space="preserve">
     <value>None</value>
   </data>
@@ -179,12 +176,6 @@
   </data>
   <data name="MenuOptions__More_Settings" xml:space="preserve">
     <value>More settings</value>
-  </data>
-  <data name="ErrorTaskDialog__Copy_to_Clipboard" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="ErrorTaskDialog__OpenMicrosoftDocs" xml:space="preserve">
-    <value>Open Microsoft Documentation</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
     <value>Rename folder</value>
@@ -292,10 +283,22 @@
   <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
 	  <value>Can't play amazing song</value>
   </data>
-  <data name="ErrorTaskDialog__Title" xml:space="preserve">
-	  <value>Error</value>
+  <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content" xml:space="preserve">
+	  <value>Both SteamVR and SteamVR_ (backup) exist and not empty</value>
   </data>
-  <data name="ErrorTaskDialog__Open_Callstack" xml:space="preserve">
-	  <value>Open call stack</value>
+  <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace" xml:space="preserve">
+	  <value>Replace SteamVR with backup (default)</value>
+  </data>
+  <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup" xml:space="preserve">
+	  <value>Delete "SteamVR_" (reccomended)</value>
+  </data>
+  <data name="Button_cancel" xml:space="preserve">
+	  <value>cancel</value>
+  </data>
+  <data name="Button_skip" xml:space="preserve">
+	  <value>skip (SteamVR is considered restored)</value>
+  </data>
+  <data name="SteamVR_Restore_RenameFolder_Error_NoBackup" xml:space="preserve">
+	  <value>Something wrong happened and SteamVR become unrecoverable broken 😭 (SteamVR and its backup not found)</value>
   </data>
 </root>

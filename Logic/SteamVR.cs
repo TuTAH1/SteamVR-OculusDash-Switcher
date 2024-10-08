@@ -7,12 +7,14 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SteamVR_OculusDash_Switcher.Properties;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
+using TaskDialog = Ookii.Dialogs.WinForms.TaskDialog;
 
 namespace SteamVR_OculusDash_Switcher.Logic
 {
-	public class SteamVR
+    public class SteamVR
 	{
 		public BreakMethod Method;
 		private static string _steamVrFolderPath;
@@ -208,6 +210,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				{
 					case BreakMethod.RenameFolder:
 						Directory.Move(_steamVrFolderPath, _steamVrFolderPath + "_"); //:Rename
+						Settings.Default.Current_SteamVRDisablingMethod = BreakMethod.RenameFolder;
 						break;
 
 					case BreakMethod.RenameExe:
@@ -216,6 +219,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 						{
 							string path = Path.Combine(_steamVRexeFolderPath, exe);
 							File.Move(path,path+"_"); //: Rename
+							Settings.Default.Current_SteamVRDisablingMethod = BreakMethod.RenameFolder;
 						}
 					} break;
 
@@ -230,6 +234,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 								File.Move(path,path+".bak",true); //:Rename
 								if (!File.Exists(path + ".bak")) throw new OperationCanceledException();
 								File.Create(path, 1).Close();
+								Settings.Default.Current_SteamVRDisablingMethod = BreakMethod.RenameFolder;
 							}
 							catch (OperationCanceledException)
 							{
@@ -255,16 +260,56 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		}
 		public void Restore()
 		{
-			if(Method == BreakMethod.None) return;
+			var CurrentMethod = Settings.Default.Current_SteamVRDisablingMethod;
+
+			Settings.Default.Current_SteamVRDisablingMethod = BreakMethod.None;
+			if(CurrentMethod == BreakMethod.None) 
+				return;
 
 			KillProcess();
 
 			try
 			{
-				switch (Method)
+				switch (CurrentMethod)
 				{
 					case BreakMethod.RenameFolder:
-						Directory.Move(_steamVrFolderPath + "_", _steamVrFolderPath); 
+						//TODO: check is it takes a long time
+						if (Directory.Exists(_steamVrFolderPath + "_") && Directory.EnumerateFileSystemEntries(_steamVrFolderPath + "_").Any()) //: Check if folder exists and not empty
+						 if (Directory.Exists(_steamVrFolderPath))
+							 if (!Directory.EnumerateFileSystemEntries(_steamVrFolderPath).Any())
+								Directory.Delete(_steamVrFolderPath + "_", true);
+							 else // discribe all ifs: if backup exist and not empty and SteamVR folder exist and not empty
+							 {
+								 var answer = new TaskDialog().Show(LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content, LocalizationStrings.MessageBox_Title__Error, null, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup, LocalizationStrings.Button_cancel, LocalizationStrings.Button_skip).Text;
+
+								 if (answer == LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace)
+								 {
+									Directory.Delete(_steamVrFolderPath, true);
+									Directory.Move(_steamVrFolderPath + "_", _steamVrFolderPath);
+								 }
+									 else if (answer == LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup)
+								 { 
+									 Directory.Delete(_steamVrFolderPath + "_", true);
+								 }
+									 else if (answer == LocalizationStrings.Button_cancel)
+								 {
+									 return;
+								 }
+									 else if (answer == LocalizationStrings.Button_skip)
+								 {
+									 
+								 }
+							 }
+						 else //: if backup exist and not empty and SteamVR folder not exist
+						 {
+								 Directory.Move(_steamVrFolderPath + "_", _steamVrFolderPath);
+						 }
+						else //: if backup not exist or empty
+						{
+							if (Directory.Exists(_steamVrFolderPath)) return;
+							throw new FileNotFoundException(LocalizationStrings.SteamVR_Restore_RenameFolder_Error_NoBackup);
+						}
+								
 					break;
 
 					case BreakMethod.RenameExe:
@@ -310,6 +355,11 @@ namespace SteamVR_OculusDash_Switcher.Logic
 								continue;
 							}
 						}
+					} break;
+
+					case BreakMethod.None:
+					{
+
 					} break;
 
 					default:
