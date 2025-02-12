@@ -21,7 +21,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		{
 			_oculusFolderPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Oculus")?.GetValue("InstallLocation")?.ToString()?? (Directory.Exists( @"C:\Program Files\Oculus\")?  @"C:\Program Files\Oculus\" : null); //: Check where Oculus is installed, if not found, set default path
 
-			if (_oculusFolderPath == null)
+			if (_oculusFolderPath == null) //: Look for Oculus Folder in the root of all drives 
 			{
 				var drives = DriveInfo.GetDrives();
 				foreach (var drive in drives)
@@ -35,7 +35,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 				}
 			}
 
-			if (_oculusFolderPath == null)
+			if (_oculusFolderPath == null) //: Ask user to manually select Oculus Folder
 			{
 				using var fbd = new FolderBrowserDialog();
 				fbd.Description = LocalizationStrings.OculusDash_OculusNotFound__Select_Oculus_folder_path;

@@ -254,7 +254,15 @@ namespace SteamVR_OculusDash_Switcher
 				_SteamVr.Break();
 				if (Settings.Default.KillOculusDash)
 				{
-					OculusDash.Restore();
+					try
+					{
+						OculusDash.Restore();
+					}
+					catch (Exception e)
+					{
+						e.ShowMessageBox("Can't restore Oculus Dash. Try restarting the app with admin rights");
+					}
+					
 				}
 				CurrentMode = Mode.Oculus;
 				notifyIcon1.Icon = GetIcon();
@@ -270,6 +278,7 @@ namespace SteamVR_OculusDash_Switcher
 			try
 			{
 				_SteamVr.Restore();
+
 				if (Settings.Default.KillOculusDash)
 				{
 					OculusDash.Break();

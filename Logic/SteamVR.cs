@@ -75,6 +75,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 					if (Directory.Exists(_steamVrFolderPath.ReplaceFromLast("SteamVR", "SteamVR_", false)))
 					{
 						Method = BreakMethod.RenameFolder;
+						IsBroken = true;
 						methodFound = true;
 					} 
 					else throw new DirectoryNotFoundException("SteamVR Folder not found");
@@ -260,7 +261,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		}
 		public void Restore()
 		{
-			var CurrentMethod = Settings.Default.Current_SteamVRDisablingMethod;
+			var CurrentMethod = Method;
 
 			Settings.Default.Current_SteamVRDisablingMethod = BreakMethod.None;
 			if(CurrentMethod == BreakMethod.None) 

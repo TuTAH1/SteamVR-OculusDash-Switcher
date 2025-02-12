@@ -4,7 +4,7 @@
 
 	<PropertyGroup>
 	<OutputType>WinExe</OutputType>
-	<TargetFramework>net6.0-windows7.0</TargetFramework>
+	<TargetFramework>net8.0-windows7.0</TargetFramework>
 	<RootNamespace>SteamVR_OculusDash_Switcher</RootNamespace>
 	<UseWindowsForms>true</UseWindowsForms>
 	<Company />
