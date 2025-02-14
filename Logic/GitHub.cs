@@ -46,7 +46,7 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 			return this;
 		}
 
-		public async Task<Release> GetRelease() => _release ??= await getRelease();
+		public async Task<Release> GetRelease() => _release ??= await getRelease().ConfigureAwait(false);
 
 		private async Task<Release> getRelease()
 		{
@@ -170,7 +170,7 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 		
 		async Task<bool> DownloadLastest()
 		{
-			var gitHubFiles = (await updateResult.GetRelease()).Assets; //: Initialize updateResult.release and get Assets
+			var gitHubFiles = (await updateResult.GetRelease().ConfigureAwait(false)).Assets; //: Initialize updateResult.release and get Assets
 
 			if (!gitHubFiles.Any()) throw new ArgumentNullException(nameof(gitHubFiles), "No any files found in the release");
 
