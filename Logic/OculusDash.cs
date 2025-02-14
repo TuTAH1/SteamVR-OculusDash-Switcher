@@ -5,17 +5,23 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
 using Titanium;
+using ProgressBarStyle = Ookii.Dialogs.WinForms.ProgressBarStyle;
+using TaskDialogButton = Ookii.Dialogs.WinForms.TaskDialogButton;
 
 namespace SteamVR_OculusDash_Switcher.Logic
 {
-    public static class OculusDash
-    {
-        private static readonly string _oculusFolderPath;
+	public static class OculusDash
+	{
+		private static readonly string _oculusFolderPath;
 		/// <summary>OculusDash.exe path</summary>
 		private static readonly string _oculusDashExePath;
 		///<summary>Oculus killere exe's location inside of this program's folder</summary>
 		const string _innerOculusKillerPath = @"OculusDashKiller\OculusDash.exe";
-		private static bool OculusKillerChecked = false;
+		private static bool _oculusKillerChecked = false; //: If OculusKiller is checked for updates
+		public static DashState State; //: If OculusDash is replaced by OculusKiller. Null: not exist
+		public static bool IsOculusKillerExists => File.Exists(_innerOculusKillerPath);
+		public static bool IsOculusExists => _oculusFolderPath != null;
+		public static bool IsDashExists => State != null; //: If OculusDash.exe exist at all, no matter if killed or not
 
 		static OculusDash()
 		{
@@ -33,32 +39,34 @@ namespace SteamVR_OculusDash_Switcher.Logic
 					_oculusFolderPath = oculusFolderPath;
 					break;
 				}
-			}
 
-			if (_oculusFolderPath == null) //: Ask user to manually select Oculus Folder
-			{
-				using var fbd = new FolderBrowserDialog();
-				fbd.Description = LocalizationStrings.OculusDash_OculusNotFound__Select_Oculus_folder_path;
-				DialogResult result = fbd.ShowDialog();
-
-				if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+				if (_oculusFolderPath == null) //: Ask user to manually select Oculus Folder
 				{
-					string[] files = Directory.GetFiles(fbd.SelectedPath);
+					using var fbd = new FolderBrowserDialog();
+					fbd.Description = LocalizationStrings.OculusDash_OculusNotFound__Select_Oculus_folder_path;
+					DialogResult result = fbd.ShowDialog();
+
+					if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+					{
+						string[] files = Directory.GetFiles(fbd.SelectedPath);
+					}
 				}
 			}
 
+			
+
 			_oculusDashExePath = _oculusFolderPath?.Add("\\" + @"Support\oculus-dash\dash\bin\OculusDash.exe");
+			State = IsOculusDashKilled();
 		}
 
-		public static bool IsOculusKillerExist => File.Exists(_innerOculusKillerPath);
-		public static bool IsOculusExist => _oculusFolderPath != null;
+		
 		
 
 		//:Checks if OculusKiller exe exist and downloads the lastest release if not
 		private static async Task<GitHub.Status> checkOculusKiller(bool checkUpdates)
 		{
 			const string oculusDashRepository = @"ItsKaitlyn03/OculusKiller";
-			return(await GitHub.checkSoftwareUpdatesByLink(GitHub.UpdateMode.Update, oculusDashRepository,_innerOculusKillerPath,"OculusDashKiller").ConfigureAwait(false)).Status;
+				return (await GitHub.checkSoftwareUpdatesByLink(checkUpdates? GitHub.UpdateMode.Update : GitHub.UpdateMode.Download, oculusDashRepository, _innerOculusKillerPath, "OculusDashKiller").ConfigureAwait(false)).Status;
 		}
 
 		/// <summary>
@@ -67,8 +75,16 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		public static async Task<GitHub.Status> CheckKiller(bool checkUpdates = false)
 		{
 			var status = await checkOculusKiller(checkUpdates).ConfigureAwait(false);
-			OculusKillerChecked = true; //: Sets true if no exceptions
+			_oculusKillerChecked = true; //: Sets true if no exceptions
 			return status;
+		}
+
+		public enum DashState
+		{
+			Killed, //: OculusDash.exe is replaced by OculusKiller and can be recovered
+			NotKilled,
+			NotExist, //: or unrecoverably broken
+			DashBackupOnly //: OculusDash.exe is not exists, but backup is exists
 		}
 
 		/// <summary>
@@ -79,41 +95,64 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		/// <para>true, if killed and restoring is posible (orig file exist)</para>
 		/// <para>null, if killed and orig is not exist</para>
 		/// </returns>
-		public static bool? IsOculusDashKilled()
+		private static DashState checkOculusDashKilled()
 		{
-			try
-			{
-				var oculusDashExeFileInfo = new FileInfo(_oculusDashExePath);
+			var oculusDashExeFileInfo = new FileInfo(_oculusDashExePath);
 
-				if (!oculusDashExeFileInfo.Exists) //: OculusDash.exe exist
-				{
-					var backup = new FileInfo(_oculusDashExePath + "_");
-					if (!backup.Exists) return null; //: OculusDash.exe_ exist
-					else return true;
-				}
-				else if (oculusDashExeFileInfo.Length <= (IsOculusKillerExist ? new FileInfo(_innerOculusKillerPath).Length : 1000)) //: OculusDash.exe is replaced by killer
-					return true;
-				else
-					return false; //: OculusDash.exe is ok
-			}
-			catch (Exception e)
+			if (!oculusDashExeFileInfo.Exists) //? OculusDash.exe is NOT exist
 			{
-				throw;
-				//e.ShowMessageBox();
-			}
+				var backup = new FileInfo(_oculusDashExePath + "_"); //. ".../OculusDash.exe_"
+				if (!backup.Exists) //? Backup is NOT exist
+					return DashState.NotExist;
+				else //. Backup exist, but OculusDash.exe is not exist
+				{
+					return isDashReplacedByKiller(backup) ? DashState.NotExist : DashState.DashBackupOnly;
+				}
+
+			} //? OculusDash.exe exist
+			return isDashReplacedByKiller(oculusDashExeFileInfo) ? DashState.Killed : DashState.NotKilled; 
+		
+		}
+
+		private static bool isDashReplacedByKiller(FileInfo OculusDashExeFileInfo) => OculusDashExeFileInfo.Exists? OculusDashExeFileInfo.Length <= (IsOculusKillerExists ? new FileInfo(_innerOculusKillerPath).Length : 1000) : throw new FileNotFoundException("OculusDash not found when checking is it replaced by OculusDashKiller", OculusDashExeFileInfo.Name);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>
+		/// <para>false, if not killed </para>
+		/// <para>true, if killed and restoring is posible (orig file exist)</para>
+		/// <para>null, if killed and orig is not exist</para>
+		/// </returns>
+		public static DashState IsOculusDashKilled()
+		{
+			State = checkOculusDashKilled();
+			return State;
 		}
 
 		public static void Break()
 		{
-			if (!OculusKillerChecked) CheckKiller().Wait();
-			if(IsOculusDashKilled()!= false) return;
+			if (!_oculusKillerChecked)
+			{
+				var progressDialog = new Ookii.Dialogs.WinForms.ProgressDialog() //: не закрывается, заменить на  ProgressDialog.NET
+				{
+					WindowTitle = "Checking OculusKiller, downloading...",
+					ProgressBarStyle = ProgressBarStyle.MarqueeProgressBar
+				};
+				progressDialog.ShowDialog();
+				CheckKiller().Wait();
+				progressDialog.Dispose();
+			}
+			if(IsOculusDashKilled()!= DashState.NotKilled) return;
 			File.Move(_oculusDashExePath, _oculusDashExePath + "_", true); //: Backup
 			File.Copy(_innerOculusKillerPath, _oculusDashExePath,true); //: Replace with Oculus Killer
+			State = DashState.Killed;
 		}
 
 		public static void Restore()
 		{
 			if(File.Exists(_oculusDashExePath+"_")) File.Move(_oculusDashExePath+"_",_oculusDashExePath, true);
+			State = DashState.NotKilled;
 		}
-    }
+	}
 }

@@ -47,7 +47,7 @@ namespace SteamVR_OculusDash_Switcher
 			Settings.Default.SteamVRDisablingMethod = _SteamVr.Method;
 			Settings.Default.Save();
 
-			cbKillOculus.Enabled = _isOculusExist;
+			cbKillOculus.Enabled = OculusDash.State is not OculusDash.DashState.NotExist;
 			cbKillOculus.Text = LocalizationStrings.SettingsForm_cbKillOculus;
 			cbKillOculus.Checked = Settings.Default.KillOculusDash;
 

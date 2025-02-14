@@ -19,6 +19,7 @@
 	<LangVersion>10</LangVersion>
 	<PackageId>SteamVR_OculusDashSwitcher</PackageId>
 	<ApplicationIcon>icons\app icon.ico</ApplicationIcon>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

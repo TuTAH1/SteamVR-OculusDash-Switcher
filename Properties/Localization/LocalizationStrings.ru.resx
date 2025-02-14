@@ -112,82 +112,82 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MessageBox_text__SteamVR_not_found" xml:space="preserve">
-    <value>SteamVR не найден! Программа не будет работать, если ты продолжишь</value>
-  </data>
-  <data name="MessageBox_Title__Error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="Button__Exit" xml:space="preserve">
-    <value>Выйти</value>
-  </data>
-  <data name="Button__Continue" xml:space="preserve">
-    <value>Продолжить</value>
-  </data>
-  <data name="MenuOptions__More_Settings" xml:space="preserve">
-    <value>Больше настроек</value>
-  </data>
-  <data name="MenuOptions__Launch_with_Windows" xml:space="preserve">
-    <value>Запускать с Windows</value>
-  </data>
-  <data name="Button__Close" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
-  <data name="MenuOptions__Enable_one_click_mode" xml:space="preserve">
-    <value>Включить управление одним кликом</value>
-  </data>
-  <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
-    <value>Восстановить SteamVR</value>
-  </data>
-  <data name="SettingsForm_Title" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
-    <value>Сломать SteamVR</value>
-  </data>
-  <data name="SettingsForm_lbSteamVRDisableMethod" xml:space="preserve">
-    <value>Способ отключения SteamVR</value>
-  </data>
-  <data name="SettingsForm_lbLanguage" xml:space="preserve">
-    <value>Язык</value>
+  <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
+    <value>Заменить SteamVR exeшки пустыми</value>
   </data>
   <data name="SteamVRDisableMethod_Discription__None" xml:space="preserve">
     <value>Ничего не делать</value>
   </data>
-  <data name="SteamVRDisableMethod_Discription__RenameExe" xml:space="preserve">
-    <value>Переименовать .exe фалы SteamVR</value>
+  <data name="MenuOptions__Launch_with_Windows" xml:space="preserve">
+    <value>Запускать с Windows</value>
   </data>
-  <data name="SteamVRDisableMethod_Discription__RenameFolder" xml:space="preserve">
-    <value>Переименовать папку SteamVR</value>
+  <data name="SettingsForm_lbSteamVRDisableMethod" xml:space="preserve">
+    <value>Способ отключения SteamVR</value>
   </data>
-  <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
-    <value>Заменить SteamVR exeшки пустыми</value>
+  <data name="Button__Continue" xml:space="preserve">
+    <value>Продолжить</value>
   </data>
   <data name="MenuOptions__Kill_SteamVR" xml:space="preserve">
     <value>Убить SteamVR</value>
   </data>
+  <data name="SteamVRDisableMethod_Discription__RenameFolder" xml:space="preserve">
+    <value>Переименовать папку SteamVR</value>
+  </data>
+  <data name="SettingsForm_Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="MenuOptions__Enable_one_click_mode" xml:space="preserve">
+    <value>Включить управление одним кликом</value>
+  </data>
+  <data name="SettingsForm_lbLanguage" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="MessageBox_Main_Error_SteamVrNotFound_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
+    <value>Сломать SteamVR</value>
+  </data>
+  <data name="Button__Exit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
+    <value>Подменить .exe</value>
+  </data>
   <data name="SteamVRDisableMethod_ToString__None" xml:space="preserve">
     <value>Никакой</value>
-  </data>
-  <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
-    <value>Переименовать папку</value>
   </data>
   <data name="SteamVRDisableMethod_ToString__Renameexe" xml:space="preserve">
     <value>Переименовать .exe</value>
   </data>
-  <data name="SteamVRDisableMethod_ToString__DummyExe" xml:space="preserve">
-    <value>Подменить .exe</value>
+  <data name="SteamVRDisableMethod_Discription__RenameExe" xml:space="preserve">
+    <value>Переименовать .exe фалы SteamVR</value>
+  </data>
+  <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
+    <value>Восстановить SteamVR</value>
+  </data>
+  <data name="MessageBox_Main_Error_SteamVrNotFound_Text" xml:space="preserve">
+    <value>SteamVR не найден! Программа не будет работать, если ты продолжишь</value>
+  </data>
+  <data name="MenuOptions__More_Settings" xml:space="preserve">
+    <value>Больше настроек</value>
+  </data>
+  <data name="SteamVRDisableMethod_ToString__RenameFolder" xml:space="preserve">
+    <value>Переименовать папку</value>
+  </data>
+  <data name="Button__Close" xml:space="preserve">
+    <value>Закрыть</value>
   </data>
   <data name="ControlsTipsForm_tip__RMB" xml:space="preserve">
     <value>Открыть контекстное меню</value>
   </data>
   <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
-	  <value>Переключить SteamVR ↔ Oculus</value>
+    <value>Переключить SteamVR ↔ Oculus</value>
   </data>
   <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
     <value>Убить SteamVR</value>
@@ -216,11 +216,11 @@
   <data name="OculusKiller_StatusDiscription_Downloaded" xml:space="preserve">
     <value>Новейший Oculus Killer был успешно загружен</value>
   </data>
-  <data name="OculusKiller_StatusDiscription_NoAction" xml:space="preserve">
-    <value>У тебя и так последняя версия</value>
-  </data>
   <data name="OculusKiller_StatusDiscription_Updated" xml:space="preserve">
     <value>Oculus Killer был успешно загружен</value>
+  </data>
+  <data name="OculusKiller_StatusDiscription_NoAction" xml:space="preserve">
+    <value>У тебя и так последняя версия</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you" xml:space="preserve">
     <value>Пасхалка азговаривает с тобой</value>
@@ -260,28 +260,22 @@
     <value>Сохранено!</value>
   </data>
   <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
-	  <value>Проверка обновлений...</value>
+    <value>Проверка обновлений...</value>
   </data>
   <data name="OculusDash_OculusNotFound__Select_Oculus_folder_path" xml:space="preserve">
-	  <value>Выберите путь папки Oculus</value>
+    <value>Выберите путь папки Oculus</value>
   </data>
   <data name="SettingsForm__Main_functions" xml:space="preserve">
-	  <value>Основные функции</value>
+    <value>Основные функции</value>
   </data>
   <data name="SettingsForm__Interface" xml:space="preserve">
-	  <value>Интерфейс</value>
+    <value>Интерфейс</value>
   </data>
   <data name="MenuOptions_SetAutorunValue_ErrorText" xml:space="preserve">
-	  <value>Ошибка изменения значения Автозапуск</value>
+    <value>Ошибка изменения значения Автозапуск</value>
   </data>
   <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
-	  <value>Не получается воспроизвести замечательную песню</value>
-  </data>
-  <data name="Button_cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-  <data name="Button_skip" xml:space="preserve">
-    <value>Пропустить</value>
+    <value>Не получается воспроизвести замечательную песню</value>
   </data>
   <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content" xml:space="preserve">
     <value>Обе папки SteamVR и SteamVR_ (бэкап) существуют и не пусты</value>
@@ -292,7 +286,16 @@
   <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup" xml:space="preserve">
     <value>Удалить SteamVR_</value>
   </data>
+  <data name="Button_cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Button_skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
   <data name="SteamVR_Restore_RenameFolder_Error_NoBackup" xml:space="preserve">
     <value>Произошла ошибка, и SteamVR безвозвратно сломался 😭 (SteamVR и его резервная копия не найдены)</value>
+  </data>
+  <data name="Program_ToggleSteamVR_KillOculusDash_NotExist_Error" xml:space="preserve">
+    <value>У вас нет Oculus Dash, и у вас не должно быть возможности включить функцию "Отключить Oculus Dash". Скорее всего с того момента, как вы включили эту функцию, Oculus Dash куда-то пропал. Надеюсь, это не из-за меня.</value>
   </data>
 </root>

@@ -11,6 +11,7 @@ using SteamVR_OculusDash_Switcher.Forms;
 using SteamVR_OculusDash_Switcher.Logic;
 using SteamVR_OculusDash_Switcher.Properties;
 using SteamVR_OculusDash_Switcher.Properties.Localization;
+using static SteamVR_OculusDash_Switcher.Logic.OculusDash.DashState;
 
 namespace SteamVR_OculusDash_Switcher
 {
@@ -18,13 +19,6 @@ namespace SteamVR_OculusDash_Switcher
 	{
 		public static NotifyIcon notifyIcon1 = null;
 		public static SteamVR _SteamVr;
-		public static bool _isOculusExist;
-		public static Mode CurrentMode = Mode.Oculus;
-		public enum Mode
-		{
-			SteamVR,
-			Oculus
-		}
 			
 			/*_SteamVrMethod.Method == SteamVR.BreakMethod.None? _SteamVrMethod.IsMethodApplied() : _SteamVrMethod.IsMethodApplied() switch
 		{
@@ -49,8 +43,7 @@ namespace SteamVR_OculusDash_Switcher
 			if (_IconsRealismLevel <0 || _IconsRealismLevel > _MaxIconsRealismLevel) _IconsRealismLevel = 1;
 
 
-			bool oculusBroken = false;
-			try
+			try //: Try to find SteamVR
 			{
 				_SteamVr = new SteamVR(Settings.Default.SteamVRDisablingMethod);
 				Settings.Default.SteamVRDisablingMethod = _SteamVr.Method;
@@ -58,8 +51,8 @@ namespace SteamVR_OculusDash_Switcher
 			}
 			catch (Exception e)
 			{
-				e.ShowMessageBox();
-				/*var dialog = InformationBox.Show(LocalizationStrings.MessageBox_text__SteamVR_not_found, title: LocalizationStrings.MessageBox_Title__Error, icon: InformationBoxIcon.Error, buttons: InformationBoxButtons.User1User2, customButtons: new[] { LocalizationStrings.Button__Exit, LocalizationStrings.Button__Continue });
+				new Exception(LocalizationStrings.MessageBox_Main_Error_SteamVrNotFound_Text, e).ShowMessageBox(LocalizationStrings.MessageBox_Main_Error_SteamVrNotFound_Title);
+				/*var dialog = InformationBox.Show(, title: , icon: InformationBoxIcon.Error, buttons: InformationBoxButtons.User1User2, customButtons: new[] { LocalizationStrings.Button__Exit, LocalizationStrings.Button__Continue });
 				switch (dialog)
 				{
 					case InformationBoxResult.User1: return;
@@ -67,20 +60,14 @@ namespace SteamVR_OculusDash_Switcher
 				}*/
 			}
 
-			_isOculusExist = OculusDash.IsOculusExist;
-			if (_isOculusExist)
+			if (OculusDash.IsOculusExists)
 			{
 				try
 				{
-					bool? OculusDashKilled = OculusDash.IsOculusDashKilled();
-					if (OculusDashKilled is null)
+					OculusDash.IsOculusDashKilled();
+					if (OculusDash.State is NotExist)
 					{
-						MessageBox.Show("Something wrong happened and OculusDash become unrecoverable broken 😭", "Something go wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						_isOculusExist = false;
-					}
-					else
-					{
-						oculusBroken = OculusDashKilled is true;
+						MessageBox.Show(LocalizationStrings.Program_Main_Error_OculusDashUnrecoverable_Text, LocalizationStrings.Program_Main_Error_OculusDashUnrecoverable_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
 				catch (Exception e)
@@ -93,7 +80,7 @@ namespace SteamVR_OculusDash_Switcher
 				Settings.Default.KillOculusDash = false;
 			}
 
-			if (!_isOculusExist && _SteamVr.IsBroken && oculusBroken)
+			if (!OculusDash.IsDashExists && _SteamVr.IsBroken && OculusDash.State is Killed)
 			{
 				switch (InformationBox.Show("Both SteamVR and OculusDash properly broken. What to restore?", "Choosing a side", buttons: InformationBoxButtons.User1User2, icon: InformationBoxIcon.Error, customButtons: new[] { "SteamVR", "Oculus" }))
 				{
@@ -103,14 +90,10 @@ namespace SteamVR_OculusDash_Switcher
 
 					case InformationBoxResult.User2:
 						OculusDash.Restore();
-						oculusBroken = false;
 						break;
 				}
 			}
 
-			CurrentMode = oculusBroken != _SteamVr.IsBroken ? 
-				oculusBroken ? Mode.SteamVR : Mode.Oculus 
-				: Mode.SteamVR;
 
 			ContextMenuStrip contextMenu = new();
 			
@@ -211,7 +194,7 @@ namespace SteamVR_OculusDash_Switcher
 				ToolStripMenuItem item = new();
 				item.Image = GetImage("Menu Options", "Hammer"); 
 				item.Text = (Settings.Default.KillOculusDash? 
-					(CurrentMode == Mode.Oculus? LocalizationStrings.MenuOptions__Switch_to_SteamVR : LocalizationStrings.MenuOptions__Switch_to_Oculus) : //TODO: Oculus and SteamVR icon
+					(OculusDash.IsOculusExists? LocalizationStrings.MenuOptions__Switch_to_SteamVR : LocalizationStrings.MenuOptions__Switch_to_Oculus) : //TODO: Oculus and SteamVR icon
 					(_SteamVr.IsBroken ? LocalizationStrings.MenuOptions__Restore_SteamVR : LocalizationStrings.MenuOptions__Break_SteamVR));
 				item.Click += ToggleSteamVR_Click;
 				items.Add(item);
@@ -235,8 +218,41 @@ namespace SteamVR_OculusDash_Switcher
 
 		private static void ToggleSteamVR_Click(object sender, EventArgs args)
 		{
-			if (CurrentMode == Mode.Oculus) ToSteamVR();
-			else ToOculus();
+			try
+			{
+				if (Settings.Default.KillOculusDash) //? SteamVR ↔ Oculus mode
+				{
+					switch (OculusDash.State)
+					{
+						case Killed:
+						case DashBackupOnly:
+							_SteamVr.Break();
+							OculusDash.Restore();
+							break;
+						case NotKilled:
+							_SteamVr.Restore();
+							OculusDash.Break();
+							break;
+						case NotExist:
+							Settings.Default.KillOculusDash = false;
+							MessageBox.Show(LocalizationStrings.Program_ToggleSteamVR_KillOculusDash_NotExist_Error);
+							break;
+					}
+				}
+				else //? SteamVR enable/disable mode
+				{
+					if (_SteamVr.IsBroken)
+						_SteamVr.Restore();
+					else
+						_SteamVr.Break();
+				}
+			}
+			catch (Exception e)
+			{
+				e.ShowMessageBox();
+			}
+
+			notifyIcon1.Icon = GetIcon();
 		}
 
 		private static void KillSteamVR()
@@ -245,51 +261,6 @@ namespace SteamVR_OculusDash_Switcher
 				{ SteamVR.KillProcess(); }
 			catch (Exception e) 
 				{ e.ShowMessageBox(); }
-		}
-
-		private static void ToOculus()
-		{
-			try
-			{
-				_SteamVr.Break();
-				if (Settings.Default.KillOculusDash)
-				{
-					try
-					{
-						OculusDash.Restore();
-					}
-					catch (Exception e)
-					{
-						e.ShowMessageBox("Can't restore Oculus Dash. Try restarting the app with admin rights");
-					}
-					
-				}
-				CurrentMode = Mode.Oculus;
-				notifyIcon1.Icon = GetIcon();
-			}
-			catch (Exception e)
-			{
-				e.ShowMessageBox();
-			}
-		}
-
-		private static void ToSteamVR()
-		{
-			try
-			{
-				_SteamVr.Restore();
-
-				if (Settings.Default.KillOculusDash)
-				{
-					OculusDash.Break();
-				}
-
-				CurrentMode = Mode.SteamVR;
-
-				notifyIcon1.Icon = GetIcon();
-			}
-			catch (Exception e)
-				{e.ShowMessageBox(); }
 		}
 
 		public static void SetAutorunValue(bool Autorun)
@@ -313,12 +284,18 @@ namespace SteamVR_OculusDash_Switcher
 
 		public static bool IsAutorun() => Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\")?.GetValue(Application.ProductName) is not null;
 
-		public static Icon GetIcon() =>
-			Icon.ExtractAssociatedIcon($@"icons\{(Settings.Default.BlackMode ? "Black" : "White")
-			}\{(Settings.Default.KillOculusDash? (CurrentMode is Mode.SteamVR? "SteamVR" : "Oculus") //: if KillOculusDash enabled, it's SteamVR ↔ Oculus mode
-			: _SteamVr.IsBroken? "Fix SteamVR" : "Break SteamVR" //: if not, it's SteamVR on/off mode
-				)}.ico");
-		
+		public static Icon GetIcon()
+		{
+			string iconTheme = Settings.Default.BlackMode ? "Black" : "White";
+			string iconType;
+			if (Settings.Default.KillOculusDash && OculusDash.State is not NotExist) { //: if KillOculusDash enabled, it's SteamVR ↔ Oculus mode
+				iconType = OculusDash.State == Killed ? "SteamVR" : "Oculus";
+			} else {
+				iconType = _SteamVr.IsBroken ? "Fix SteamVR" : "Break SteamVR";
+			}
+			return Icon.ExtractAssociatedIcon($@"icons\{iconTheme}\{iconType}.ico");
+		}
+
 
 		/// <summary>
 		/// Get image from path $@"images\{Path}\{_IconsRealismLevel}\{imageName}.png", lowering _IconsRealismLevel until it exist

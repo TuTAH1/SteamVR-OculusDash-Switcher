@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SteamVRDisableMethod_Discription__DummyExe" xml:space="preserve">
     <value>Replace SteamVR exes with empty ones</value>
@@ -147,7 +147,7 @@
   <data name="SettingsForm_lbLanguage" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="MessageBox_Title__Error" xml:space="preserve">
+  <data name="MessageBox_Main_Error_SteamVrNotFound_Title" xml:space="preserve">
     <value>Error</value>
   </data>
   <data name="MenuOptions__Break_SteamVR" xml:space="preserve">
@@ -171,7 +171,7 @@
   <data name="MenuOptions__Restore_SteamVR" xml:space="preserve">
     <value>Restore SteamVR</value>
   </data>
-  <data name="MessageBox_text__SteamVR_not_found" xml:space="preserve">
+  <data name="MessageBox_Main_Error_SteamVrNotFound_Text" xml:space="preserve">
     <value>SteamVR not found! The program will not work if you continue</value>
   </data>
   <data name="MenuOptions__More_Settings" xml:space="preserve">
@@ -187,7 +187,7 @@
     <value>Open context menu</value>
   </data>
   <data name="ControlsTipsForm_tip__LMB" xml:space="preserve">
-	  <value>Switch SteamVR ↔ Oculus</value>
+    <value>Switch SteamVR ↔ Oculus</value>
   </data>
   <data name="ControlsTipsForm_tip__MMB" xml:space="preserve">
     <value>Kill SteamVR</value>
@@ -226,7 +226,7 @@
     <value>Easteregg speacking with you</value>
   </data>
   <data name="SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music" xml:space="preserve">
-	  <value>Stop playing amazing song?</value>
+    <value>Stop playing amazing song?</value>
   </data>
   <data name="IconRealismLevel_0_Discription" xml:space="preserve">
     <value>Minimalistic shit</value>
@@ -238,7 +238,7 @@
     <value>Realistic icons</value>
   </data>
   <data name="IconRealismLevel_3_Discription" xml:space="preserve">
-	  <value>Yes, I know what "icon" means. 
+    <value>Yes, I know what "icon" means. 
  It's a photo, but transparent</value>
   </data>
   <data name="IconRealismLevel_Unknown_Discription" xml:space="preserve">
@@ -257,48 +257,57 @@
     <value>Apply</value>
   </data>
   <data name="MenuOptions__Switch_to_Oculus" xml:space="preserve">
-	  <value>→ Oculus</value>
+    <value>→ Oculus</value>
   </data>
   <data name="MenuOptions__Switch_to_SteamVR" xml:space="preserve">
-	  <value>→ SteamVR</value>
+    <value>→ SteamVR</value>
   </data>
   <data name="SettingsForm_btnApply_label__Saved" xml:space="preserve">
-	  <value>Saved!</value>
+    <value>Saved!</value>
   </data>
   <data name="SettingsForm_btnCheckOculusKillerUpdates__Checking_updates" xml:space="preserve">
-	  <value>Checking updates...</value>
+    <value>Checking updates...</value>
   </data>
   <data name="OculusDash_OculusNotFound__Select_Oculus_folder_path" xml:space="preserve">
-	  <value>Select Oculus folder path</value>
+    <value>Select Oculus folder path</value>
   </data>
   <data name="SettingsForm__Main_functions" xml:space="preserve">
-	  <value>General functions</value>
+    <value>General functions</value>
   </data>
   <data name="SettingsForm__Interface" xml:space="preserve">
-	  <value>Interface</value>
+    <value>Interface</value>
   </data>
   <data name="MenuOptions_SetAutorunValue_ErrorText" xml:space="preserve">
-	  <value>Error while changing Autorun value</value>
+    <value>Error while changing Autorun value</value>
   </data>
   <data name="SettingsForm_RealismLevel_Max_Error" xml:space="preserve">
-	  <value>Can't play amazing song</value>
+    <value>Can't play amazing song</value>
   </data>
   <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content" xml:space="preserve">
-	  <value>Both SteamVR and SteamVR_ (backup) exist and not empty</value>
+    <value>Both SteamVR and SteamVR_ (backup) exist and not empty</value>
   </data>
   <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace" xml:space="preserve">
-	  <value>Replace SteamVR with backup (default)</value>
+    <value>Replace SteamVR with backup (default)</value>
   </data>
   <data name="SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup" xml:space="preserve">
-	  <value>Delete "SteamVR_" (reccomended)</value>
+    <value>Delete "SteamVR_" (reccomended)</value>
   </data>
   <data name="Button_cancel" xml:space="preserve">
-	  <value>cancel</value>
+    <value>cancel</value>
   </data>
   <data name="Button_skip" xml:space="preserve">
-	  <value>skip (SteamVR is considered restored)</value>
+    <value>skip (SteamVR is considered restored)</value>
   </data>
   <data name="SteamVR_Restore_RenameFolder_Error_NoBackup" xml:space="preserve">
-	  <value>Something wrong happened and SteamVR become unrecoverable broken 😭 (SteamVR and its backup not found)</value>
+    <value>Something wrong happened and SteamVR become unrecoverable broken 😭 (SteamVR and its backup not found)</value>
+  </data>
+  <data name="Program_ToggleSteamVR_KillOculusDash_NotExist_Error" xml:space="preserve">
+    <value>You don't have Oculus Dash and shouldn't have possibility to enable "Kill Oculus Dash" feature. Most likely, from the moment you turned on this feature, Oculus Dash disappeared somewhere. I hope it's not because of me.</value>
+  </data>
+  <data name="Program_Main_Error_OculusDashUnrecoverable_Text" xml:space="preserve">
+	  <value>Something wrong happened and OculusDash become unrecoverable broken 😭</value>
+  </data>
+  <data name="Program_Main_Error_OculusDashUnrecoverable_Title" xml:space="preserve">
+	  <value>Something go wrong</value>
   </data>
 </root>

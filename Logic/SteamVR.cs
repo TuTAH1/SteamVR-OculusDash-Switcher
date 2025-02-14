@@ -256,7 +256,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			catch (Exception e)
 			{
 				//TODO: Localize
-				throw new InvalidOperationException($"Can't restore using method {new SteamVRMethod(Method)}", e);
+				throw new InvalidOperationException($"Can't break using method {new SteamVRMethod(Method)}", e);
 			}
 		}
 		public void Restore()
@@ -281,7 +281,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 								Directory.Delete(_steamVrFolderPath + "_", true);
 							 else // discribe all ifs: if backup exist and not empty and SteamVR folder exist and not empty
 							 {
-								 var answer = new TaskDialog().Show(LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content, LocalizationStrings.MessageBox_Title__Error, null, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup, LocalizationStrings.Button_cancel, LocalizationStrings.Button_skip).Text;
+								 var answer = new TaskDialog().Show(LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Content, LocalizationStrings.MessageBox_Main_Error_SteamVrNotFound_Title, null, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace, LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_DeleteBackup, LocalizationStrings.Button_cancel, LocalizationStrings.Button_skip).Text;
 
 								 if (answer == LocalizationStrings.SteamVR_Restore_RenameFolder_Error_BothFoldersExist_Option_Replace)
 								 {
@@ -336,7 +336,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 							catch (FileNotFoundException)
 							{
 								//TODO: Localize
-								var dialog = MessageBox.Show("Error restoring SteamVR: no backup found. Restore it yourself by checking SteamVR integrity files in Steam", LocalizationStrings.MessageBox_Title__Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+								var dialog = MessageBox.Show("Error restoring SteamVR: no backup found. Restore it yourself by checking SteamVR integrity files in Steam", LocalizationStrings.MessageBox_Main_Error_SteamVrNotFound_Title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 								switch (dialog)
 								{
 									case DialogResult.Abort: return;
@@ -347,7 +347,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 							catch (Exception e)
 							{
 								//TODO: Localize
-								var dialog = MessageBox.Show($"Error restoring SteamVR: {e.Message}", LocalizationStrings.MessageBox_Title__Error, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+								var dialog = MessageBox.Show($"Error restoring SteamVR: {e.Message}", LocalizationStrings.MessageBox_Main_Error_SteamVrNotFound_Title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 								switch (dialog)
 								{
 									case DialogResult.Abort: return;

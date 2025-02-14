@@ -28,25 +28,56 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 	public class UpdateResult
 	{
 		public Status Status;
-		public string? ReleaseDiscription { get; private set; }
-		public string? ReleaseName { get; private set; }
+		private Release? _release = null;
+		private readonly string? _releaseAuthor;
+		private readonly string? _repositoryName;
 		public Version? Version { get; private set; }
 
-		public UpdateResult(Status Status = Status.NoAction, Version? Version = null, string? ReleaseName = null, string? ReleaseDiscription = null)
+		public UpdateResult(string Author, string RepositoryName, Status Status = Status.NoAction)
 		{
 			this.Status = Status;
-			this.ReleaseDiscription = ReleaseDiscription;
-			this.ReleaseName = ReleaseName;
-			this.Version = Version;
+			this._releaseAuthor = Author;
+			this._repositoryName = RepositoryName;
 		}
 
-		public UpdateResult Change(Status? Status = null, Version? Version = null, string? ReleaseName = null, string? ReleaseDiscription = null)
+		public UpdateResult Change(Status? Status = null)
 		{
 			if (Status!=null) this.Status = (Status)Status;
-			if (ReleaseDiscription!=null) this.ReleaseDiscription = ReleaseDiscription;
-			if (ReleaseName!=null) this.ReleaseName = ReleaseName;
-			if (Version!=null) this.Version = Version;
 			return this;
+		}
+
+		public async Task<Release> GetRelease() => _release ??= await getRelease();
+
+		private async Task<Release> getRelease()
+		{
+			HttpClientHandler clientHandler = new HttpClientHandler {
+				ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+			};
+
+			clientHandler.Proxy = ProxyAddress switch
+			{
+				"auto" => (HttpClient.DefaultProxy)
+				,"no" => null
+				,_=> new WebProxy(new Uri(ProxyAddress))
+			};
+
+		
+			var connection = new Connection(
+				new ProductHeaderValue("Titanium-GithubSoftwareUpdater"),
+				new HttpClientAdapter(() => clientHandler));
+
+			var github = new GitHubClient(connection);
+			var release = await github.Repository.Release.GetLatest(_releaseAuthor, _repositoryName).ConfigureAwait(false);
+			try
+			{
+				Version = Version.Parse(new Regex("[^.0-9]").Replace(release.TagName, ""));
+			}
+			catch (Exception)
+			{
+				Version = null;
+			}
+
+			return release;
 		}
 	}
 
@@ -87,8 +118,8 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 	/// </summary>
 	/// ///
 	/// <param name="UpdateMode"></param>
-	/// <param name="author">Repository author id (example: TuTAH1)</param>
-	/// <param name="repName">Repository name (example: SteamVR-OculusDash-Switcher)</param>
+	/// <param name="Author">Repository author id (example: TuTAH1)</param>
+	/// <param name="RepositoryName">Repository name (example: SteamVR-OculusDash-Switcher)</param>
 	/// <param name="ProgramExePath">Path of physical exe file that should be updated</param>
 	/// <param name="DownloadPath"></param>
 	/// <param name="ClearDownloadFolder"></param>
@@ -101,7 +132,7 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 	/// <param name="KillRelatedProcesses"></param>
 	/// <param name="AskUpdate">Function that will be executed if update found. If this function will return false, update will be canceled</param>
 	/// <returns></returns>
-	public static async Task<UpdateResult> checkSoftwareUpdates(UpdateMode UpdateMode, string author, string repName, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool? KillRelatedProcesses = false, Func<UpdateResult, bool> AskUpdate = default)
+	public static async Task<UpdateResult> checkSoftwareUpdates(UpdateMode UpdateMode, string Author, string RepositoryName, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool? KillRelatedProcesses = false, Func<UpdateResult, bool> AskUpdate = default)
 
 	{
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -111,37 +142,15 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 		//string? proxyConfigScriptLink = Registry.GetValue(registyProxyAddress,"AutoConfigURL", null)?.ToString();
 		//bool proxyEnabled = Registry.GetValue(registyProxyAddress, "ProxyEnable",null)?.ToString() == 1.ToString() || !proxyConfigScriptLink.IsNullOrEmpty();
 
-		HttpClientHandler clientHandler = new HttpClientHandler();
-		clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
-		var webProxy = new WebProxy();
-
-		clientHandler.Proxy = ProxyAddress switch
-		{
-			"auto" => (HttpClient.DefaultProxy)
-			,"no" => null
-			,_=> new WebProxy(new Uri(ProxyAddress))
-		};
-
 		
-		var connection = new Connection(
-			new ProductHeaderValue("Titanium-GithubSoftwareUpdater"),
-			new HttpClientAdapter(() => clientHandler));
+		UpdateResult updateResult = new UpdateResult(Author, RepositoryName);
 
-		var github = new GitHubClient(connection);
-		var release = await github.Repository.Release.GetLatest(author, repName).ConfigureAwait(false);
-		Version? relVersion = null;
-		try
-		{
-			relVersion = Version.Parse(new Regex("[^.0-9]").Replace(release.TagName, ""));
-		} catch (Exception) { }
-		UpdateResult result = new(Status.NoAction, relVersion, release.Name, release.Body);
-			
 		bool fileExist = File.Exists(ProgramExePath);
 
-		if (UpdateMode!= UpdateMode.Check && !fileExist || UpdateMode == UpdateMode.Replace)
+		if ((UpdateMode!= UpdateMode.Check && !fileExist) || UpdateMode == UpdateMode.Replace)
 		{
 			await DownloadLastest().ConfigureAwait(false);
-			return result.Change(Status.Downloaded);
+			return updateResult.Change(Status.Downloaded);
 		}
 		else if (UpdateMode is UpdateMode.Update or UpdateMode.Check)
 		{
@@ -149,20 +158,19 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 			if (currentVersion is null) 
 				throw new InvalidOperationException("Product version field is empty");
 
-			//:If current file's version is higher than in github, don't do anything
-			if (UpdateMode == UpdateMode.Check || relVersion <= Version.Parse(currentVersion.ProductVersion!)) return result;
+			//: If current file's version is higher than in github, don't do anything
+			if (UpdateMode == UpdateMode.Check || updateResult.Version <= Version.Parse(currentVersion.ProductVersion!)) return updateResult;
 
-			if (AskUpdate == default || !AskUpdate(result)) 
-				return result;
+			if (AskUpdate == default || !AskUpdate(updateResult)) 
+				return updateResult;
 			await DownloadLastest().ConfigureAwait(false);
-			return result.Change(Status.Updated);
+			return updateResult.Change(Status.Updated);
 		}
-		return result;
-
+		return updateResult;
+		
 		async Task<bool> DownloadLastest()
 		{
-
-			var gitHubFiles = release.Assets;
+			var gitHubFiles = (await updateResult.GetRelease()).Assets; //: Initialize updateResult.release and get Assets
 
 			if (!gitHubFiles.Any()) throw new ArgumentNullException(nameof(gitHubFiles), "No any files found in the release");
 

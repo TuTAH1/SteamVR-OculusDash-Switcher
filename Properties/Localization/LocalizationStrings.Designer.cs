@@ -289,18 +289,18 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         /// <summary>
         ///   Looks up a localized string similar to SteamVR not found! The program will not work if you continue.
         /// </summary>
-        internal static string MessageBox_text__SteamVR_not_found {
+        internal static string MessageBox_Main_Error_SteamVrNotFound_Text {
             get {
-                return ResourceManager.GetString("MessageBox_text__SteamVR_not_found", resourceCulture);
+                return ResourceManager.GetString("MessageBox_Main_Error_SteamVrNotFound_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBox_Title__Error {
+        internal static string MessageBox_Main_Error_SteamVrNotFound_Title {
             get {
-                return ResourceManager.GetString("MessageBox_Title__Error", resourceCulture);
+                return ResourceManager.GetString("MessageBox_Main_Error_SteamVrNotFound_Title", resourceCulture);
             }
         }
         
@@ -337,6 +337,33 @@ namespace SteamVR_OculusDash_Switcher.Properties.Localization {
         internal static string OculusKiller_StatusDiscription_Updated {
             get {
                 return ResourceManager.GetString("OculusKiller_StatusDiscription_Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something wrong happened and OculusDash become unrecoverable broken 😭.
+        /// </summary>
+        internal static string Program_Main_Error_OculusDashUnrecoverable_Text {
+            get {
+                return ResourceManager.GetString("Program_Main_Error_OculusDashUnrecoverable_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something go wrong.
+        /// </summary>
+        internal static string Program_Main_Error_OculusDashUnrecoverable_Title {
+            get {
+                return ResourceManager.GetString("Program_Main_Error_OculusDashUnrecoverable_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have Oculus Dash and shouldn&apos;t have possibility to enable &quot;Kill Oculus Dash&quot; feature. Most likely, from the moment you turned on this feature, Oculus Dash disappeared somewhere. I hope it&apos;s not because of me..
+        /// </summary>
+        internal static string Program_ToggleSteamVR_KillOculusDash_NotExist_Error {
+            get {
+                return ResourceManager.GetString("Program_ToggleSteamVR_KillOculusDash_NotExist_Error", resourceCulture);
             }
         }
         
