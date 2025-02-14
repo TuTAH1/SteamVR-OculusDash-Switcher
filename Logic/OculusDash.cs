@@ -63,18 +63,18 @@ namespace SteamVR_OculusDash_Switcher.Logic
 		
 
 		//:Checks if OculusKiller exe exist and downloads the lastest release if not
-		private static async Task<GitHub.Status> checkOculusKiller(bool checkUpdates)
+		private static async Task<GitHub.Status> checkOculusKillerAsync(bool checkUpdates)
 		{
 			const string oculusDashRepository = @"ItsKaitlyn03/OculusKiller";
-				return (await GitHub.checkSoftwareUpdatesByLink(checkUpdates? GitHub.UpdateMode.Update : GitHub.UpdateMode.Download, oculusDashRepository, _innerOculusKillerPath, "OculusDashKiller").ConfigureAwait(false)).Status;
+				return (await GitHub.checkSoftwareUpdatesByLinkAsync(checkUpdates? GitHub.UpdateMode.Update : GitHub.UpdateMode.Download, oculusDashRepository, _innerOculusKillerPath, "OculusDashKiller").ConfigureAwait(false)).Status;
 		}
 
 		/// <summary>
 		/// Checks if OculusKiller exe exist and otherwise downloads the lastest release (also tries to update, if <param name="checkUpdates"/> is true)
 		/// </summary>
-		public static async Task<GitHub.Status> CheckKiller(bool checkUpdates = false)
+		public static async Task<GitHub.Status> CheckKillerAsync(bool checkUpdates = false)
 		{
-			var status = await checkOculusKiller(checkUpdates).ConfigureAwait(false);
+			var status = await checkOculusKillerAsync(checkUpdates).ConfigureAwait(false);
 			_oculusKillerChecked = true; //: Sets true if no exceptions
 			return status;
 		}
@@ -130,7 +130,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 			return State;
 		}
 
-		public static void Break()
+		public static async Task BreakAsync()
 		{
 			if (!_oculusKillerChecked)
 			{
@@ -140,7 +140,7 @@ namespace SteamVR_OculusDash_Switcher.Logic
 					ProgressBarStyle = ProgressBarStyle.MarqueeProgressBar
 				};
 				progressDialog.ShowDialog();
-				CheckKiller().Wait();
+				CheckKillerAsync().Wait();
 				progressDialog.Dispose();
 			}
 			if(IsOculusDashKilled()!= DashState.NotKilled) return;

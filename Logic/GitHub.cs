@@ -46,9 +46,9 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 			return this;
 		}
 
-		public async Task<Release> GetRelease() => _release ??= await getRelease().ConfigureAwait(false);
+		public async Task<Release> GetReleaseAsync() => _release ??= await getReleaseAsync().ConfigureAwait(false);
 
-		private async Task<Release> getRelease()
+		private async Task<Release> getReleaseAsync()
 		{
 			HttpClientHandler clientHandler = new HttpClientHandler {
 				ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
@@ -106,11 +106,11 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 	/// <param name="ReverseArchiveFileList">Turns Blacklist into whitelist if true</param>
 	/// <param name="AskUpdatestion">Function that will be executed if update found. If this function will return false, update will be canceled</param>
 	/// <returns></returns>
-	public static async Task<UpdateResult> checkSoftwareUpdatesByLink(UpdateMode UpdateMode, string repositoryLink, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex? GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool KillRelatedProcesses = false, Func<UpdateResult,bool> AskUpdate = default)
+	public static async Task<UpdateResult> checkSoftwareUpdatesByLinkAsync(UpdateMode UpdateMode, string repositoryLink, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex? GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool KillRelatedProcesses = false, Func<UpdateResult,bool> AskUpdate = default)
 	{
 		string[] ss = repositoryLink.RemoveFrom(TypesFuncs.Side.Start, "https://", "github.com/").Split("/");
 		if (ss.Length < 2) throw new ArgumentException("Can't get username and repName from " + repositoryLink);
-		return await checkSoftwareUpdates(UpdateMode, ss[0], ss[1], ProgramExePath, DownloadPath,ClearDownloadFolder,   Unpack: Unpack, GitHubFilenameRegex: GitHubFilenameRegex,ReverseGithubFilenameRegex: ReverseGithubFilenameRegex, TempFolder: TempFolder, ArchiveIgnoreFileList: ArchiveIgnoreFileList, ReverseArchiveFileList: ReverseArchiveFileList, KillRelatedProcesses: KillRelatedProcesses, AskUpdate: AskUpdate).ConfigureAwait(false);
+		return await checkSoftwareUpdatesAsync(UpdateMode, ss[0], ss[1], ProgramExePath, DownloadPath, ClearDownloadFolder, Unpack: Unpack, GitHubFilenameRegex: GitHubFilenameRegex, ReverseGithubFilenameRegex: ReverseGithubFilenameRegex, TempFolder: TempFolder, ArchiveIgnoreFileList: ArchiveIgnoreFileList, ReverseArchiveFileList: ReverseArchiveFileList, KillRelatedProcesses: KillRelatedProcesses, AskUpdate: AskUpdate).ConfigureAwait(false);
 	}
 
 	/// <summary>
@@ -132,7 +132,7 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 	/// <param name="KillRelatedProcesses"></param>
 	/// <param name="AskUpdate">Function that will be executed if update found. If this function will return false, update will be canceled</param>
 	/// <returns></returns>
-	public static async Task<UpdateResult> checkSoftwareUpdates(UpdateMode UpdateMode, string Author, string RepositoryName, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool? KillRelatedProcesses = false, Func<UpdateResult, bool> AskUpdate = default)
+	public static async Task<UpdateResult> checkSoftwareUpdatesAsync(UpdateMode UpdateMode, string Author, string RepositoryName, string ProgramExePath, string DownloadPath = "Temp", bool ClearDownloadFolder = false, bool Unpack = true, Regex GitHubFilenameRegex = null, bool ReverseGithubFilenameRegex = false, bool TempFolder = false, Regex[] ArchiveIgnoreFileList = null, bool ReverseArchiveFileList = false, bool? KillRelatedProcesses = false, Func<UpdateResult, bool> AskUpdate = default)
 
 	{
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -149,7 +149,7 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 
 		if ((UpdateMode!= UpdateMode.Check && !fileExist) || UpdateMode == UpdateMode.Replace)
 		{
-			await DownloadLastest().ConfigureAwait(false);
+			await DownloadLastestAsync().ConfigureAwait(false);
 			return updateResult.Change(Status.Downloaded);
 		}
 		else if (UpdateMode is UpdateMode.Update or UpdateMode.Check)
@@ -163,14 +163,14 @@ public static class GitHub //TODO: Update it with new version of my Github libra
 
 			if (AskUpdate == default || !AskUpdate(updateResult)) 
 				return updateResult;
-			await DownloadLastest().ConfigureAwait(false);
+			await DownloadLastestAsync().ConfigureAwait(false);
 			return updateResult.Change(Status.Updated);
 		}
 		return updateResult;
 		
-		async Task<bool> DownloadLastest()
+		async Task<bool> DownloadLastestAsync()
 		{
-			var gitHubFiles = (await updateResult.GetRelease().ConfigureAwait(false)).Assets; //: Initialize updateResult.release and get Assets
+			var gitHubFiles = (await updateResult.GetReleaseAsync().ConfigureAwait(false)).Assets; //: Initialize updateResult.release and get Assets
 
 			if (!gitHubFiles.Any()) throw new ArgumentNullException(nameof(gitHubFiles), "No any files found in the release");
 

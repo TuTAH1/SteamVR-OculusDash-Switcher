@@ -216,7 +216,7 @@ namespace SteamVR_OculusDash_Switcher
 			notifyIcon1.Icon = GetIcon();
 		}
 
-		private static void ToggleSteamVR_Click(object sender, EventArgs args)
+		private static async void ToggleSteamVR_Click(object sender, EventArgs args)
 		{
 			try
 			{
@@ -231,7 +231,7 @@ namespace SteamVR_OculusDash_Switcher
 							break;
 						case NotKilled:
 							_SteamVr.Restore();
-							OculusDash.Break();
+							await OculusDash.BreakAsync();
 							break;
 						case NotExist:
 							Settings.Default.KillOculusDash = false;

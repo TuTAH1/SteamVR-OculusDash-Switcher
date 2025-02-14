@@ -211,7 +211,7 @@ namespace SteamVR_OculusDash_Switcher
 				btnCheckOculusKillerUpdates.Enabled = false;
 				try
 				{
-					var status = await OculusDash.CheckKiller(true);
+					var status = await OculusDash.CheckKillerAsync(true);
 					MessageBox.Show(status switch
 					{
 						GitHub.Status.Downloaded => LocalizationStrings.OculusKiller_StatusDiscription_Downloaded,
@@ -273,8 +273,12 @@ namespace SteamVR_OculusDash_Switcher
 
 			protected override void OnClosing(CancelEventArgs e)
 			{
-				if(Egg!=null && MessageBox.Show(LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music, LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) 
+				if (Egg != null && MessageBox.Show(LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Message__Stop_playing_amazing_music, LocalizationStrings.SettingsForm_EasterEgg_OnClosing_Title__Easter_egg_speaking_with_you, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+				{
 					Egg.controls.stop();
+					if(File.Exists(@"images\Settings\Max\Horizon\Heart.mp3")) 
+						File.Delete(@"images\Settings\Max\Horizon\Heart.mp3");
+				}
 
 				base.OnClosing(e);
 			}
